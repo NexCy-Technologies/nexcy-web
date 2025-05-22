@@ -11,20 +11,13 @@
   --font-mono: 'Courier New', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html,
 body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--color-background);
+  /* background-color: var(--color-background); */ /* ← Removed this */
   color: var(--color-foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
