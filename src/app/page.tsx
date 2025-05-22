@@ -1,7 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Globe, Smartphone, Cpu, Briefcase, SlidersHorizontal, Rocket } from 'lucide-react';
+import {
+  Globe,
+  Smartphone,
+  Cpu,
+  Briefcase,
+  SlidersHorizontal,
+  Rocket,
+  Cloud,
+} from 'lucide-react';
 
 const services = [
   {
@@ -18,6 +26,11 @@ const services = [
     icon: <Cpu className="h-8 w-8 text-blue-600" />,
     title: 'IoT Innovation',
     description: 'Smart systems and devices that connect the physical world.',
+  },
+  {
+    icon: <Cloud className="h-8 w-8 text-blue-600" />,
+    title: 'Cloud Solutions',
+    description: 'Scalable cloud infrastructure and services tailored for your business.',
   },
 ];
 
@@ -47,42 +60,29 @@ const testimonials = [
 
 export default function HomePage() {
   return (
-    <section className="bg-gradient-to-br from-[#f8f9fa] to-[#e9ecef] text-[#1c1c1e]">
+    <section className="pt-16 bg-gradient-to-br from-[#f8f9fa] to-[#e9ecef] text-[#1c1c1e] relative overflow-hidden">
       {/* Hero */}
-      <div className="relative min-h-screen container mx-auto px-4 py-20 flex flex-col items-center justify-center text-center overflow-hidden">
-        {/* Background Icons */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-20 left-10 opacity-10 blur-xl text-blue-300">
-            <Globe className="w-48 h-48" />
-          </div>
-          <div className="absolute bottom-24 right-10 opacity-10 blur-xl text-blue-200">
-            <Smartphone className="w-40 h-40" />
-          </div>
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 opacity-10 blur-2xl text-blue-100">
-            <Cpu className="w-52 h-52" />
-          </div>
-        </div>
-
-        {/* Foreground Text */}
+      <div className="min-h-screen pt-28 pb-20 container mx-auto px-4 flex flex-col items-center justify-center text-center relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative z-10 text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-lg"
+          className="text-4xl md:text-5xl font-bold text-blue-600 drop-shadow-lg"
         >
           Welcome to NexCy Technologies
         </motion.h1>
-        <p className="relative z-10 mt-4 text-lg text-gray-700 max-w-2xl">
+        <p className="mt-4 text-lg text-gray-700 max-w-2xl">
           We design smart, scalable Web, Mobile, and IoT solutions with clarity and elegance.
         </p>
         <motion.a
           href="#get-started"
           whileHover={{ scale: 1.05 }}
-          className="relative z-10 mt-8 inline-block bg-blue-600/80 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl backdrop-blur-md shadow-lg transition-all"
+          className="mt-8 inline-block bg-blue-600/80 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-xl backdrop-blur-md shadow-lg transition-all"
         >
           Get Started
         </motion.a>
       </div>
+
       {/* Feature Tiles */}
       <div className="py-16 container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {[...services, ...extras].map((item, i) => (
