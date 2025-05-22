@@ -62,7 +62,7 @@ export default function HomePage() {
   return (
     <section className="pt-16 bg-gradient-to-br from-[#f8f9fa] to-[#e9ecef] text-[#1c1c1e] relative overflow-hidden">
       {/* Hero */}
-      <div className="min-h-screen pt-28 pb-20 container mx-auto px-4 flex flex-col items-center justify-center text-center relative z-10">
+      <div className="min-h-screen pt-auto pb-20 container mx-auto px-4 flex flex-col items-center justify-center text-center relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
