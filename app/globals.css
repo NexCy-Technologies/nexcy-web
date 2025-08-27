@@ -1,0 +1,464 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  /* Updated font variables to use only Roboto */
+  --font-roboto: "Roboto", sans-serif;
+}
+
+.dark {
+  /* Made background darker for more professional look */
+  --background: oklch(0.08 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.08 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.08 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.15 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.15 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.15 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.15 0 0);
+  --input: oklch(0.15 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  /* Updated theme to use only Roboto font for both sans and mono */
+  --font-sans: var(--font-roboto);
+  --font-mono: var(--font-roboto);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Made background gradient darker and more professional */
+    background: linear-gradient(135deg, #050a14 0%, #0f1629 50%, #050a14 100%);
+    min-height: 100vh;
+    /* Added explicit Roboto font family to body */
+    font-family: var(--font-roboto), sans-serif;
+  }
+
+  /* Smooth scrolling with reduced motion support */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Enhanced accessibility and responsive design features */
+  /* Skip link for screen readers */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #1e3a8a;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+    font-weight: 600;
+  }
+
+  .skip-link:focus {
+    top: 6px;
+  }
+
+  /* Enhanced focus styles for better accessibility */
+  *:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --background: oklch(0 0 0);
+      --foreground: oklch(1 0 0);
+      --border: oklch(1 0 0);
+    }
+  }
+
+  /* Zoom support - ensure text remains readable at 200% zoom */
+  @media (min-resolution: 2dppx) {
+    body {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  }
+
+  /* Ultra-wide screen support (4K and beyond) */
+  @media (min-width: 2560px) {
+    .container {
+      max-width: 1920px;
+    }
+  }
+
+  /* Small mobile devices (iPhone 5s and similar) */
+  @media (max-width: 320px) {
+    body {
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 1.75rem !important;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.5rem !important;
+      line-height: 1.3;
+    }
+
+    .container {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+  }
+
+  /* Tablet landscape orientation */
+  @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .hero-section {
+      min-height: 80vh;
+    }
+  }
+
+  /* Print styles */
+  @media print {
+    * {
+      background: white !important;
+      color: black !important;
+      box-shadow: none !important;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    a[href]:after {
+      content: " (" attr(href) ")";
+    }
+  }
+}
+
+/* Custom glass morphism utilities */
+@layer utilities {
+  .glass-morphism {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-glow {
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.2) inset, 0 1px 0
+      rgba(255, 255, 255, 0.4) inset;
+  }
+
+  /* Marquee animations for tech stack logos */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 20s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 20s linear infinite;
+  }
+
+  /* Pause animations on hover and for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee,
+    .animate-marquee-reverse {
+      animation-play-state: paused;
+    }
+  }
+
+  .animate-marquee:hover,
+  .animate-marquee-reverse:hover {
+    animation-play-state: paused;
+  }
+
+  /* Enhanced responsive utilities */
+  /* Container queries for component-level responsiveness */
+  @container (max-width: 400px) {
+    .card-responsive {
+      padding: 1rem;
+    }
+  }
+
+  @container (min-width: 401px) {
+    .card-responsive {
+      padding: 2rem;
+    }
+  }
+
+  /* Touch-friendly interactive elements */
+  @media (hover: none) and (pointer: coarse) {
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    button,
+    a[role="button"],
+    input[type="button"],
+    input[type="submit"] {
+      min-height: 44px;
+      padding: 12px 16px;
+    }
+  }
+
+  /* Reduced motion alternatives */
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe\:animate-bounce {
+      animation: none;
+    }
+
+    .motion-safe\:animate-pulse {
+      animation: none;
+    }
+
+    .motion-safe\:hover\:scale-105:hover {
+      transform: none;
+    }
+  }
+
+  /* High contrast mode enhancements */
+  @media (prefers-contrast: high) {
+    .glass-morphism {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid #000;
+    }
+
+    .text-white\/70 {
+      color: #000 !important;
+    }
+
+    .text-white\/80 {
+      color: #000 !important;
+    }
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Focus trap for modals and overlays */
+  .focus-trap {
+    position: relative;
+  }
+
+  .focus-trap:before,
+  .focus-trap:after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Utility class for Roboto font */
+  .font-roboto {
+    font-family: var(--font-roboto), sans-serif;
+  }
+}
+
+/* Enhanced responsive breakpoints for better device support */
+/* Custom breakpoints for better responsive design */
+@media (min-width: 320px) and (max-width: 374px) {
+  /* iPhone 5s and similar small devices */
+  .text-responsive {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 413px) {
+  /* iPhone 6/7/8 and similar */
+  .text-responsive {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+@media (min-width: 414px) and (max-width: 767px) {
+  /* Large phones and small tablets */
+  .text-responsive {
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Tablets */
+  .text-responsive {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop and larger */
+  .text-responsive {
+    font-size: 1.5rem;
+    line-height: 1.7;
+  }
+}
+
+/* Zoom level support */
+@media (min-resolution: 1.25dppx) {
+  /* 125% zoom */
+  body {
+    font-size: 18px;
+  }
+}
+
+@media (min-resolution: 1.5dppx) {
+  /* 150% zoom */
+  body {
+    font-size: 20px;
+  }
+}
+
+@media (min-resolution: 2dppx) {
+  /* 200% zoom */
+  body {
+    font-size: 22px;
+  }
+}
