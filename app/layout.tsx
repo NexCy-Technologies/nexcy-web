@@ -1,14 +1,14 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Roboto } from "next/font/google"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
   weight: ["300", "400", "500", "700"],
-})
+});
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   },
   description:
     "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
-  keywords: "nexcy, texcytech, technology, web, app, software, development, ERP, POS, mobile apps, AI, ML, IoT",
+  keywords:
+    "nexcy, texcytech, technology, web, app, software, development, ERP, POS, mobile apps, AI, ML, IoT",
   authors: [{ name: "NexCy Technologies" }],
   creator: "NexCy Technologies",
   publisher: "NexCy Technologies",
@@ -47,34 +48,45 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
   },
-    generator: 'v0.app'
-}
+  generator: "v0.app",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable}`}>
+    <html lang="en" className={`${roboto.variable} scroll-smooth`}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
         <meta name="theme-color" content="#1e3a8a" />
         <meta name="color-scheme" content="dark" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
 
-        {/* Preconnect to external domains for better performance */}
+        {/* Preconnect for Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
 
-        {/* Favicon and app icons */}
+        {/* Favicon & App icons */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
+        {/* JSON-LD Structured Data for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -105,7 +117,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-roboto antialiased">{children}</body>
+      <body className="font-roboto antialiased bg-black text-white min-h-screen">
+        {children}
+      </body>
     </html>
-  )
+  );
 }

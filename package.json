@@ -1,12 +1,14 @@
 {
-  "name": "my-v0-project",
+  "name": "nexcy-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build",
     "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
-    "start": "next start"
+    "preexport": "node scripts/generate-sitemap.js",
+    "export": "next build && next export"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
