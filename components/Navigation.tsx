@@ -37,9 +37,23 @@ export default function Navigation() {
       role="navigation"
       aria-label="Main navigation"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Gradient Blur Background → only visible when scrolled */}
+      {isScrolled && (
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className={cn(
+              "w-full h-full",
+              // Gradient blur effect: 50% → 0%
+              "bg-gradient-to-b from-black/50 via-black/30 to-black/0",
+              "backdrop-blur-[1px]"
+            )}
+          />
+        </div>
+      )}
+
+      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between w-full">
-          {/* Logo - Always stays on the left */}
+          {/* Logo */}
           <Link
             href="/"
             className="flex items-center space-x-2 group touch-target flex-shrink-0"
@@ -100,6 +114,7 @@ export default function Navigation() {
             </span>
           </div>
 
+          {/* Mobile menu toggle */}
           <div className="md:hidden flex-shrink-0">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -166,7 +181,7 @@ export default function Navigation() {
                 className="p-2 rounded-lg text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-400 touch-target"
                 aria-label="Close navigation menu"
               >
-                <div className="w-6 h-6 flex items-center justify-center">
+                <div className="w-6 h-6 flex items-center justify-center relative">
                   <span className="block w-5 h-0.5 bg-current rotate-45 absolute" />
                   <span className="block w-5 h-0.5 bg-current -rotate-45 absolute" />
                 </div>

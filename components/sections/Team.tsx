@@ -6,35 +6,35 @@ import Image from "next/image"
 
 const teamMembers = [
   {
-    name: "Dinuka",
+    name: "Dinuka Lakshan",
     role: "Chief Executive Officer",
     email: "dinuka@nexcy.lk",
-    bio: "Full-stack developer with expertise in modern web technologies and system architecture.",
-    skills: ["React", "Node.js", "Python", "AWS"],
+    bio: "Chief Executive Officer leading the company with a bold vision for innovation, sustainable growth, and client success. Dinuka is passionate about building high-performing teams and delivering exceptional value to clients.",
+    skills: ["React", "Node.js", "Flutter", "Firebase", "Leadership"],
     image: "/dinuka.png",
   },
   {
-    name: "Devindu",
+    name: "Devindu Dissanayake",
     role: "Chief Technology Officer",
     email: "devindu@nexcy.lk",
-    bio: "Specialized in creating beautiful and performant mobile applications for iOS and Android.",
-    skills: ["Flutter", "React Native", "Swift", "Kotlin"],
+    bio: "Chief Technology Officer driving technical strategy, fostering innovation, and ensuring engineering excellence across all teams. Devindu specializes in scalable architectures and emerging technologies.",
+    skills: ["DevOps", "React Native", "Swift", "Kotlin", "Cloud Computing"],
     image: "/devindu.png",
   },
   {
     name: "Dasith",
     role: "Chief Operating Officer",
     email: "dasith@nexcy.lk",
-    bio: "Machine learning expert focused on developing intelligent solutions and data-driven applications.",
-    skills: ["Python", "TensorFlow", "PyTorch", "Data Science"],
+    bio: "Chief Operating Officer ensuring seamless project execution, operational excellence, and efficient resource management throughout the organization. Dasith is dedicated to optimizing processes and delivering results.",
+    skills: ["Python", "TensorFlow", "PyTorch", "Data Science", "Project Management"],
     image: "/dasith.png",
   },
   {
-    name: "Kaviru",
+    name: "Kaviru De Silva",
     role: "Chief Creative Officer",
     email: "kaviru@nexcy.lk",
-    bio: "Infrastructure and deployment specialist ensuring scalable and reliable system operations.",
-    skills: ["Docker", "Kubernetes", "AWS", "CI/CD"],
+    bio: "Creative visionary leading design, branding, and user experience for innovative digital products. Kaviru crafts compelling visual identities and intuitive interfaces that delight users.",
+    skills: ["UI/UX Design", "AI/ML", "AWS", "Figma", "Branding"],
     image: "/kaviru.png",
   },
 ]
@@ -125,7 +125,7 @@ export default function Team() {
             <div className="text-white/40 text-sm mt-2">Average team experience</div>
           </GlassCard>
           <GlassCard className="p-8 text-center">
-            <div className="text-4xl font-bold text-white mb-2">50+</div>
+            <div className="text-4xl font-bold text-white mb-2">20+</div>
             <div className="text-white/60">Projects Delivered</div>
             <div className="text-white/40 text-sm mt-2">Successful completions</div>
           </GlassCard>

@@ -14,7 +14,7 @@ const quickLinks = [
 const socialLinks = [
   {
     name: "Facebook",
-    href: "https://facebook.com/nexcytech",
+    href: "https://www.facebook.com/nexcytechnologies",
     icon: FaFacebook,
     color: "hover:text-blue-400",
   },
@@ -26,13 +26,13 @@ const socialLinks = [
   },
   {
     name: "Instagram",
-    href: "https://instagram.com/nexcytech",
+    href: "https://www.instagram.com/nexcytechnologies",
     icon: FaInstagram,
     color: "hover:text-pink-400",
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/company/nexcytech",
+    href: "https://www.linkedin.com/company/nexcy-technologies",
     icon: FaLinkedin,
     color: "hover:text-blue-400",
   },

@@ -12,13 +12,13 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: {
-    default: "NexCy Technologies - Web Development & Software Solutions",
+    default: "NexCy Technologies - Future of Digital Innovation",
     template: "%s | NexCy Technologies",
   },
   description:
     "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
   keywords:
-    "nexcy, texcytech, technology, web, app, software, development, ERP, POS, mobile apps, AI, ML, IoT",
+    "nexcy, nexcytech, technology, software company, software company sri lanka, it company, web, app, software, development, ERP, POS, mobile apps, ios apps, AI, ML, IoT",
   authors: [{ name: "NexCy Technologies" }],
   creator: "NexCy Technologies",
   publisher: "NexCy Technologies",
@@ -109,9 +109,9 @@ export default function RootLayout({
                 email: "contact@nexcy.lk",
               },
               sameAs: [
-                "https://facebook.com/nexcytech",
-                "https://instagram.com/nexcytech",
-                "https://linkedin.com/company/nexcytech",
+                "https://www.facebook.com/nexcytechnologies",
+                "https://www.instagram.com/nexcytechnologies",
+                "https://www.linkedin.com/company/nexcy-technologies",
               ],
             }),
           }}

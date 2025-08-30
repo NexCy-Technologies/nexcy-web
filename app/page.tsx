@@ -26,12 +26,12 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
 })
 
 export const metadata: Metadata = {
-  title: "NexCy Technologies - Web Development, Mobile Apps & Software Solutions",
+  title: "NexCy Technologies - Future of Digital Innovation",
   description:
     "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development. Expert team delivering cutting-edge software solutions.",
-  keywords: "nexcy, texcytech, technology, web, app, software, development, ERP, POS, mobile apps, AI, ML, IoT",
+  keywords: "nexcy, nexcytech, technology, software company, software company sri lanka, it company, web, app, software, development, ERP, POS, mobile apps, ios apps, AI, ML, IoT",
   openGraph: {
-    title: "NexCy Technologies - Web Development & Software Solutions",
+    title: "NexCy Technologies - Future of Digital Innovation",
     description:
       "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
     url: "https://nexcy.lk",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexCy Technologies - Web Development & Software Solutions",
+    title: "NexCy Technologies - Future of Digital Innovation",
     description:
       "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
     images: ["/og-image.jpg"],
@@ -75,9 +75,9 @@ const structuredData = {
     email: "contact@nexcy.lk",
   },
   sameAs: [
-    "https://facebook.com/nexcytech",
-    "https://instagram.com/nexcytech",
-    "https://linkedin.com/company/nexcytech",
+    "https://www.facebook.com/nexcytechnologies",
+    "https://www.instagram.com/nexcytechnologies",
+    "https://www.linkedin.com/company/nexcy-technologies",
   ],
   offers: {
     "@type": "AggregateOffer",
