@@ -11,7 +11,7 @@ const teamMembers = [
     email: "dinuka@nexcy.lk",
     bio: "Chief Executive Officer leading the company with a bold vision for innovation, sustainable growth, and client success. Dinuka is passionate about building high-performing teams and delivering exceptional value to clients.",
     skills: ["React", "Node.js", "Flutter", "Firebase", "Leadership"],
-    image: "/dinuka.png",
+    image: "/team/dinuka.png",
   },
   {
     name: "Devindu Dissanayake",
@@ -19,7 +19,7 @@ const teamMembers = [
     email: "devindu@nexcy.lk",
     bio: "Chief Technology Officer driving technical strategy, fostering innovation, and ensuring engineering excellence across all teams. Devindu specializes in scalable architectures and emerging technologies.",
     skills: ["DevOps", "React Native", "Swift", "Kotlin", "Cloud Computing"],
-    image: "/devindu.png",
+    image: "/team/devindu.png",
   },
   {
     name: "Dasith",
@@ -27,7 +27,7 @@ const teamMembers = [
     email: "dasith@nexcy.lk",
     bio: "Chief Operating Officer ensuring seamless project execution, operational excellence, and efficient resource management throughout the organization. Dasith is dedicated to optimizing processes and delivering results.",
     skills: ["Python", "TensorFlow", "PyTorch", "Data Science", "Project Management"],
-    image: "/dasith.png",
+    image: "/team/dasith.png",
   },
   {
     name: "Kaviru De Silva",
@@ -35,7 +35,7 @@ const teamMembers = [
     email: "kaviru@nexcy.lk",
     bio: "Creative visionary leading design, branding, and user experience for innovative digital products. Kaviru crafts compelling visual identities and intuitive interfaces that delight users.",
     skills: ["UI/UX Design", "AI/ML", "AWS", "Figma", "Branding"],
-    image: "/kaviru.png",
+    image: "/team/kaviru.png",
   },
 ]
 
@@ -120,14 +120,14 @@ export default function Team() {
         {/* Team stats */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <GlassCard className="p-8 text-center">
-            <div className="text-4xl font-bold text-white mb-2">4+</div>
-            <div className="text-white/60">Years Experience</div>
-            <div className="text-white/40 text-sm mt-2">Average team experience</div>
+            <div className="text-4xl font-bold text-white mb-2">100%</div>
+            <div className="text-white/60">Cloud Native</div>
+            <div className="text-white/40 text-sm mt-2">Scalable architecture</div>
           </GlassCard>
           <GlassCard className="p-8 text-center">
-            <div className="text-4xl font-bold text-white mb-2">20+</div>
-            <div className="text-white/60">Projects Delivered</div>
-            <div className="text-white/40 text-sm mt-2">Successful completions</div>
+            <div className="text-4xl font-bold text-white mb-2">Zero</div>
+            <div className="text-white/60">Downtime Deploy</div>
+            <div className="text-white/40 text-sm mt-2">Seamless updates</div>
           </GlassCard>
           <GlassCard className="p-8 text-center">
             <div className="text-4xl font-bold text-white mb-2">24/7</div>

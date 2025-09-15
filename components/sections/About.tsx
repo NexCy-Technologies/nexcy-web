@@ -69,7 +69,7 @@ export default function About() {
 
             <GlassCard className="p-8">
               <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
-              <p className="text-sm sm:text-base text-white/80 leading-relaxed">
+              <p className="text-sm sm:text-base text-white/80">
                 To be the leading technology partner for businesses worldwide, recognized for our innovation,
                 reliability, and commitment to excellence. We envision a future where technology seamlessly integrates
                 with business operations to create unprecedented opportunities for growth and success.
@@ -84,11 +84,11 @@ export default function About() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                  <span className="text-sm sm:text-base text-white/80">Expert team with 4+ years of experience</span>
+                  <span className="text-sm sm:text-base text-white/80">AI-powered development workflows</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                  <span className="text-sm sm:text-base text-white/80">50+ successful projects delivered</span>
+                  <span className="text-sm sm:text-base text-white/80">Enterprise-grade security standards</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-blue-400 rounded-full" />
@@ -111,12 +111,12 @@ export default function About() {
 
             <div className="grid grid-cols-2 gap-4">
               <GlassCard className="p-6 text-center">
-                <div className="text-3xl font-bold text-white mb-2">50+</div>
-                <div className="text-white/60 text-sm">Projects</div>
+                <div className="text-3xl font-bold text-white mb-2">Real</div>
+                <div className="text-white/60 text-sm">Time Analytics</div>
               </GlassCard>
               <GlassCard className="p-6 text-center">
-                <div className="text-3xl font-bold text-white mb-2">4+</div>
-                <div className="text-white/60 text-sm">Years</div>
+                <div className="text-3xl font-bold text-white mb-2">Micro</div>
+                <div className="text-white/60 text-sm">Services Ready</div>
               </GlassCard>
             </div>
           </div>

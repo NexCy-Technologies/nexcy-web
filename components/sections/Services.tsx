@@ -3,7 +3,8 @@
 import { GlassCard } from "@/components/ui/glass-card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired } from "react-icons/fa"
+import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired, FaExternalLinkAlt } from "react-icons/fa"
+import projectsData from "@/data/projects.json"
 
 const services = [
   {
@@ -45,18 +46,26 @@ const services = [
 ]
 
 const techLogos = [
-  { name: "React", logo: "/react-logo.png" },
-  { name: "Node.js", logo: "/nodejs-logo.png" },
-  { name: "TailwindCSS", logo: "/-css-logo.png" },
-  { name: "Laravel", logo: "/laravel-logo.png" },
-  { name: "Flutter", logo: "/flutter-logo.png" },
-  { name: "Angular", logo: "/angular-logo.png" },
-  { name: "Firebase", logo: "/firebase-logo.png" },
-  { name: "Python", logo: "/python-logo.png" },
-  { name: "Cloudflare", logo: "/cloudflare-logo.png" },
-  { name: "Azure SQL Database", logo: "/azure-sql-logo.png" },
-  { name: "AWS", logo: "/aws-logo.png" },
-  { name: "Android", logo: "/android-logo.png" },
+  { name: "React", logo: "/technologies/react-logo.png" },
+  { name: "Node.js", logo: "/technologies/nodejs-logo.png" },
+  { name: "TailwindCSS", logo: "/technologies/tailwind-css-logo.png" },
+  { name: "Laravel", logo: "/technologies/laravel-logo.png" },
+  { name: "Flutter", logo: "/technologies/flutter-logo.png" },
+  { name: "Firebase", logo: "/technologies/firebase-logo.png" },
+  { name: "Python", logo: "/technologies/python-logo.png" },
+  { name: "Cloudflare", logo: "/technologies/cloudflare-logo.png" },
+  { name: "AWS", logo: "/technologies/aws-logo.png" },
+  { name: "Android", logo: "/technologies/android-logo.png" },
+  { name: "Vercel", logo: "/technologies/vercel-logo.png" },
+  { name: "GitHub", logo: "/technologies/github-logo.png" },
+  { name: "Next.js", logo: "/technologies/next.js-logo.png" },
+  { name: "MongoDB", logo: "/technologies/mongodb-logo.png" },
+  { name: "Jira", logo: "/technologies/jira-logo.png" },
+  { name: "Google Cloud", logo: "/technologies/google-cloud-logo.png" },
+  { name: "Git", logo: "/technologies/git-logo.png" },
+  { name: "Flask", logo: "/technologies/flask-logo.png" },
+  { name: "Express", logo: "/technologies/express-logo.png" },
+  { name: "Azure", logo: "/technologies/azure-logo.png" },
 ]
 
 export default function Services() {
@@ -69,7 +78,7 @@ export default function Services() {
             Our{" "}
             <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Services</span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             We offer comprehensive technology solutions to help your business thrive in the digital age. From web
             development to AI solutions, we've got you covered.
           </p>
@@ -104,11 +113,111 @@ export default function Services() {
           ))}
         </div>
 
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+              Our{" "}
+              <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+                Success Projects
+              </span>
+            </h3>
+            <p className="text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
+              Discover some of our recent successful projects that showcase our expertise and commitment to excellence.
+            </p>
+          </div>
+
+          {/* Horizontally scrollable projects */}
+          <div className="relative">
+            <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+              {projectsData.projects.map((project) => (
+                <div key={project.id} className="flex-shrink-0 w-80 sm:w-96 snap-start">
+                  <GlassCard className="p-6 h-full hover:scale-105 transition-all duration-300 group">
+                    <div className="space-y-4">
+                      <div className="relative overflow-hidden rounded-lg aspect-video">
+                        <img
+                          src={`/projects/${project.id}.jpg`}
+                          alt={project.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                        <div className="absolute top-3 right-3">
+                          <span className="bg-blue-500/80 text-white text-xs px-2 py-1 rounded-full">
+                            {project.category}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Project details */}
+                      <div className="space-y-3">
+                        <div className="flex items-start justify-between">
+                          <h4 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
+                            {project.title}
+                          </h4>
+                          <Link
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-400 hover:text-blue-300 transition-colors"
+                          >
+                            <FaExternalLinkAlt className="text-sm" />
+                          </Link>
+                        </div>
+
+                        <p className="text-white/70 text-sm leading-relaxed line-clamp-2">{project.description}</p>
+
+                        {/* Technologies used */}
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech, index) => (
+                            <span
+                              key={index}
+                              className="bg-white/20 text-white text-xs px-2 py-1 rounded-full border border-white/30"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* Key features */}
+                        <div className="space-y-1">
+                          {project.features.slice(0, 3).map((feature, index) => (
+                            <div key={index} className="flex items-center space-x-2">
+                              <div className="w-1 h-1 bg-green-400 rounded-full" />
+                              <span className="text-white/60 text-xs">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Visit button */}
+                        <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block">
+                          <Button
+                            size="sm"
+                            className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-medium rounded-lg shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-200"
+                          >
+                            <FaGlobe className="mr-2 text-sm" />
+                            Visit Live Site
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </GlassCard>
+                </div>
+              ))}
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="flex justify-center mt-4 space-x-2">
+              {projectsData.projects.map((_, index) => (
+                <div key={index} className="w-2 h-2 bg-white/30 rounded-full" />
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Technology Stack */}
         <div className="space-y-8">
           <div className="text-center">
             <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Technologies We Use</h3>
-            <p className="text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-white/90 max-w-2xl mx-auto">
               We leverage the latest and most reliable technologies to build robust, scalable solutions.
             </p>
           </div>

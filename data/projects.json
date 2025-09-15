@@ -1,0 +1,22 @@
+{
+  "projects": [
+    {
+      "id": "udawalawa-safari",
+      "title": "Udawalawa Safari",
+      "description": "Premium safari booking platform with real-time availability and secure payment processing",
+      "url": "https://udawalawasafari.lk",
+      "technologies": ["React", "Node.js", "MongoDB", "Stripe"],
+      "category": "Tourism & Travel",
+      "features": ["Online Booking", "Payment Gateway", "Mobile Responsive", "Admin Dashboard"]
+    },
+    {
+      "id": "golden-pearl-safari-villa",
+      "title": "Golden Pearl Safari Villa",
+      "description": "Luxury accommodation booking system with virtual tours and guest management",
+      "url": "https://golden-pearl-safari-villa.web.app",
+      "technologies": ["React", "Firebase", "Tailwind CSS", "PWA"],
+      "category": "Hospitality",
+      "features": ["Virtual Tours", "Real-time Booking", "Guest Portal", "Multi-language"]
+    }
+  ]
+}

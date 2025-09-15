@@ -135,7 +135,7 @@ export default function Hero() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border border-white/20 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-sm font-medium px-6 sm:px-10 py-3 sm:py-4 rounded-lg text-sm sm:text-base transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/20 w-full sm:w-auto"
+                  className="border border-white/20 text-white hover:bg-white/10 hover:border-white/30 backdrop-blur-sm font-medium px-6 sm:px-10 py-3 sm:py-4 rounded-lg text-sm sm:text-base transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/20 w-full sm:w-auto bg-transparent"
                 >
                   Get Started
                 </Button>
@@ -145,8 +145,8 @@ export default function Hero() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-8 border-t border-white/10">
               {[
-                { value: "50+", label: "Projects" },
-                { value: "4+", label: "Years" },
+                { value: "99.9%", label: "Uptime" },
+                { value: "AI", label: "Powered" },
                 { value: "24/7", label: "Support" },
               ].map((stat, index) => (
                 <div key={index} className="text-center">
