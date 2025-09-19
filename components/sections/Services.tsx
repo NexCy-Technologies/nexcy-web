@@ -1,10 +1,9 @@
 "use client"
 
-import { GlassCard } from "@/components/ui/glass-card"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired, FaExternalLinkAlt } from "react-icons/fa"
 import projectsData from "@/data/projects.json"
+import { Button } from "@/components/ui/button"
 
 const services = [
   {
@@ -70,182 +69,162 @@ const techLogos = [
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f5f5f5]">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2d3142] mb-6">
             Our{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">Services</span>
+            <span className="bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] bg-clip-text text-transparent">
+              Services
+            </span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-[#747474] max-w-3xl mx-auto leading-relaxed">
             We offer comprehensive technology solutions to help your business thrive in the digital age. From web
             development to AI solutions, we've got you covered.
           </p>
         </div>
 
-        {/* Services grid */}
+        {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {services.map((service, index) => (
-            <GlassCard
-              key={index}
-              variant="service"
-              className="p-8 hover:scale-105 transition-all duration-300 group cursor-pointer"
+          {services.map((service, idx) => (
+            <div
+              key={idx}
+              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 duration-300 flex flex-col"
             >
-              <div className="text-center space-y-6">
-                <div className="flex justify-center mb-4">
-                  <service.icon className="text-5xl text-blue-400 group-hover:text-blue-300 transition-colors" />
-                </div>
-                <h3 className="text-2xl font-bold text-white group-hover:text-blue-300 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-sm sm:text-base text-white/70 leading-relaxed">{service.description}</p>
-                <div className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center justify-center space-x-2">
-                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
-                      <span className="text-white/60 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex items-center justify-center mb-4">
+                <service.icon className="text-5xl text-[#ef8354]" />
               </div>
-            </GlassCard>
+              <h3 className="text-xl font-bold text-[#2d3142] mb-2 text-center">{service.title}</h3>
+              <p className="text-sm text-[#4f5d75] text-center mb-4">{service.description}</p>
+              <ul className="space-y-2 mt-auto">
+                {service.features.map((feat, fidx) => (
+                  <li key={fidx} className="flex items-center space-x-2 text-sm text-[#2d3142]">
+                    <span className="w-2 h-2 bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] rounded-full animate-pulse" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
 
+        {/* Success Projects */}
         <div className="mb-20">
           <div className="text-center mb-12">
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2d3142] mb-4">
               Our{" "}
-              <span className="bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] bg-clip-text text-transparent">
                 Success Projects
               </span>
             </h3>
-            <p className="text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-[#747474] max-w-2xl mx-auto">
               Discover some of our recent successful projects that showcase our expertise and commitment to excellence.
             </p>
           </div>
 
-          {/* Horizontally scrollable projects */}
-          <div className="relative">
-            <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-              {projectsData.projects.map((project) => (
-                <div key={project.id} className="flex-shrink-0 w-80 sm:w-96 snap-start">
-                  <GlassCard className="p-6 h-full hover:scale-105 transition-all duration-300 group">
-                    <div className="space-y-4">
-                      <div className="relative overflow-hidden rounded-lg aspect-video">
-                        <img
-                          src={`/projects/${project.id}.jpg`}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                        <div className="absolute top-3 right-3">
-                          <span className="bg-blue-500/80 text-white text-xs px-2 py-1 rounded-full">
-                            {project.category}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Project details */}
-                      <div className="space-y-3">
-                        <div className="flex items-start justify-between">
-                          <h4 className="text-xl font-bold text-white group-hover:text-blue-300 transition-colors">
-                            {project.title}
-                          </h4>
-                          <Link
-                            href={project.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-400 hover:text-blue-300 transition-colors"
-                          >
-                            <FaExternalLinkAlt className="text-sm" />
-                          </Link>
-                        </div>
-
-                        <p className="text-white/70 text-sm leading-relaxed line-clamp-2">{project.description}</p>
-
-                        {/* Technologies used */}
-                        <div className="flex flex-wrap gap-2">
-                          {project.technologies.map((tech, index) => (
-                            <span
-                              key={index}
-                              className="bg-white/20 text-white text-xs px-2 py-1 rounded-full border border-white/30"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Key features */}
-                        <div className="space-y-1">
-                          {project.features.slice(0, 3).map((feature, index) => (
-                            <div key={index} className="flex items-center space-x-2">
-                              <div className="w-1 h-1 bg-green-400 rounded-full" />
-                              <span className="text-white/60 text-xs">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Visit button */}
-                        <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block">
-                          <Button
-                            size="sm"
-                            className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-medium rounded-lg shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-200"
-                          >
-                            <FaGlobe className="mr-2 text-sm" />
-                            Visit Live Site
-                          </Button>
-                        </Link>
-                      </div>
+          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+            {projectsData.projects.map((project) => (
+              <div key={project.id} className="flex-shrink-0 w-80 sm:w-96 snap-start group cursor-pointer">
+                <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <div className="relative overflow-hidden rounded-lg aspect-video">
+                    <img
+                      src={`/projects/${project.id}.jpg`}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-[#ef8354]/80 text-white text-xs px-2 py-1 rounded-full">
+                        {project.category}
+                      </span>
                     </div>
-                  </GlassCard>
-                </div>
-              ))}
-            </div>
+                  </div>
 
-            {/* Scroll indicator */}
-            <div className="flex justify-center mt-4 space-x-2">
-              {projectsData.projects.map((_, index) => (
-                <div key={index} className="w-2 h-2 bg-white/30 rounded-full" />
-              ))}
-            </div>
+                  <div className="p-4 space-y-3">
+                    <div className="flex items-start justify-between">
+                      <h4 className="text-xl font-bold text-[#2d3142] group-hover:text-[#d96b3d] transition-colors duration-300">
+                        {project.title}
+                      </h4>
+                      <Link
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#ef8354] hover:text-[#d96b3d] transition-colors duration-300"
+                      >
+                        <FaExternalLinkAlt className="text-sm" />
+                      </Link>
+                    </div>
+
+                    <p className="text-[#747474] text-sm leading-relaxed line-clamp-2">{project.description}</p>
+
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, index) => (
+                        <span
+                          key={index}
+                          className="bg-[#ef8354]/20 text-[#2d3142] text-xs px-2 py-1 rounded-full border border-[#ef8354]/30"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="space-y-1">
+                      {project.features.slice(0, 3).map((feature, index) => (
+                        <div key={index} className="flex items-center space-x-2">
+                          <div className="w-1 h-1 bg-[#ef8354] rounded-full" />
+                          <span className="text-[#747474] text-xs">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button
+                        size="sm"
+                        className="w-full bg-gradient-to-r from-[#ef8354] to-[#4f5d75] hover:from-[#d96b3d] hover:to-[#4f5d75] text-white font-medium rounded-lg shadow-lg shadow-[#ef8354]/25 hover:shadow-[#ef8354]/40 transition-all duration-200"
+                      >
+                        <FaGlobe className="mr-2 text-sm" />
+                        Visit Live Site
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Technology Stack */}
+        {/* Technologies We Use */}
         <div className="space-y-8">
-          <div className="text-center">
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">Technologies We Use</h3>
-            <p className="text-sm sm:text-base text-white/90 max-w-2xl mx-auto">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#2d3142] mb-4">Technologies We Use</h3>
+            <p className="text-sm sm:text-base text-[#747474] max-w-2xl mx-auto">
               We leverage the latest and most reliable technologies to build robust, scalable solutions.
             </p>
           </div>
 
-          {/* First marquee - left to right */}
-          <div className="relative overflow-hidden w-full -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="relative overflow-hidden w-full">
             <div className="flex animate-marquee space-x-16 py-6 px-4 sm:px-6 lg:px-8">
               {[...techLogos, ...techLogos].map((tech, index) => (
                 <div key={index} className="flex-shrink-0 flex items-center justify-center">
                   <img
                     src={tech.logo || "/placeholder.svg"}
                     alt={tech.name}
-                    className="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity filter brightness-0 invert"
+                    className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Second marquee - right to left */}
-          <div className="relative overflow-hidden w-full -mx-4 sm:-mx-6 lg:-mx-8">
+          <div className="relative overflow-hidden w-full">
             <div className="flex animate-marquee-reverse space-x-16 py-6 px-4 sm:px-6 lg:px-8">
               {[...techLogos.slice().reverse(), ...techLogos.slice().reverse()].map((tech, index) => (
                 <div key={index} className="flex-shrink-0 flex items-center justify-center">
                   <img
                     src={tech.logo || "/placeholder.svg"}
                     alt={tech.name}
-                    className="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity filter brightness-0 invert"
+                    className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
                   />
                 </div>
               ))}
@@ -258,7 +237,7 @@ export default function Services() {
           <Link href="/contact">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-medium px-8 py-3 rounded-full shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200 transform hover:scale-105"
+              className="bg-gradient-to-r from-[#ef8354] to-[#4f5d75] hover:from-[#d96b3d] hover:to-[#4f5d75] text-white font-medium px-8 py-3 rounded-full shadow-lg shadow-[#ef8354]/25 hover:shadow-[#ef8354]/40 transition-all duration-200 transform hover:scale-105"
             >
               Get Started Today
             </Button>

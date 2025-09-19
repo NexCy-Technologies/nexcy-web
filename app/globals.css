@@ -1,6 +1,7 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -39,30 +40,29 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* Updated font variables to use only Roboto */
+  /* Added Roboto font variable */
   --font-roboto: "Roboto", sans-serif;
 }
 
 .dark {
-  /* Made background darker for more professional look */
-  --background: oklch(0.08 0 0);
+  --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.08 0 0);
+  --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.08 0 0);
+  --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.985 0 0);
   --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.15 0 0);
+  --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.15 0 0);
+  --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.15 0 0);
+  --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.15 0 0);
-  --input: oklch(0.15 0 0);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
   --ring: oklch(0.439 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -80,9 +80,7 @@
 }
 
 @theme inline {
-  /* Updated theme to use only Roboto font for both sans and mono */
-  --font-sans: var(--font-roboto);
-  --font-mono: var(--font-roboto);
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -127,14 +125,11 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Made background gradient darker and more professional */
     background: linear-gradient(135deg, #050a14 0%, #0f1629 50%, #050a14 100%);
-    min-height: 100vh;
-    /* Added explicit Roboto font family to body */
     font-family: var(--font-roboto), sans-serif;
+    min-height: 100vh;
   }
 
-  /* Smooth scrolling with reduced motion support */
   html {
     scroll-behavior: smooth;
   }
@@ -153,8 +148,7 @@
     }
   }
 
-  /* Enhanced accessibility and responsive design features */
-  /* Skip link for screen readers */
+  /* Added accessibility enhancements */
   .skip-link {
     position: absolute;
     top: -40px;
@@ -172,14 +166,13 @@
     top: 6px;
   }
 
-  /* Enhanced focus styles for better accessibility */
   *:focus-visible {
     outline: 2px solid #3b82f6;
     outline-offset: 2px;
     border-radius: 4px;
   }
 
-  /* High contrast mode support */
+  /* Added high contrast mode support */
   @media (prefers-contrast: high) {
     :root {
       --background: oklch(0 0 0);
@@ -188,7 +181,7 @@
     }
   }
 
-  /* Zoom support - ensure text remains readable at 200% zoom */
+  /* Added zoom support for better accessibility */
   @media (min-resolution: 2dppx) {
     body {
       font-size: 16px;
@@ -196,14 +189,14 @@
     }
   }
 
-  /* Ultra-wide screen support (4K and beyond) */
+  /* Added ultra-wide screen support */
   @media (min-width: 2560px) {
     .container {
       max-width: 1920px;
     }
   }
 
-  /* Small mobile devices (iPhone 5s and similar) */
+  /* Added small mobile device support (iPhone 5s) */
   @media (max-width: 320px) {
     body {
       font-size: 14px;
@@ -225,14 +218,14 @@
     }
   }
 
-  /* Tablet landscape orientation */
+  /* Added tablet landscape orientation support */
   @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     .hero-section {
       min-height: 80vh;
     }
   }
 
-  /* Print styles */
+  /* Added print styles */
   @media print {
     * {
       background: white !important;
@@ -250,7 +243,6 @@
   }
 }
 
-/* Custom glass morphism utilities */
 @layer utilities {
   .glass-morphism {
     backdrop-filter: blur(16px);
@@ -264,7 +256,15 @@
       rgba(255, 255, 255, 0.4) inset;
   }
 
-  /* Marquee animations for tech stack logos */
+  .glass {
+    @apply backdrop-blur-xl bg-white/10 border border-white/20;
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-xl bg-black/10 border border-white/10;
+  }
+
+  /* Added marquee animations for tech elements */
   @keyframes marquee {
     0% {
       transform: translateX(0%);
@@ -291,21 +291,78 @@
     animation: marquee-reverse 20s linear infinite;
   }
 
-  /* Pause animations on hover and for reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    .animate-marquee,
-    .animate-marquee-reverse {
-      animation-play-state: paused;
-    }
-  }
-
   .animate-marquee:hover,
   .animate-marquee-reverse:hover {
     animation-play-state: paused;
   }
 
-  /* Enhanced responsive utilities */
-  /* Container queries for component-level responsiveness */
+  /* Enhanced existing animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite 2s;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-glitch {
+    animation: glitch 2s infinite;
+  }
+
+  .animate-matrix {
+    animation: matrix 20s linear infinite;
+  }
+
+  .animate-circuit {
+    animation: circuit 8s ease-in-out infinite;
+  }
+
+  /* Enhanced responsive text utilities with better scaling */
+  .text-responsive-xs {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+
+  .text-responsive-sm {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+
+  .text-responsive-base {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
+
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+  }
+
+  .text-responsive-xl {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+
+  .text-responsive-2xl {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .text-responsive-3xl {
+    font-size: clamp(1.875rem, 6vw, 2.5rem);
+  }
+
+  .text-responsive-4xl {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+  }
+
+  .text-responsive-5xl {
+    font-size: clamp(3rem, 8vw, 4rem);
+  }
+
+  .text-responsive-6xl {
+    font-size: clamp(3.75rem, 9vw, 5rem);
+  }
+
+  /* Added container queries for component-level responsiveness */
   @container (max-width: 400px) {
     .card-responsive {
       padding: 1rem;
@@ -318,7 +375,7 @@
     }
   }
 
-  /* Touch-friendly interactive elements */
+  /* Added touch-friendly interactive elements */
   @media (hover: none) and (pointer: coarse) {
     .touch-target {
       min-height: 44px;
@@ -334,22 +391,7 @@
     }
   }
 
-  /* Reduced motion alternatives */
-  @media (prefers-reduced-motion: reduce) {
-    .motion-safe\:animate-bounce {
-      animation: none;
-    }
-
-    .motion-safe\:animate-pulse {
-      animation: none;
-    }
-
-    .motion-safe\:hover\:scale-105:hover {
-      transform: none;
-    }
-  }
-
-  /* High contrast mode enhancements */
+  /* Added high contrast mode enhancements */
   @media (prefers-contrast: high) {
     .glass-morphism {
       background: rgba(255, 255, 255, 0.9);
@@ -365,7 +407,7 @@
     }
   }
 
-  /* Screen reader only content */
+  /* Added screen reader utilities */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -378,7 +420,7 @@
     border: 0;
   }
 
-  /* Focus trap for modals and overlays */
+  /* Added focus trap utility */
   .focus-trap {
     position: relative;
   }
@@ -393,16 +435,88 @@
     pointer-events: none;
   }
 
-  /* Utility class for Roboto font */
+  /* Added Roboto font utility class */
   .font-roboto {
     font-family: var(--font-roboto), sans-serif;
   }
 }
 
-/* Enhanced responsive breakpoints for better device support */
-/* Custom breakpoints for better responsive design */
+/* Enhanced keyframe animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  10% {
+    transform: translate(-2px, -1px);
+  }
+  20% {
+    transform: translate(2px, 1px);
+  }
+  30% {
+    transform: translate(-1px, 2px);
+  }
+  40% {
+    transform: translate(1px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 1px);
+  }
+  60% {
+    transform: translate(2px, -1px);
+  }
+  70% {
+    transform: translate(-1px, -2px);
+  }
+  80% {
+    transform: translate(1px, 2px);
+  }
+  90% {
+    transform: translate(-2px, -1px);
+  }
+}
+
+@keyframes matrix {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+@keyframes circuit {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Added enhanced responsive breakpoints for various device sizes */
 @media (min-width: 320px) and (max-width: 374px) {
-  /* iPhone 5s and similar small devices */
   .text-responsive {
     font-size: 0.875rem;
     line-height: 1.5;
@@ -410,7 +524,6 @@
 }
 
 @media (min-width: 375px) and (max-width: 413px) {
-  /* iPhone 6/7/8 and similar */
   .text-responsive {
     font-size: 1rem;
     line-height: 1.5;
@@ -418,7 +531,6 @@
 }
 
 @media (min-width: 414px) and (max-width: 767px) {
-  /* Large phones and small tablets */
   .text-responsive {
     font-size: 1.125rem;
     line-height: 1.6;
@@ -426,7 +538,6 @@
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-  /* Tablets */
   .text-responsive {
     font-size: 1.25rem;
     line-height: 1.6;
@@ -434,30 +545,40 @@
 }
 
 @media (min-width: 1024px) {
-  /* Desktop and larger */
   .text-responsive {
     font-size: 1.5rem;
     line-height: 1.7;
   }
 }
 
-/* Zoom level support */
+/* Added zoom level support for 125%, 150%, and 200% */
 @media (min-resolution: 1.25dppx) {
-  /* 125% zoom */
   body {
     font-size: 18px;
   }
 }
 
 @media (min-resolution: 1.5dppx) {
-  /* 150% zoom */
   body {
     font-size: 20px;
+  }
+
+  .glass {
+    backdrop-filter: blur(8px);
+  }
+
+  .text-responsive-xs {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+  .text-responsive-sm {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
+  .text-responsive-base {
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
   }
 }
 
 @media (min-resolution: 2dppx) {
-  /* 200% zoom */
   body {
     font-size: 22px;
   }
