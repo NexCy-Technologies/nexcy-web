@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired, FaExternalLinkAlt } from "react-icons/fa"
-import projectsData from "@/data/projects.json"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired, FaExternalLinkAlt } from "react-icons/fa";
+import projectsData from "@/data/projects.json";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 const services = [
   {
@@ -42,7 +43,7 @@ const services = [
     features: ["Device Integration", "Real-time Monitoring", "Data Analytics", "Remote Control"],
     icon: FaNetworkWired,
   },
-]
+];
 
 const techLogos = [
   { name: "React", logo: "/technologies/react-logo.png" },
@@ -65,185 +66,321 @@ const techLogos = [
   { name: "Flask", logo: "/technologies/flask-logo.png" },
   { name: "Express", logo: "/technologies/express-logo.png" },
   { name: "Azure", logo: "/technologies/azure-logo.png" },
-]
+];
 
 export default function Services() {
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#f5f5f5]">
+    <section id="services" className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 md:px-6 lg:px-8 bg-[#fffaf5] overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2d3142] mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-12 sm:mb-16"
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 px-2">
             Our{" "}
-            <span className="bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
               Services
             </span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-[#747474] max-w-3xl mx-auto leading-relaxed">
-            We offer comprehensive technology solutions to help your business thrive in the digital age. From web
-            development to AI solutions, we've got you covered.
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed px-4">
+            We offer comprehensive technology solutions to help your business thrive in the digital age. From web development to AI solutions, we've got you covered.
           </p>
-        </div>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-16 sm:mb-20"
+        >
           {services.map((service, idx) => (
-            <div
+            <motion.div
               key={idx}
-              className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 duration-300 flex flex-col"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-20px" }}
+              transition={{ 
+                duration: 0.6, 
+                delay: idx * 0.1,
+                ease: "easeOut"
+              }}
+              className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer h-auto min-h-[250px] sm:min-h-[280px]"
             >
-              <div className="flex items-center justify-center mb-4">
-                <service.icon className="text-5xl text-[#ef8354]" />
+              {/* Default Content */}
+              <div className="p-4 sm:p-5 md:p-6 transition-all duration-500 md:group-hover:blur-sm md:group-hover:opacity-30 h-full flex flex-col justify-center">
+                <div className="flex items-center justify-center mb-3 sm:mb-4">
+                  <service.icon className="text-2xl sm:text-3xl md:text-4xl text-orange-500" />
+                </div>
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-2 sm:mb-3 text-center">{service.title}</h3>
+                <p className="text-gray-600 text-xs sm:text-sm text-center leading-relaxed">{service.description}</p>
               </div>
-              <h3 className="text-xl font-bold text-[#2d3142] mb-2 text-center">{service.title}</h3>
-              <p className="text-sm text-[#4f5d75] text-center mb-4">{service.description}</p>
-              <ul className="space-y-2 mt-auto">
-                {service.features.map((feat, fidx) => (
-                  <li key={fidx} className="flex items-center space-x-2 text-sm text-[#2d3142]">
-                    <span className="w-2 h-2 bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] rounded-full animate-pulse" />
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+              {/* Hover Content - Desktop Only */}
+              <div className="hidden md:flex absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-5 md:p-6 flex-col justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-full group-hover:translate-y-0">
+                <div className="text-center mb-4">
+                  <p className="text-orange-100 text-sm leading-relaxed mb-6">{service.description}</p>
+                </div>
+                
+                <div className="space-y-3 mb-6">
+                  {service.features.map((feat, fidx) => (
+                    <div key={fidx} className="flex items-center space-x-3 text-sm text-white">
+                      <span className="w-2 h-2 bg-orange-200 rounded-full flex-shrink-0" />
+                      <span className="leading-tight">{feat}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div>
+                  <button className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-300">
+                    Learn More
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Success Projects */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#2d3142] mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-16 sm:mb-20"
+        >
+          <div className="text-center mb-8 sm:mb-12">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">
               Our{" "}
-              <span className="bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
                 Success Projects
               </span>
             </h3>
-            <p className="text-sm sm:text-base text-[#747474] max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4">
               Discover some of our recent successful projects that showcase our expertise and commitment to excellence.
             </p>
           </div>
 
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
-            {projectsData.projects.map((project) => (
-              <div key={project.id} className="flex-shrink-0 w-80 sm:w-96 snap-start group cursor-pointer">
-                <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                  <div className="relative overflow-hidden rounded-lg aspect-video">
-                    <img
-                      src={`/projects/${project.id}.jpg`}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute top-3 right-3">
-                      <span className="bg-[#ef8354]/80 text-white text-xs px-2 py-1 rounded-full">
-                        {project.category}
-                      </span>
+          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-3 sm:-mx-0 px-3 sm:px-0">
+            {projectsData.projects.map((project, idx) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, x: 50, scale: 0.95 }}
+                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ 
+                  duration: 0.6, 
+                  delay: idx * 0.1,
+                  ease: "easeOut"
+                }}
+                className="flex-shrink-0 w-72 sm:w-80 md:w-96 snap-start group cursor-pointer"
+              >
+                <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white h-auto">
+                  {/* Default Content */}
+                  <div className="transition-all duration-500 md:group-hover:blur-sm md:group-hover:opacity-40">
+                    <div className="relative overflow-hidden rounded-t-xl aspect-video">
+                      <img
+                        src={`/projects/${project.id}.jpg`}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                      <div className="absolute top-3 right-3">
+                        <span className="bg-orange-500/90 text-white text-xs px-2 sm:px-3 py-1 rounded-full">
+                          {project.category}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-3 sm:p-4">
+                      <div className="flex items-start justify-between mb-2">
+                        <h4 className="text-sm sm:text-lg md:text-xl font-bold text-gray-900 flex-1 pr-2 leading-tight">{project.title}</h4>
+                        <Link
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-orange-500 hover:text-orange-600 transition-colors duration-300 flex-shrink-0"
+                        >
+                          <FaExternalLinkAlt className="text-xs sm:text-sm" />
+                        </Link>
+                      </div>
+                      <p className="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-2">{project.description}</p>
                     </div>
                   </div>
 
-                  <div className="p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <h4 className="text-xl font-bold text-[#2d3142] group-hover:text-[#d96b3d] transition-colors duration-300">
-                        {project.title}
-                      </h4>
-                      <Link
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#ef8354] hover:text-[#d96b3d] transition-colors duration-300"
-                      >
-                        <FaExternalLinkAlt className="text-sm" />
-                      </Link>
+                  {/* Hover Content - Desktop Only */}
+                  <div className="hidden md:flex absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-6 flex-col justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-full group-hover:translate-y-0 rounded-xl">
+                    <div className="text-center mb-3 sm:mb-4">
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3">{project.title}</h4>
+                      <p className="text-orange-100 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">{project.description}</p>
                     </div>
 
-                    <p className="text-[#747474] text-sm leading-relaxed line-clamp-2">{project.description}</p>
-
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, index) => (
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4 justify-center">
+                      {project.technologies.slice(0, 4).map((tech, index) => (
                         <span
                           key={index}
-                          className="bg-[#ef8354]/20 text-[#2d3142] text-xs px-2 py-1 rounded-full border border-[#ef8354]/30"
+                          className="bg-white/20 text-white text-xs px-2 py-1 rounded-full border border-white/30"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
 
-                    <div className="space-y-1">
+                    <div className="space-y-1 sm:space-y-2 mb-3 sm:mb-4">
                       {project.features.slice(0, 3).map((feature, index) => (
                         <div key={index} className="flex items-center space-x-2">
-                          <div className="w-1 h-1 bg-[#ef8354] rounded-full" />
-                          <span className="text-[#747474] text-xs">{feature}</span>
+                          <div className="w-1.5 h-1.5 bg-orange-200 rounded-full flex-shrink-0" />
+                          <span className="text-white text-xs sm:text-sm leading-tight">{feature}</span>
                         </div>
                       ))}
                     </div>
 
                     <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button
-                        size="sm"
-                        className="w-full bg-gradient-to-r from-[#ef8354] to-[#4f5d75] hover:from-[#d96b3d] hover:to-[#4f5d75] text-white font-medium rounded-lg shadow-lg shadow-[#ef8354]/25 hover:shadow-[#ef8354]/40 transition-all duration-200"
-                      >
-                        <FaGlobe className="mr-2 text-sm" />
+                      <Button className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 font-medium rounded-lg transition-all duration-300 text-xs sm:text-sm py-2">
+                        <FaGlobe className="mr-2 text-xs sm:text-sm" />
                         Visit Live Site
+                        <FaExternalLinkAlt className="ml-auto text-xs sm:text-sm" />
                       </Button>
                     </Link>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Technologies We Use */}
-        <div className="space-y-8">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#2d3142] mb-4">Technologies We Use</h3>
-            <p className="text-sm sm:text-base text-[#747474] max-w-2xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="space-y-6 sm:space-y-8"
+        >
+          <div className="text-center mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">
+              Technologies{" "}
+              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                We Use
+              </span>
+            </h3>
+            <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4">
               We leverage the latest and most reliable technologies to build robust, scalable solutions.
             </p>
           </div>
+          
+          <style jsx>{`
+            @keyframes marquee {
+              0% {
+                transform: translateX(0%);
+              }
+              100% {
+                transform: translateX(-50%);
+              }
+            }
+            
+            @keyframes marquee-reverse {
+              0% {
+                transform: translateX(-50%);
+              }
+              100% {
+                transform: translateX(0%);
+              }
+            }
+            
+            .animate-marquee {
+              animation: marquee 40s linear infinite;
+            }
+            
+            .animate-marquee-reverse {
+              animation: marquee-reverse 40s linear infinite;
+            }
+            
+            .marquee-container:hover .animate-marquee,
+            .marquee-container:hover .animate-marquee-reverse {
+              animation-play-state: paused;
+            }
 
-          <div className="relative overflow-hidden w-full">
-            <div className="flex animate-marquee space-x-16 py-6 px-4 sm:px-6 lg:px-8">
-              {[...techLogos, ...techLogos].map((tech, index) => (
-                <div key={index} className="flex-shrink-0 flex items-center justify-center">
+            @media (max-width: 640px) {
+              .animate-marquee {
+                animation: marquee 25s linear infinite;
+              }
+              .animate-marquee-reverse {
+                animation: marquee-reverse 25s linear infinite;
+              }
+            }
+          `}</style>
+          
+          <motion.div 
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="relative overflow-hidden w-full marquee-container"
+          >
+            <div className="flex animate-marquee space-x-6 sm:space-x-8 md:space-x-16 py-4 sm:py-6">
+              {[...techLogos, ...techLogos, ...techLogos].map((tech, index) => (
+                <div key={index} className="flex-shrink-0 flex items-center justify-center min-w-[60px] sm:min-w-[80px] md:min-w-[100px]">
                   <img
                     src={tech.logo || "/placeholder.svg"}
                     alt={tech.name}
-                    className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    className="h-6 sm:h-8 md:h-12 w-auto opacity-70 hover:opacity-100 transition-all duration-300 filter grayscale hover:grayscale-0"
+                    loading="lazy"
                   />
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="relative overflow-hidden w-full">
-            <div className="flex animate-marquee-reverse space-x-16 py-6 px-4 sm:px-6 lg:px-8">
-              {[...techLogos.slice().reverse(), ...techLogos.slice().reverse()].map((tech, index) => (
-                <div key={index} className="flex-shrink-0 flex items-center justify-center">
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, x: 100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative overflow-hidden w-full marquee-container"
+          >
+            <div className="flex animate-marquee-reverse space-x-6 sm:space-x-8 md:space-x-16 py-4 sm:py-6">
+              {[...techLogos.slice().reverse(), ...techLogos.slice().reverse(), ...techLogos.slice().reverse()].map((tech, index) => (
+                <div key={index} className="flex-shrink-0 flex items-center justify-center min-w-[60px] sm:min-w-[80px] md:min-w-[100px]">
                   <img
                     src={tech.logo || "/placeholder.svg"}
                     alt={tech.name}
-                    className="h-12 w-auto opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    className="h-6 sm:h-8 md:h-12 w-auto opacity-70 hover:opacity-100 transition-all duration-300 filter grayscale hover:grayscale-0"
+                    loading="lazy"
                   />
                 </div>
               ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* CTA */}
-        <div className="text-center mt-16">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ 
+            duration: 0.7, 
+            delay: 0.3,
+            ease: "easeOut"
+          }}
+          className="text-center mt-12 sm:mt-16"
+        >
           <Link href="/contact">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-[#ef8354] to-[#4f5d75] hover:from-[#d96b3d] hover:to-[#4f5d75] text-white font-medium px-8 py-3 rounded-full shadow-lg shadow-[#ef8354]/25 hover:shadow-[#ef8354]/40 transition-all duration-200 transform hover:scale-105"
+              className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105"
             >
               Get Started Today
             </Button>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
-  )
+  );
 }

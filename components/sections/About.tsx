@@ -1,31 +1,12 @@
-"use client"
+"use client";
+import { motion } from "framer-motion";
+import { FaRocket, FaBullseye } from "react-icons/fa";
 
-import { motion } from "framer-motion"
-import { FaRocket, FaStar, FaBullseye, FaShieldAlt } from "react-icons/fa"
-
-const aboutPanels = [
-  {
-    title: "Our Mission",
-    description:
-      "Empower businesses with cutting-edge technology solutions that drive growth, efficiency, and innovation. We create digital experiences that anticipate tomorrow's challenges.",
-    icon: FaRocket,
-    color: "#ef8354",
-  },
-  {
-    title: "Our Vision",
-    description:
-      "To be the leading technology partner worldwide, recognized for innovation, reliability, and excellence. Integrating technology seamlessly with business operations.",
-    icon: FaStar,
-    color: "#4f5d75",
-  },
-  {
-    title: "Why Choose Us?",
-    description:
-      "AI-powered workflows, enterprise-grade security, agile methodology, cutting-edge technology stack, and ongoing support ensure your success.",
-    icon: FaShieldAlt,
-    color: "#d96b3d",
-  },
-]
+const aboutSummary = [
+  "Empower businesses with cutting-edge technology solutions that drive growth, efficiency, and innovation.",
+  "Deliver digital experiences that anticipate tomorrow's challenges.",
+  "AI-powered workflows, enterprise-grade security, agile methodology, and ongoing support ensure success."
+];
 
 const features = [
   {
@@ -38,98 +19,75 @@ const features = [
     description: "Your success is our priority. We work closely to exceed your expectations.",
     icon: FaBullseye,
   },
-]
+];
 
 export default function About() {
   return (
-    <section id="about" className="relative py-20 px-4 sm:px-6 lg:px-12 bg-[#f5f5f5] overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="about"
+      className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-12 bg-[#fffaf5] overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 1 }}
-          className="text-center mb-16"
+          className="text-center mb-16 px-4 sm:px-6 lg:px-0"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2d3142] mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
             About{" "}
-            <span className="bg-gradient-to-r from-[#ef8354] via-[#d96b3d] to-[#4f5d75] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
               NexCy Technologies
             </span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-[#747474] max-w-3xl mx-auto leading-relaxed">
-            Transforming businesses through innovative digital solutions, scalable software, and cutting-edge technology. 
-            Our team combines expertise and creativity to deliver impactful results.
+          <p className="text-gray-700 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+            Transforming businesses through innovative digital solutions, scalable software, and cutting-edge technology.
           </p>
         </motion.div>
 
-        {/* About Panels */}
-        <div className="space-y-8 lg:space-y-12">
-          {aboutPanels.map((panel, idx) => {
-            const Icon = panel.icon
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: idx * 0.2 }}
-                className="relative flex flex-col lg:flex-row items-start gap-6 p-8 rounded-xl bg-white/5 border border-transparent backdrop-blur-xl shadow-lg hover:shadow-2xl cursor-pointer overflow-hidden group"
-              >
-                {/* Tech hover gradient */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover:from-[#ef8354]/20 group-hover:to-[#4f5d75]/30 transition-all duration-500 pointer-events-none"
-                  style={{ mixBlendMode: "overlay" }}
-                ></div>
-
-                {/* Icon */}
-                <div
-                  className="flex-shrink-0 text-4xl"
-                  style={{ color: panel.color }}
-                >
-                  <Icon />
-                </div>
-
-                {/* Text content */}
-                <div className="relative z-10 flex-1">
-                  <h3 className="text-2xl font-bold text-[#2d3142] mb-2">{panel.title}</h3>
-                  <p className="text-[#747474] text-base leading-relaxed">{panel.description}</p>
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
+        {/* About Summary Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative flex flex-col gap-4 p-8 rounded-2xl bg-white/20 backdrop-blur-3xl border border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)] hover:shadow-2xl transition-all duration-500"
+        >
+          {aboutSummary.map((point, idx) => (
+            <div key={idx} className="flex items-start gap-3">
+              <div className="text-orange-500 text-2xl mt-1">•</div>
+              <p className="text-gray-700 text-base sm:text-lg leading-relaxed">{point}</p>
+            </div>
+          ))}
+        </motion.div>
 
         {/* Features */}
         <div className="mt-16 grid md:grid-cols-2 gap-8">
           {features.map((feature, idx) => {
-            const Icon = feature.icon
+            const Icon = feature.icon;
             return (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: idx * 0.2 }}
-                className="relative flex items-start gap-4 p-6 bg-white/5 rounded-xl border border-transparent backdrop-blur-xl shadow-md hover:shadow-xl cursor-pointer group overflow-hidden"
+                className="relative flex items-start gap-4 p-6 bg-white/20 rounded-2xl border border-white/30 backdrop-blur-3xl shadow-md hover:shadow-xl cursor-pointer transition-all duration-500"
               >
-                <div className="text-3xl text-[#ef8354] flex-shrink-0">
+                <div className="text-4xl text-orange-500 flex-shrink-0">
                   <Icon />
                 </div>
                 <div className="relative z-10">
-                  <h4 className="text-xl font-semibold text-[#2d3142] mb-1">{feature.title}</h4>
-                  <p className="text-[#747474] text-sm leading-relaxed">{feature.description}</p>
+                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-1">{feature.title}</h4>
+                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{feature.description}</p>
                 </div>
-
-                {/* Tech hover overlay */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-br from-transparent to-transparent group-hover:from-[#ef8354]/20 group-hover:to-[#4f5d75]/30 transition-all duration-500 pointer-events-none"
-                  style={{ mixBlendMode: "overlay" }}
-                ></div>
               </motion.div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }

@@ -26,15 +26,16 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
 })
 
 export const metadata: Metadata = {
-  title: "NexCy Technologies - Future of Digital Innovation",
+  title: "About Us - NexCy Technologies",
   description:
-    "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development. Expert team delivering cutting-edge software solutions.",
-  keywords: "nexcy, nexcytech, technology, software company, software company sri lanka, it company, web, app, software, development, ERP, POS, mobile apps, ios apps, AI, ML, IoT",
+    "Learn about NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
+  keywords:
+    "nexcy, nexcytech, technology, software company, about us, company profile, mission, vision",
   openGraph: {
-    title: "NexCy Technologies - Future of Digital Innovation",
+    title: "About Us - NexCy Technologies",
     description:
-      "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
-    url: "https://nexcy.lk",
+      "Learn about NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
+    url: "https://nexcy.lk/about",
     siteName: "NexCy Technologies",
     images: [
       {
@@ -49,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "NexCy Technologies - Future of Digital Innovation",
+    title: "About Us - NexCy Technologies",
     description:
-      "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
+      "Learn about NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
     images: ["/og-image.jpg"],
   },
 }
@@ -117,28 +118,52 @@ const structuredData = {
   },
 }
 
-export default function Home() {
+export default function AboutPage() {
   return (
     <>
       <SkipLink />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <div className="min-h-screen bg-gradient-to-br from-black via-orange-950 to-black">
         <Navigation />
         <main id="main-content" tabIndex={-1}>
-          <Hero />
-          <LazySection>
-            <About />
-          </LazySection>
-          <LazySection>
-            <Services />
-          </LazySection>
-          <LazySection>
-            <Team />
-          </LazySection>
-          <LazySection>
-            <Contact />
-          </LazySection>
+          {/* Hero Section */}
+          <section id="home">
+            <Hero />
+          </section>
+
+          {/* About Section */}
+          <section id="about">
+            <LazySection>
+              <About />
+            </LazySection>
+          </section>
+
+          {/* Services Section */}
+          <section id="services">
+            <LazySection>
+              <Services />
+            </LazySection>
+          </section>
+
+          {/* Team Section */}
+          <section id="team">
+            <LazySection>
+              <Team />
+            </LazySection>
+          </section>
+
+          {/* Contact Section */}
+          <section id="contact">
+            <LazySection>
+              <Contact />
+            </LazySection>
+          </section>
         </main>
+
+        {/* Footer */}
         <LazySection>
           <Footer />
         </LazySection>
