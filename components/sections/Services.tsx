@@ -5,6 +5,7 @@ import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired, FaExter
 import projectsData from "@/data/projects.json";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 const services = [
   {
@@ -69,6 +70,17 @@ const techLogos = [
 ];
 
 export default function Services() {
+  const [activeService, setActiveService] = useState<number | null>(null);
+  const [activeProject, setActiveProject] = useState<number | null>(null);
+
+  const handleServiceClick = (idx: number) => {
+    setActiveService(activeService === idx ? null : idx);
+  };
+
+  const handleProjectClick = (idx: number) => {
+    setActiveProject(activeProject === idx ? null : idx);
+  };
+
   return (
     <section id="services" className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 md:px-6 lg:px-8 bg-[#fffaf5] overflow-hidden">
       <div className="max-w-7xl mx-auto">
@@ -111,9 +123,10 @@ export default function Services() {
                 ease: "easeOut"
               }}
               className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer h-auto min-h-[250px] sm:min-h-[280px]"
+              onClick={() => handleServiceClick(idx)}
             >
               {/* Default Content */}
-              <div className="p-4 sm:p-5 md:p-6 transition-all duration-500 md:group-hover:blur-sm md:group-hover:opacity-30 h-full flex flex-col justify-center">
+              <div className={`p-4 sm:p-5 md:p-6 transition-all duration-500 ${activeService === idx ? 'blur-sm opacity-30' : 'md:group-hover:blur-sm md:group-hover:opacity-30'} h-full flex flex-col justify-center`}>
                 <div className="flex items-center justify-center mb-3 sm:mb-4">
                   <service.icon className="text-2xl sm:text-3xl md:text-4xl text-orange-500" />
                 </div>
@@ -121,8 +134,8 @@ export default function Services() {
                 <p className="text-gray-600 text-xs sm:text-sm text-center leading-relaxed">{service.description}</p>
               </div>
 
-              {/* Hover Content - Desktop Only */}
-              <div className="hidden md:flex absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-5 md:p-6 flex-col justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-full group-hover:translate-y-0">
+              {/* Hover/Active Content */}
+              <div className={`absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-5 md:p-6 flex flex-col justify-center transition-all duration-500 transform ${activeService === idx ? 'opacity-100 translate-y-0' : 'opacity-0 md:group-hover:opacity-100 translate-y-full md:group-hover:translate-y-0'}`}>
                 <div className="text-center mb-4">
                   <p className="text-orange-100 text-sm leading-relaxed mb-6">{service.description}</p>
                 </div>
@@ -136,11 +149,7 @@ export default function Services() {
                   ))}
                 </div>
 
-                <div>
-                  <button className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 py-3 px-4 rounded-lg text-sm font-medium transition-all duration-300">
-                    Learn More
-                  </button>
-                </div>
+
               </div>
             </motion.div>
           ))}
@@ -179,10 +188,11 @@ export default function Services() {
                   ease: "easeOut"
                 }}
                 className="flex-shrink-0 w-72 sm:w-80 md:w-96 snap-start group cursor-pointer"
+                onClick={() => handleProjectClick(idx)}
               >
                 <div className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 bg-white h-auto">
                   {/* Default Content */}
-                  <div className="transition-all duration-500 md:group-hover:blur-sm md:group-hover:opacity-40">
+                  <div className={`transition-all duration-500 ${activeProject === idx ? 'blur-sm opacity-40' : 'md:group-hover:blur-sm md:group-hover:opacity-40'}`}>
                     <div className="relative overflow-hidden rounded-t-xl aspect-video">
                       <img
                         src={`/projects/${project.id}.jpg`}
@@ -205,6 +215,7 @@ export default function Services() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-orange-500 hover:text-orange-600 transition-colors duration-300 flex-shrink-0"
+                          onClick={(e) => e.stopPropagation()}
                         >
                           <FaExternalLinkAlt className="text-xs sm:text-sm" />
                         </Link>
@@ -213,8 +224,8 @@ export default function Services() {
                     </div>
                   </div>
 
-                  {/* Hover Content - Desktop Only */}
-                  <div className="hidden md:flex absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-6 flex-col justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-full group-hover:translate-y-0 rounded-xl">
+                  {/* Hover/Active Content */}
+                  <div className={`absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 p-4 sm:p-6 flex flex-col justify-center transition-all duration-500 transform rounded-xl ${activeProject === idx ? 'opacity-100 translate-y-0' : 'opacity-0 md:group-hover:opacity-100 translate-y-full md:group-hover:translate-y-0'}`}>
                     <div className="text-center mb-3 sm:mb-4">
                       <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3">{project.title}</h4>
                       <p className="text-orange-100 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4">{project.description}</p>
@@ -240,7 +251,13 @@ export default function Services() {
                       ))}
                     </div>
 
-                    <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block">
+                    <Link 
+                      href={project.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <Button className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 font-medium rounded-lg transition-all duration-300 text-xs sm:text-sm py-2">
                         <FaGlobe className="mr-2 text-xs sm:text-sm" />
                         Visit Live Site

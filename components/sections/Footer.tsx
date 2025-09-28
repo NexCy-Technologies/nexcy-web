@@ -12,11 +12,6 @@ const secondaryLinks = [
   { name: "Privacy policy", href: "/about", section: "about" },
 ]
 
-const thirdLinks = [
-  { name: "Our mission", href: "/about", section: "about" },
-  { name: "Our team", href: "/team", section: "team" },
-]
-
 const socialLinks = [
   {
     name: "Twitter",
@@ -50,60 +45,52 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative bg-gradient-to-br from-black via-orange-950 to-black overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute inset-0">
-        {/* Floating geometric shapes */}
-        <div className="absolute top-10 right-20 w-32 h-32 bg-orange-500/10 rounded-3xl transform rotate-12 animate-pulse"></div>
-        <div className="absolute top-32 right-40 w-16 h-16 bg-orange-400/20 rounded-full animate-bounce delay-1000"></div>
-        <div className="absolute bottom-20 left-20 w-24 h-24 bg-orange-600/15 rounded-2xl transform -rotate-12 animate-pulse delay-500"></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-white border-t border-gray-200 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Content */}
-        <div className="py-16 sm:py-20 lg:py-24">
+        <div className="py-12 sm:py-16 lg:py-20">
           {/* Hero Text */}
-          <div className="mb-16 lg:mb-20">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              You can help <br />
-              <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
-                shape the future
+          <div className="mb-12 lg:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+              Let's build something{" "}
+              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                amazing together
               </span>
             </h2>
           </div>
 
           {/* Links and Contact */}
-          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-12">
+          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 sm:gap-12">
             {/* Logo and Copyright */}
             <div className="flex-shrink-0">
-              <div className="flex items-center space-x-3 mb-8">
+              <div className="flex items-center space-x-3 mb-6 sm:mb-8">
                 <img
                   src="/logo.png"
                   alt="NexCy Technologies"
                   className="w-10 h-10 rounded-xl"
                 />
                 <span 
-                  className="text-white font-bold text-2xl tracking-tight" 
+                  className="text-gray-900 font-bold text-2xl tracking-tight" 
                   style={{ fontFamily: 'Geometr415 Blk BT, sans-serif' }}
                 >
-                  nexcy
+                  NEXCY
                 </span>
               </div>
-              <div className="text-gray-300 text-sm space-y-1">
+              <div className="text-gray-600 text-sm space-y-1">
                 <p>Copyright © {new Date().getFullYear()}</p>
-                <p className="text-gray-400">Big ideas. Smart solutions.</p>
+                <p className="text-gray-500">Big ideas. Smart solutions.</p>
               </div>
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col sm:flex-row gap-12 sm:gap-16 lg:gap-20">
+            <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 lg:gap-16">
               {/* Column 1 */}
               <div className="space-y-4">
                 {primaryLinks.map((link) => (
                   <button
                     key={link.name}
                     onClick={() => scrollToSection(link.section, link.href)}
-                    className="block text-gray-300 hover:text-white transition-colors duration-300 text-left"
+                    className="block text-gray-600 hover:text-orange-600 transition-colors duration-300 text-left text-sm sm:text-base"
                   >
                     {link.name}
                   </button>
@@ -116,20 +103,7 @@ export default function Footer() {
                   <button
                     key={link.name}
                     onClick={() => scrollToSection(link.section, link.href)}
-                    className="block text-gray-300 hover:text-white transition-colors duration-300 text-left"
-                  >
-                    {link.name}
-                  </button>
-                ))}
-              </div>
-
-              {/* Column 3 */}
-              <div className="space-y-4">
-                {thirdLinks.map((link) => (
-                  <button
-                    key={link.name}
-                    onClick={() => scrollToSection(link.section, link.href)}
-                    className="block text-gray-300 hover:text-white transition-colors duration-300 text-left"
+                    className="block text-gray-600 hover:text-orange-600 transition-colors duration-300 text-left text-sm sm:text-base"
                   >
                     {link.name}
                   </button>
@@ -137,36 +111,39 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Contact Button and Social */}
-            <div className="flex-shrink-0 space-y-6">
+            {/* Contact Button */}
+            <div className="flex-shrink-0">
               <button
                 onClick={() => scrollToSection("contact", "/contact")}
-                className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-semibold px-6 sm:px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
               >
                 CONTACT US
               </button>
-
-              {/* Social Icons */}
-              <div className="flex space-x-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-orange-400 hover:text-orange-300 transition-colors duration-300"
-                    aria-label={social.name}
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </a>
-                ))}
-              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Border */}
-        <div className="border-t border-gray-600 mb-8"></div>
+        <div className="border-t border-gray-300 py-6 sm:py-8">
+          {/* Social Icons */}
+          <div className="flex justify-center items-center">
+            <div className="flex items-center space-x-4">
+              <span className="text-gray-600 text-xs sm:text-sm font-medium">Follow us:</span>
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-500 hover:text-orange-600 transition-colors duration-300"
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   )

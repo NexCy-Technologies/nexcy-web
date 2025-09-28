@@ -3,7 +3,6 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { GlassCard } from "@/components/ui/glass-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -127,9 +126,7 @@ export default function Contact() {
             viewport={{ once: true, margin: "-30px" }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <GlassCard 
-              className="p-6 sm:p-8 bg-white/90 backdrop-blur-sm border border-orange-100/50 shadow-xl"
-            >
+            <div className="p-6 sm:p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
               <div className="flex items-center space-x-3 mb-6">
                 <FaComment className="text-orange-500 text-xl sm:text-2xl" />
                 <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Send us a message</h3>
@@ -358,7 +355,7 @@ export default function Contact() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </GlassCard>
+            </div>
           </motion.div>
 
           {/* Contact Information */}
@@ -370,7 +367,7 @@ export default function Contact() {
             className="space-y-6 sm:space-y-8"
           >
             {/* Contact Details */}
-            <GlassCard className="p-6 sm:p-8 bg-white/90 backdrop-blur-sm border border-orange-100/50 shadow-xl">
+            <div className="p-6 sm:p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-6">Contact Information</h3>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
@@ -416,10 +413,10 @@ export default function Contact() {
                 </div>
 
               </div>
-            </GlassCard>
+            </div>
 
             {/* Office Hours */}
-            <GlassCard className="p-6 sm:p-8 bg-white/90 backdrop-blur-sm border border-orange-100/50 shadow-xl">
+            <div className="p-6 sm:p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500">
               <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Office Hours</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
@@ -435,7 +432,7 @@ export default function Contact() {
                   <span className="text-gray-500 text-sm sm:text-base">Closed</span>
                 </div>
               </div>
-            </GlassCard>
+            </div>
 
             {/* Quick Actions */}
             <div className="grid grid-cols-2 gap-4">
