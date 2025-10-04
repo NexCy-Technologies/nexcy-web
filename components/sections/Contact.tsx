@@ -53,15 +53,26 @@ export default function Contact() {
     setIsSubmitting(true)
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message')
+      }
+
       setIsSuccess(true)
       toast({
         title: "Message sent successfully!",
         description: "We'll get back to you within 24 hours.",
       })
-      
+
       // Reset form after success
       setTimeout(() => {
         setFormStep(1)
@@ -75,7 +86,7 @@ export default function Contact() {
         })
         setIsSuccess(false)
       }, 3000)
-      
+
     } catch (error) {
       toast({
         title: "Error sending message",

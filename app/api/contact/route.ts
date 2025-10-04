@@ -1,9 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { sendTelegramMessage } from "@/lib/telegram"
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, phone, message } = body
+    const { name, email, phone, project, budget, message } = body
 
     // Validate required fields
     if (!name || !email || !message) {
@@ -16,26 +17,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
-    // Here you would typically:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Send auto-reply to user
-    // 4. Integrate with CRM
-
-    // For now, we'll just log the contact form submission
-    console.log("Contact form submission:", {
-      name,
-      email,
-      phone,
-      message,
-      timestamp: new Date().toISOString(),
-    })
-
-    // In a real application, you might want to:
-    // - Send an email using a service like SendGrid, Resend, or Nodemailer
-    // - Save to a database like Supabase, MongoDB, or PostgreSQL
-    // - Send a notification to Slack or Discord
-    // - Integrate with a CRM like HubSpot or Salesforce
+    // Send message to Telegram
+    try {
+      await sendTelegramMessage({
+        name,
+        email,
+        phone,
+        project,
+        budget,
+        message,
+      })
+    } catch (telegramError) {
+      console.error("Telegram send failed:", telegramError)
+      // Continue even if Telegram fails - don't block the user
+    }
 
     return NextResponse.json(
       {
