@@ -40,7 +40,6 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  /* Added Roboto font variable */
   --font-roboto: "Roboto", sans-serif;
 }
 
@@ -80,7 +79,6 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -123,15 +121,21 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
     background: linear-gradient(135deg, #050a14 0%, #0f1629 50%, #050a14 100%);
     font-family: var(--font-roboto), sans-serif;
     min-height: 100vh;
-  }
-
-  html {
-    scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -148,7 +152,6 @@
     }
   }
 
-  /* Added accessibility enhancements */
   .skip-link {
     position: absolute;
     top: -40px;
@@ -172,7 +175,6 @@
     border-radius: 4px;
   }
 
-  /* Added high contrast mode support */
   @media (prefers-contrast: high) {
     :root {
       --background: oklch(0 0 0);
@@ -181,34 +183,24 @@
     }
   }
 
-  /* Added zoom support for better accessibility */
-  @media (min-resolution: 2dppx) {
-    body {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-  }
-
-  /* Added ultra-wide screen support */
   @media (min-width: 2560px) {
     .container {
       max-width: 1920px;
     }
   }
 
-  /* Added small mobile device support (iPhone 5s) */
   @media (max-width: 320px) {
     body {
       font-size: 14px;
     }
 
     h1 {
-      font-size: 1.75rem !important;
+      font-size: 1.5rem !important;
       line-height: 1.2;
     }
 
     h2 {
-      font-size: 1.5rem !important;
+      font-size: 1.25rem !important;
       line-height: 1.3;
     }
 
@@ -218,14 +210,12 @@
     }
   }
 
-  /* Added tablet landscape orientation support */
   @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
     .hero-section {
       min-height: 80vh;
     }
   }
 
-  /* Added print styles */
   @media print {
     * {
       background: white !important;
@@ -264,7 +254,6 @@
     @apply backdrop-blur-xl bg-black/10 border border-white/10;
   }
 
-  /* Added marquee animations for tech elements */
   @keyframes marquee {
     0% {
       transform: translateX(0%);
@@ -296,7 +285,6 @@
     animation-play-state: paused;
   }
 
-  /* Enhanced existing animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
@@ -321,7 +309,6 @@
     animation: circuit 8s ease-in-out infinite;
   }
 
-  /* Enhanced responsive text utilities with better scaling */
   .text-responsive-xs {
     font-size: clamp(0.75rem, 2vw, 0.875rem);
   }
@@ -362,7 +349,6 @@
     font-size: clamp(3.75rem, 9vw, 5rem);
   }
 
-  /* Added container queries for component-level responsiveness */
   @container (max-width: 400px) {
     .card-responsive {
       padding: 1rem;
@@ -375,7 +361,6 @@
     }
   }
 
-  /* Added touch-friendly interactive elements */
   @media (hover: none) and (pointer: coarse) {
     .touch-target {
       min-height: 44px;
@@ -391,7 +376,6 @@
     }
   }
 
-  /* Added high contrast mode enhancements */
   @media (prefers-contrast: high) {
     .glass-morphism {
       background: rgba(255, 255, 255, 0.9);
@@ -407,7 +391,6 @@
     }
   }
 
-  /* Added screen reader utilities */
   .sr-only {
     position: absolute;
     width: 1px;
@@ -420,7 +403,6 @@
     border: 0;
   }
 
-  /* Added focus trap utility */
   .focus-trap {
     position: relative;
   }
@@ -435,13 +417,11 @@
     pointer-events: none;
   }
 
-  /* Added Roboto font utility class */
   .font-roboto {
     font-family: var(--font-roboto), sans-serif;
   }
 }
 
-/* Enhanced keyframe animations */
 @keyframes float {
   0%,
   100% {
@@ -515,7 +495,6 @@
   }
 }
 
-/* Added enhanced responsive breakpoints for various device sizes */
 @media (min-width: 320px) and (max-width: 374px) {
   .text-responsive {
     font-size: 0.875rem;
@@ -548,38 +527,5 @@
   .text-responsive {
     font-size: 1.5rem;
     line-height: 1.7;
-  }
-}
-
-/* Added zoom level support for 125%, 150%, and 200% */
-@media (min-resolution: 1.25dppx) {
-  body {
-    font-size: 18px;
-  }
-}
-
-@media (min-resolution: 1.5dppx) {
-  body {
-    font-size: 20px;
-  }
-
-  .glass {
-    backdrop-filter: blur(8px);
-  }
-
-  .text-responsive-xs {
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-  }
-  .text-responsive-sm {
-    font-size: clamp(1rem, 3vw, 1.125rem);
-  }
-  .text-responsive-base {
-    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
-  }
-}
-
-@media (min-resolution: 2dppx) {
-  body {
-    font-size: 22px;
   }
 }

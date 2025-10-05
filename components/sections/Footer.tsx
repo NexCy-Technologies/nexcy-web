@@ -2,14 +2,11 @@
 
 import { FaFacebook, FaWhatsapp, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa"
 
-const primaryLinks = [
+const navigationLinks = [
   { name: "Home", href: "/", section: "home" },
-  { name: "Contact us", href: "/contact", section: "contact" },
-]
-
-const secondaryLinks = [
-  { name: "How it works", href: "/services", section: "services" },
-  { name: "Privacy policy", href: "/about", section: "about" },
+  { name: "About", href: "/about", section: "about" },
+  { name: "Services", href: "/services", section: "services" },
+  { name: "Team", href: "/team", section: "team" },
 ]
 
 const socialLinks = [
@@ -45,13 +42,13 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-white border-t border-gray-200 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="bg-white border-t border-gray-200">
+      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8">
         {/* Main Content */}
-        <div className="py-12 sm:py-16 lg:py-20">
+        <div className="py-6 xs:py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20">
           {/* Hero Text */}
-          <div className="mb-12 lg:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+          <div className="mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-snug xs:leading-tight">
               Let's build something{" "}
               <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
                 amazing together
@@ -60,50 +57,36 @@ export default function Footer() {
           </div>
 
           {/* Links and Contact */}
-          <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8 sm:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 xs:gap-8 sm:gap-10 md:gap-6 lg:gap-8">
             {/* Logo and Copyright */}
-            <div className="flex-shrink-0">
-              <div className="flex items-center space-x-3 mb-6 sm:mb-8">
+            <div className="md:col-span-4 lg:col-span-3">
+              <div className="flex items-center gap-2 xs:gap-2.5 mb-3 xs:mb-4 sm:mb-5">
                 <img
                   src="/logo.png"
                   alt="NexCy Technologies"
-                  className="w-10 h-10 rounded-xl"
+                  className="w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg xs:rounded-xl flex-shrink-0"
                 />
                 <span 
-                  className="text-gray-900 font-bold text-2xl tracking-tight" 
+                  className="text-gray-900 font-bold text-base xs:text-lg sm:text-xl md:text-2xl tracking-tight" 
                   style={{ fontFamily: 'Geometr415 Blk BT, sans-serif' }}
                 >
                   NEXCY
                 </span>
               </div>
-              <div className="text-gray-600 text-sm space-y-1">
+              <div className="text-gray-600 text-xs sm:text-sm space-y-0.5">
                 <p>Copyright © {new Date().getFullYear()}</p>
                 <p className="text-gray-500">Big ideas. Smart solutions.</p>
               </div>
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 lg:gap-16">
-              {/* Column 1 */}
-              <div className="space-y-4">
-                {primaryLinks.map((link) => (
+            <div className="md:col-span-5 lg:col-span-6 flex justify-start md:justify-center">
+              <div className="flex flex-wrap gap-x-6 xs:gap-x-8 sm:gap-x-10 md:gap-x-6 lg:gap-x-8 xl:gap-x-10 gap-y-2 xs:gap-y-2.5 sm:gap-y-3">
+                {navigationLinks.map((link) => (
                   <button
                     key={link.name}
                     onClick={() => scrollToSection(link.section, link.href)}
-                    className="block text-gray-600 hover:text-orange-600 transition-colors duration-300 text-left text-sm sm:text-base"
-                  >
-                    {link.name}
-                  </button>
-                ))}
-              </div>
-
-              {/* Column 2 */}
-              <div className="space-y-4">
-                {secondaryLinks.map((link) => (
-                  <button
-                    key={link.name}
-                    onClick={() => scrollToSection(link.section, link.href)}
-                    className="block text-gray-600 hover:text-orange-600 transition-colors duration-300 text-left text-sm sm:text-base"
+                    className="text-gray-600 hover:text-orange-600 transition-colors duration-200 text-left text-xs xs:text-sm sm:text-base whitespace-nowrap"
                   >
                     {link.name}
                   </button>
@@ -112,10 +95,10 @@ export default function Footer() {
             </div>
 
             {/* Contact Button */}
-            <div className="flex-shrink-0">
+            <div className="md:col-span-3 md:flex md:justify-end md:items-start">
               <button
                 onClick={() => scrollToSection("contact", "/contact")}
-                className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-semibold px-6 sm:px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+                className="w-full md:w-auto bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-semibold px-4 xs:px-5 sm:px-6 md:px-5 lg:px-6 xl:px-8 py-2 xs:py-2.5 sm:py-3 rounded-md sm:rounded-lg text-xs xs:text-sm sm:text-base transition-all duration-200 hover:shadow-lg active:scale-95"
               >
                 CONTACT US
               </button>
@@ -123,11 +106,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Border */}
-        <div className="border-t border-gray-300 py-6 sm:py-8">
+        {/* Bottom Section */}
+        <div className="border-t border-gray-200 py-4 xs:py-5 sm:py-6">
           {/* Social Icons */}
           <div className="flex justify-center items-center">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-2.5 xs:gap-3 sm:gap-4">
               <span className="text-gray-600 text-xs sm:text-sm font-medium">Follow us:</span>
               {socialLinks.map((social) => (
                 <a
@@ -135,10 +118,10 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-orange-500 hover:text-orange-600 transition-colors duration-300"
+                  className="text-orange-500 hover:text-orange-600 transition-colors duration-200 p-1.5 xs:p-2 -m-1.5 xs:-m-2"
                   aria-label={social.name}
                 >
-                  <social.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <social.icon className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-5 sm:h-5" />
                 </a>
               ))}
             </div>

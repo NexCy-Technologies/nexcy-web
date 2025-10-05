@@ -439,7 +439,7 @@ export default function Contact() {
               <a href="mailto:contact@nexcy.lk">
                 <Button
                   variant="outline"
-                  className="w-full border-orange-300 text-orange-600 hover:bg-orange-50 hover:border-orange-400 transition-all duration-300 bg-transparent rounded-xl h-12"
+                  className="w-full border-orange-300 text-orange-600 hover:bg-orange-50 hover:border-orange-400 hover:text-black transition-all duration-300 bg-transparent rounded-xl h-12"
                 >
                   <FaEnvelope className="mr-2" />
                   Email Us

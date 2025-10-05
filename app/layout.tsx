@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     template: "%s | NexCy Technologies",
   },
   description:
-    "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
+    "NexCy Technologies provides web development, mobile apps, ERP/POS systems, AI/ML solutions, IoT development, and custom software solutions.",
   keywords:
-    "nexcy, nexcytech, technology, software company, software company sri lanka, it company, web, app, software, development, ERP, POS, mobile apps, ios apps, AI, ML, IoT",
+    "nexcy, nexcytech, technology, software company, web development, mobile apps, ERP, POS, AI, ML, IoT",
   authors: [{ name: "NexCy Technologies" }],
   creator: "NexCy Technologies",
   publisher: "NexCy Technologies",
@@ -33,16 +33,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
-  alternates: {
-    canonical: "https://nexcy.lk",
-  },
+  alternates: { canonical: "https://nexcy.lk" },
   category: "Technology",
   classification: "Business",
   other: {
-    "theme-color": "#1e3a8a",
+    "theme-color": "#ff6a00", // Updated orange theme
     "color-scheme": "dark",
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
@@ -63,7 +58,7 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <meta name="theme-color" content="#1e3a8a" />
+        <meta name="theme-color" content="#ff6a00" />
         <meta name="color-scheme" content="dark" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -86,7 +81,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/* JSON-LD Structured Data for SEO */}
+        {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -97,7 +92,7 @@ export default function RootLayout({
               url: "https://nexcy.lk",
               logo: "https://nexcy.lk/logo.png",
               description:
-                "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
+                "NexCy Technologies provides web development, mobile apps, ERP/POS systems, AI/ML solutions, IoT development, and custom software solutions.",
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "LK",
@@ -117,7 +112,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-roboto antialiased bg-black text-white min-h-screen">
+      <body className="font-roboto antialiased bg-gradient-to-br from-black via-orange-950 to-black text-white min-h-screen">
         {children}
       </body>
     </html>

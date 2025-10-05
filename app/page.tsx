@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "NexCy Technologies",
     description:
       "NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
-    url: "https://nexcy.lk/about",
+    url: "https://nexcy.lk",
     siteName: "NexCy Technologies",
     images: [
       {
@@ -126,44 +126,34 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="min-h-screen">
+      <div className="min-h-screen overflow-x-hidden">
         {/* Hero Section with dark background */}
-        <div className="bg-gradient-to-br from-black via-orange-950 to-black">
+        <div className="bg-gradient-to-br from-black via-orange-950 to-black" id="home">
           <Navigation />
-          <section id="home">
-            <Hero />
-          </section>
+          <Hero />
         </div>
 
         {/* Main content with light background */}
         <main id="main-content" tabIndex={-1} className="bg-[#fffaf5]">
           {/* About Section */}
-          <section id="about">
-            <LazySection>
-              <About />
-            </LazySection>
-          </section>
+          <LazySection>
+            <About />
+          </LazySection>
 
           {/* Services Section */}
-          <section id="services">
-            <LazySection>
-              <Services />
-            </LazySection>
-          </section>
+          <LazySection>
+            <Services />
+          </LazySection>
 
           {/* Team Section */}
-          <section id="team">
-            <LazySection>
-              <Team />
-            </LazySection>
-          </section>
+          <LazySection>
+            <Team />
+          </LazySection>
 
           {/* Contact Section */}
-          <section id="contact">
-            <LazySection>
-              <Contact />
-            </LazySection>
-          </section>
+          <LazySection>
+            <Contact />
+          </LazySection>
         </main>
 
         {/* Footer - separate from main content */}

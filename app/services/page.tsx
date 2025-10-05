@@ -5,10 +5,6 @@ import Navigation from "@/components/Navigation"
 import { LazySection } from "@/components/ui/lazy-section"
 import { SkipLink } from "@/components/ui/skip-link"
 
-const About = dynamic(() => import("@/components/sections/About"), {
-  loading: () => <div className="min-h-[400px] animate-pulse bg-white/5 rounded-lg" />,
-})
-
 const Services = dynamic(() => import("@/components/sections/Services"), {
   loading: () => <div className="min-h-[600px] animate-pulse bg-white/5 rounded-lg" />,
 })
@@ -26,23 +22,23 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
 })
 
 export const metadata: Metadata = {
-  title: "Our Team - NexCy Technologies",
+  title: "Services - NexCy Technologies",
   description:
-    "Meet the talented team behind NexCy Technologies - experienced developers and technology experts dedicated to your success.",
+    "Explore the innovative services offered by NexCy Technologies, including web development, mobile apps, ERP/POS systems, AI/ML solutions, IoT development, and custom software solutions.",
   keywords:
-    "nexcy team, our team, developers, designers, technology experts, software engineers, web developers, mobile app developers, experienced team",
+    "nexcy services, web development, mobile apps, ERP, POS, AI, ML, IoT, software solutions, technology company sri lanka",
   openGraph: {
-    title: "Our Team - NexCy Technologies",
+    title: "Services - NexCy Technologies",
     description:
-      "Meet the talented team behind NexCy Technologies - experienced developers and technology experts dedicated to your success.",
-    url: "https://nexcy.lk/team",
+      "Discover NexCy Technologies' services: modern web development, mobile applications, ERP/POS systems, AI/ML, IoT, and custom software solutions.",
+    url: "https://nexcy.lk/services",
     siteName: "NexCy Technologies",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "NexCy Technologies",
+        alt: "NexCy Technologies Services",
       },
     ],
     locale: "en_US",
@@ -50,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Team - NexCy Technologies",
+    title: "Services - NexCy Technologies",
     description:
-      "Meet the talented team behind NexCy Technologies - experienced developers and technology experts dedicated to your success.",
+      "Explore NexCy Technologies' services: web development, mobile apps, ERP/POS, AI/ML, IoT, and custom software solutions.",
     images: ["/og-image.jpg"],
   },
 }
@@ -64,7 +60,7 @@ const structuredData = {
   url: "https://nexcy.lk",
   logo: "https://nexcy.lk/logo.png",
   description:
-    "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
+    "Leading technology company providing web development, mobile apps, ERP/POS systems, AI/ML solutions, IoT development, and custom software solutions.",
   address: {
     "@type": "PostalAddress",
     addressCountry: "LK",
@@ -82,43 +78,19 @@ const structuredData = {
   ],
   offers: {
     "@type": "AggregateOffer",
-    offerCount: "6",
+    offerCount: 6,
     offers: [
-      {
-        "@type": "Offer",
-        name: "Web Development",
-        description: "Modern, responsive websites and web applications",
-      },
-      {
-        "@type": "Offer",
-        name: "Mobile App Development",
-        description: "Native Android and iOS applications",
-      },
-      {
-        "@type": "Offer",
-        name: "ERP/POS Systems",
-        description: "Enterprise resource planning and point-of-sale solutions",
-      },
-      {
-        "@type": "Offer",
-        name: "AI/ML Solutions",
-        description: "Intelligent systems powered by machine learning",
-      },
-      {
-        "@type": "Offer",
-        name: "IoT Development",
-        description: "Internet of Things solutions and smart automation",
-      },
-      {
-        "@type": "Offer",
-        name: "Software Development",
-        description: "Custom software solutions for businesses",
-      },
+      { "@type": "Offer", name: "Web Development", description: "Modern, responsive websites and web applications" },
+      { "@type": "Offer", name: "Mobile App Development", description: "Native Android and iOS applications" },
+      { "@type": "Offer", name: "ERP/POS Systems", description: "Enterprise resource planning and POS solutions" },
+      { "@type": "Offer", name: "AI/ML Solutions", description: "Intelligent systems powered by machine learning" },
+      { "@type": "Offer", name: "IoT Development", description: "IoT solutions enabling smart automation" },
+      { "@type": "Offer", name: "Software Development", description: "Custom software solutions for businesses" },
     ],
   },
 }
 
-export default function TeamPage() {
+export default function ServicesPage() {
   return (
     <>
       <SkipLink />
@@ -128,35 +100,29 @@ export default function TeamPage() {
       />
       <div className="min-h-screen bg-gradient-to-br from-black via-orange-950 to-black">
         <Navigation />
+
         <main id="main-content" tabIndex={-1}>
           {/* Hero Section */}
           <section id="home">
             <Hero />
           </section>
 
-          {/* About Section */}
-          <section id="about">
-            <LazySection>
-              <About />
-            </LazySection>
-          </section>
-
           {/* Services Section */}
-          <section id="services">
+          <section id="services" className="bg-[#fffaf5]">
             <LazySection>
               <Services />
             </LazySection>
           </section>
 
           {/* Team Section */}
-          <section id="team">
+          <section id="team" className="bg-[#fffaf5]">
             <LazySection>
               <Team />
             </LazySection>
           </section>
 
           {/* Contact Section */}
-          <section id="contact">
+          <section id="contact" className="bg-[#fffaf5]">
             <LazySection>
               <Contact />
             </LazySection>
