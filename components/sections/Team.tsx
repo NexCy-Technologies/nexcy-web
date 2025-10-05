@@ -53,7 +53,7 @@ export default function Team() {
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed px-4">
-            A group of yougsters embarking on an adventure doing what they enjoy the most. The people who make Nexcy what it is, with specilizatio's in different fields, working towards a common goal believing that hardwork can make the dream work.
+            A group of yougsters embarking on an adventure doing what they enjoy the most. The people who make Nexcy what it is, with specilization's in different fields, working towards a common goal believing that hardwork can make the dream work.
           </p>
         </motion.div>
 
@@ -202,7 +202,7 @@ export default function Team() {
         >
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">Ready to Work With Us?</h3>
           <p className="text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base px-4">
-            Let's discuss your project and see how our experienced team can help bring your vision to life.
+            Let's discuss your project and see how our team can help bring your vision to life.
           </p>
           <a href="mailto:contact@nexcy.lk">
             <Button

@@ -113,8 +113,7 @@ export default function Contact() {
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
-            Ready to transform your ideas into reality? Let's discuss your project and see how we can help you achieve
-            your goals.
+            Got an idea or just want to say hello? We'd love to hear from you! Feel free to reach out via the form or contact us directly through email or WhatsApp.
           </p>
         </motion.div>
 

@@ -43,7 +43,7 @@ export default function About() {
             </span>
           </h2>
           <p className="text-gray-700 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
-            Nexcy technologies is the home for a set of aspiring young minds that believe in the power of technology to create meaningful change. We are committed to driving innovation and is passionate about helping businesses thrive in the digital age.
+            Nexcy technologies is the home for a group of aspiring young minds that believe in the power of technology to create meaningful change. We are committed to driving innovation and is passionate about helping businesses thrive in the digital age.
           </p>
         </motion.div>
 
