@@ -10,7 +10,7 @@ const teamMembers = [
     role: "Frontend & Mobile Developer",
     email: "dinuka@nexcy.lk",
     github: "dinuka-lakshan",
-    bio: "Specialized in creating responsive web applications and cross-platform mobile apps with modern frameworks and cutting-edge technologies.",
+    bio: "Specialized in creating responsive web applications and cross-platform mobile apps with modern frameworks.The leader behind Nexcy's tech vision.",
     skills: ["React", "Next.js", "Flutter", "React Native", "JavaScript"],
     image: "/team/dinuka.png",
   },
@@ -19,7 +19,7 @@ const teamMembers = [
     role: "Backend & DevOps Engineer",
     email: "devindu@nexcy.lk",
     github: "devindu-dissanayake",
-    bio: "Expert in building scalable backend systems, cloud infrastructure, and implementing robust DevOps practices for seamless deployment and maintenance.",
+    bio: "Expert in building scalable backend systems, cloud infrastructure, and implementing robust DevOps practices for seamless deployment and maintenance. Your go to guy for all things backend and cloud.",
     skills: ["Node.js", "Python", "AWS", "Docker", "Kubernetes"],
     image: "/team/devindu.png",
   },
@@ -28,7 +28,7 @@ const teamMembers = [
     role: "UI/UX Designer",
     email: "kaviru@nexcy.lk",
     github: "kaviru-desilva",
-    bio: "Creative designer focused on crafting intuitive user experiences and beautiful interfaces that engage users and drive business results.",
+    bio: "Creative designer focused on crafting intuitive user experiences and beautiful interfaces that engage users and drive business results.The mind behind Nexcy's stunning designs.",
     skills: ["Figma", "Adobe XD", "UI Design", "UX Research", "Prototyping"],
     image: "/team/kaviru.png",
   },
@@ -53,8 +53,7 @@ export default function Team() {
             </span>
           </h2>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed px-4">
-            Our talented team of developers, designers, and engineers are passionate about creating exceptional digital
-            experiences that drive results.
+            A group of yougsters embarking on an adventure doing what they enjoy the most. The people who make Nexcy what it is, with specilizatio's in different fields, working towards a common goal believing that hardwork can make the dream work.
           </p>
         </motion.div>
 

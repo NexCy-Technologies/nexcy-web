@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FaRocket, FaBullseye } from "react-icons/fa";
 
 const aboutSummary = [
-  "Leveraging the latest technologies in web and mobile development we craft tailored solutions that meet your unique needs.",
+  "Leveraging the latest technologies in Web, Mobile, AI/ML and IoT development we craft tailored solutions that meet your unique needs.",
   "Continuous client support paving the way for future collaborations.",
   "Quality, affordability, and timely delivery in one package.",
 ];

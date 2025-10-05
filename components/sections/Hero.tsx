@@ -501,7 +501,7 @@ export default function HeroSection() {
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, { stiffness: 100, damping: 30 });
 
-  const heroHeader = "Built to last";
+  const heroHeader = "Your vision, Our mission.";
   const heroSubtext =
     "Empower your business with cutting-edge software, web, and app solutions. Make your mark in the digital landscape with solutions designed with scalability, performance, and impact in mind.";
 
