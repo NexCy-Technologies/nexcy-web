@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { FaRocket, FaBullseye } from "react-icons/fa";
 
 const aboutSummary = [
-  "Empower businesses with cutting-edge technology solutions that drive growth, efficiency, and innovation.",
-  "Deliver digital experiences that anticipate tomorrow's challenges.",
-  "AI-powered workflows, enterprise-grade security, agile methodology, and ongoing support ensure success."
+  "Leveraging the latest technologies in Web, Mobile, AI/ML and IoT development we craft tailored solutions that meet your unique needs.",
+  "Continuous client support paving the way for future collaborations.",
+  "Quality, affordability, and timely delivery in one package.",
 ];
 
 const features = [
@@ -16,7 +16,7 @@ const features = [
   },
   {
     title: "Client-Centric",
-    description: "Your success is our priority. We work closely to exceed your expectations.",
+    description: "Your success is our priority. Exceeding your expectations is what we thrive for.",
     icon: FaBullseye,
   },
 ];
@@ -43,7 +43,7 @@ export default function About() {
             </span>
           </h2>
           <p className="text-gray-700 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
-            Transforming businesses through innovative digital solutions, scalable software, and cutting-edge technology.
+            Nexcy technologies is the home for a group of aspiring young minds that believe in the power of technology to create meaningful change. We are committed to driving innovation and is passionate about helping businesses thrive in the digital age.
           </p>
         </motion.div>
 

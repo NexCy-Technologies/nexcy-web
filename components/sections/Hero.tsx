@@ -501,9 +501,9 @@ export default function HeroSection() {
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, { stiffness: 100, damping: 30 });
 
-  const heroHeader = "Build the Future with NexCy";
+  const heroHeader = "Your vision, Our mission.";
   const heroSubtext =
-    "Empowering businesses with cutting-edge software, web, and app solutions. Designed for scalability, performance, and unprecedented impact in the digital age.";
+    "Empower your business with cutting-edge software, web, and app solutions. Make your mark in the digital landscape with solutions designed with scalability, performance, and impact in mind.";
 
   // Scroll transforms
   const textY = useTransform(smoothScrollY, [0, 500], [0, -100]);
