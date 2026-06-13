@@ -1,23 +1,30 @@
 "use client";
+
 import { motion } from "framer-motion";
-import { FaRocket, FaBullseye } from "react-icons/fa";
 
-const aboutSummary = [
-  "Leveraging the latest technologies in Web, Mobile, AI/ML and IoT development we craft tailored solutions that meet your unique needs.",
-  "Continuous client support paving the way for future collaborations.",
-  "Quality, affordability, and timely delivery in one package.",
-];
-
-const features = [
+const manifesto = [
   {
-    title: "Innovation First",
-    description: "Leverage cutting-edge tech to deliver solutions that give you a competitive advantage.",
-    icon: FaRocket,
+    index: "01",
+    text: "Leveraging the latest in Web, Mobile, AI/ML and IoT — we craft tailored solutions that fit your exact needs.",
   },
   {
-    title: "Client-Centric",
-    description: "Your success is our priority. Exceeding your expectations is what we thrive for.",
-    icon: FaBullseye,
+    index: "02",
+    text: "Continuous support that doesn't end at launch, paving the way for long-term collaboration.",
+  },
+  {
+    index: "03",
+    text: "Quality, affordability, and timely delivery. Never a compromise — always a standard.",
+  },
+];
+
+const pillars = [
+  {
+    label: "Innovation First",
+    body: "We stay ahead of the curve so you don't have to. Every solution we build gives you a real competitive edge.",
+  },
+  {
+    label: "Client-Centric",
+    body: "Your success is the only metric we measure ourselves by. Exceeding expectations isn't a goal — it's the baseline.",
   },
 ];
 
@@ -25,68 +32,118 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-16 sm:py-20 md:py-24 lg:pt-32 px-4 sm:px-6 lg:px-12 bg-[#fffaf5] overflow-hidden"
+      className="relative py-16 sm:py-20 md:py-28 px-4 sm:px-6 lg:px-12 bg-[#fffaf5] overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
+
+        {/* ── Signature background word ── */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute left-1/2 top-8 -translate-x-1/2 text-[clamp(5rem,18vw,14rem)] font-black uppercase leading-none tracking-tighter text-orange-500/[0.04] whitespace-nowrap"
+        >
+          NEXCY
+        </span>
+
+        {/* ── Split layout ── */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mb-16 sm:mb-20">
+
+          {/* Left — editorial headline block */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:sticky lg:top-24"
+          >
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-5 sm:mb-6">
+              <div className="h-px w-8 bg-orange-400" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-orange-500">
+                Who We Are
+              </span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6 sm:mb-8">
+              Building the{" "}
+              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                digital future
+              </span>
+              , one product at a time.
+            </h2>
+
+            <p className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-md">
+              Nexcy Technologies is the home for a group of aspiring young minds
+              that believe in the power of technology to create meaningful
+              change — committed to driving innovation and helping businesses
+              thrive in the digital age.
+            </p>
+          </motion.div>
+
+          {/* Right — numbered manifesto */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            className="flex flex-col gap-0 divide-y divide-gray-100"
+          >
+            {manifesto.map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.55, delay: 0.2 + idx * 0.12 }}
+                className="group flex items-start gap-5 py-6 sm:py-7"
+              >
+                {/* Number */}
+                <span className="flex-shrink-0 text-xs font-bold text-orange-400 tracking-widest mt-0.5 group-hover:text-orange-600 transition-colors duration-300">
+                  {item.index}
+                </span>
+
+                {/* Thin vertical rule */}
+                <div className="flex-shrink-0 w-px self-stretch bg-orange-200 group-hover:bg-orange-400 transition-colors duration-300" />
+
+                {/* Text */}
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
+                  {item.text}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* ── Pillars bar ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="text-center mb-16 px-4 sm:px-6 lg:px-0"
+          viewport={{ once: true, margin: "-30px" }}
+          transition={{ duration: 0.75, delay: 0.1 }}
+          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white"
         >
-          <h2 className="text-xl sm:text-3xl lg:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6 leading-tight">
-            About{" "}
-            <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
-              NexCy Technologies
-            </span>
-          </h2>
-          <p className="text-gray-700 text-sm sm:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
-            Nexcy technologies is the home for a group of aspiring young minds that believe in the power of technology to create meaningful change. We are committed to driving innovation and is passionate about helping businesses thrive in the digital age.
-          </p>
-        </motion.div>
-
-        {/* About Summary Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative flex flex-col gap-4 p-8 rounded-2xl bg-white/20 backdrop-blur-3xl border border-white/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)] hover:shadow-2xl transition-all duration-500"
-        >
-          {aboutSummary.map((point, idx) => (
-            <div key={idx} className="flex items-start gap-3">
-              <div className="text-orange-500 text-lg sm:text-xl mt-1">•</div>
-              <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{point}</p>
-            </div>
+          {pillars.map((pillar, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.2 + idx * 0.1 }}
+              className="group px-7 py-7 sm:px-8 sm:py-8 hover:bg-orange-50 transition-colors duration-300"
+            >
+              {/* Orange top accent on hover */}
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-orange-400 group-hover:scale-125 transition-transform duration-300" />
+                <h4 className="text-sm sm:text-base font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">
+                  {pillar.label}
+                </h4>
+              </div>
+              <p className="text-gray-500 text-xs sm:text-sm leading-relaxed pl-4">
+                {pillar.body}
+              </p>
+            </motion.div>
           ))}
         </motion.div>
 
-        {/* Features */}
-        <div className="mt-16 grid md:grid-cols-2 gap-8">
-          {features.map((feature, idx) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.2 }}
-                className="relative flex items-start gap-4 p-6 bg-white/20 rounded-2xl border border-white/30 backdrop-blur-3xl shadow-md hover:shadow-xl cursor-pointer transition-all duration-500"
-              >
-                <div className="text-2xl sm:text-4xl text-orange-500 flex-shrink-0">
-                  <Icon />
-                </div>
-                <div className="relative z-10">
-                  <h4 className="text-base sm:text-xl font-semibold text-gray-900 mb-1">{feature.title}</h4>
-                  <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">{feature.description}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
       </div>
     </section>
   );

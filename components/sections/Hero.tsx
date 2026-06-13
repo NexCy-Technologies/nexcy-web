@@ -1,15 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { ArrowRight, ChevronDown } from "lucide-react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+} from "framer-motion";
+import Link from "next/link";
 
-// Glass Button Component
+// ── Types ────────────────────────────────────────────────────────────────────
+
 type GlassButtonProps = {
   children: React.ReactNode;
   variant?: "primary" | "outline";
   className?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+// ── GlassButton ───────────────────────────────────────────────────────────────
 
 const GlassButton = ({
   children,
@@ -17,677 +26,372 @@ const GlassButton = ({
   className = "",
   ...props
 }: GlassButtonProps) => {
-  const baseClasses =
-    "px-4 py-2 sm:px-5 sm:py-2.5 text-sm sm:text-base font-medium transition-all duration-300 backdrop-blur-sm border flex items-center gap-2 justify-center rounded-full";
-  const variantClasses = {
+  const base =
+    "px-5 py-2.5 text-sm sm:text-base font-medium transition-all duration-300 border flex items-center gap-2 justify-center rounded-full";
+  const variants = {
     primary:
-      "bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white border-orange-400/30 shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30",
+      "bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white border-transparent shadow-lg shadow-orange-400/30 hover:shadow-orange-500/40 hover:scale-105",
     outline:
-      "border-2 border-gray-300 text-gray-700 hover:bg-orange-400/10 hover:border-orange-400 backdrop-blur-md bg-white/50 hover:bg-white/70",
+      "border-gray-200 text-gray-700 bg-white hover:bg-orange-50 hover:border-orange-300 hover:text-orange-600 hover:scale-105",
   };
-
   return (
-    <button
-      className={`${baseClasses} ${variantClasses[variant]} ${className}`}
-      {...props}
-    >
+    <button className={`${base} ${variants[variant]} ${className}`} {...props}>
       {children}
     </button>
   );
 };
 
-// ScrambleText Component
-interface ScrambleTextProps {
-  text: string;
-  scrambleSpeed?: number;
-  characters?: string;
-  className?: string;
-  trigger?: boolean;
-}
+// ── ScrambleText ──────────────────────────────────────────────────────────────
+
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
 
 const ScrambleText = ({
   text,
-  scrambleSpeed = 50,
-  characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':,.<>/?",
+  trigger,
   className = "",
-  trigger = false,
-}: ScrambleTextProps) => {
-  const [display, setDisplay] = useState<string>("");
+  speed = 40,
+}: {
+  text: string;
+  trigger: boolean;
+  className?: string;
+  speed?: number;
+}) => {
+  const [display, setDisplay] = useState("");
 
   useEffect(() => {
     if (!trigger) return;
-    let currentIndex = 0;
-
-    const interval = window.setInterval(() => {
-      if (currentIndex >= text.length) {
-        setDisplay(text);
-        window.clearInterval(interval);
-        return;
-      }
-
-      const scrambled = text
-        .split("")
-        .map((char, idx) =>
-          idx < currentIndex
-            ? text[idx]
-            : characters[Math.floor(Math.random() * characters.length)]
-        )
-        .join("");
-
-      setDisplay(scrambled);
-      currentIndex += 1;
-    }, scrambleSpeed);
-
-    return () => window.clearInterval(interval);
-  }, [text, scrambleSpeed, characters, trigger]);
+    let i = 0;
+    const iv = setInterval(() => {
+      if (i >= text.length) { setDisplay(text); clearInterval(iv); return; }
+      setDisplay(
+        text.split("").map((c, idx) =>
+          idx < i ? text[idx] : CHARS[Math.floor(Math.random() * CHARS.length)]
+        ).join("")
+      );
+      i++;
+    }, speed);
+    return () => clearInterval(iv);
+  }, [trigger, text, speed]);
 
   return <span className={className}>{display}</span>;
 };
 
-// Professional Tech Background Component
-const TechBackground = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Geometric shapes */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full opacity-20"
-          style={{
-            background: `radial-gradient(circle, ${
-              ['#fb923c15', '#f9731615', '#ea580c12'][i % 3]
-            }, transparent 70%)`,
-            width: `${300 + i * 100}px`,
-            height: `${300 + i * 100}px`,
-            left: `${20 + i * 25}%`,
-            top: `${15 + i * 15}%`,
-            willChange: 'transform',
-          }}
-          animate={{
-            x: [0, 15, 0],
-            y: [0, -10, 0],
-          }}
-          transition={{
-            duration: 20 + i * 2,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-            delay: i * 1,
-          }}
-        />
-      ))}
+// ── Code lines shown in the editor card ──────────────────────────────────────
 
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="w-full h-full pointer-events-none"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(251, 146, 60, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(251, 146, 60, 0.1) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px'
-          }}
-        />
+const CODE_LINES = [
+  { tokens: [{ t: "const", c: "text-orange-400 font-semibold" }, { t: " project ", c: "text-gray-200" }, { t: "=", c: "text-orange-300" }, { t: " {", c: "text-gray-300" }] },
+  { tokens: [{ t: "  client:", c: "text-amber-300" }, { t: " 'Your Business',", c: "text-green-400" }] },
+  { tokens: [{ t: "  stack:", c: "text-amber-300" }, { t: " ['React', 'Node', 'AI'],", c: "text-green-400" }] },
+  { tokens: [{ t: "  delivery:", c: "text-amber-300" }, { t: " 'on-time',", c: "text-green-400" }] },
+  { tokens: [{ t: "  quality:", c: "text-amber-300" }, { t: " 'uncompromised',", c: "text-green-400" }] },
+  { tokens: [{ t: "}", c: "text-gray-300" }] },
+  { tokens: [] },
+  { tokens: [{ t: "async function", c: "text-orange-400 font-semibold" }, { t: " build", c: "text-blue-300" }, { t: "(project) {", c: "text-gray-300" }] },
+  { tokens: [{ t: "  const", c: "text-orange-400 font-semibold" }, { t: " result ", c: "text-gray-200" }, { t: "=", c: "text-orange-300" }, { t: " await", c: "text-purple-400" }] },
+  { tokens: [{ t: "    nexcy.ship(project);", c: "text-gray-300" }] },
+  { tokens: [{ t: "  return", c: "text-orange-400 font-semibold" }, { t: " result.success;", c: "text-gray-300" }] },
+  { tokens: [{ t: "}", c: "text-gray-300" }] },
+  { tokens: [] },
+  { tokens: [{ t: "// ✓ ", c: "text-gray-500" }, { t: "Built & deployed", c: "text-green-400" }] },
+];
+
+// ── Live typing code editor ───────────────────────────────────────────────────
+
+const CodeEditor = () => {
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [cursorLine, setCursorLine] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    let line = 0;
+    const next = () => {
+      if (line >= CODE_LINES.length) {
+        // pause then restart
+        timerRef.current = setTimeout(() => {
+          setVisibleLines(0);
+          setCursorLine(0);
+          line = 0;
+          next();
+        }, 3000);
+        return;
+      }
+      setVisibleLines(line + 1);
+      setCursorLine(line);
+      line++;
+      timerRef.current = setTimeout(next, CODE_LINES[line - 1].tokens.length === 0 ? 80 : 160);
+    };
+    timerRef.current = setTimeout(next, 800);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, []);
+
+  return (
+    <div className="w-full rounded-2xl overflow-hidden shadow-2xl shadow-gray-900/20 border border-gray-200/60">
+      {/* Title bar */}
+      <div className="bg-gray-800 px-4 py-3 flex items-center gap-2">
+        <div className="flex gap-1.5">
+          <div className="w-3 h-3 rounded-full bg-red-400/80" />
+          <div className="w-3 h-3 rounded-full bg-yellow-400/80" />
+          <div className="w-3 h-3 rounded-full bg-green-400/80" />
+        </div>
+        <span className="ml-2 text-xs text-gray-400 font-mono tracking-wide">
+          nexcy.project.ts
+        </span>
+        <span className="ml-auto flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-[10px] text-green-400 font-mono">live</span>
+        </span>
       </div>
 
-      {/* Tech particles */}
-      {[...Array(25)].map((_, i) => (
-        <motion.div
-          key={`tech-particle-${i}`}
-          className="absolute w-1 h-1 bg-orange-400/50 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            willChange: 'transform',
-          }}
-          animate={{
-            y: [0, -60, 0],
-            opacity: [0, 0.6, 0],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 3,
-            repeat: Infinity,
-            delay: Math.random() * 8,
-            ease: "easeOut",
-          }}
-        />
-      ))}
+      {/* Code area */}
+      <div className="bg-gray-900 px-5 py-5 font-mono text-sm leading-7 min-h-[260px]">
+        {CODE_LINES.slice(0, visibleLines).map((line, li) => (
+          <div key={li} className="flex items-center gap-4">
+            <span className="text-gray-600 text-xs w-4 text-right select-none flex-shrink-0">
+              {li + 1}
+            </span>
+            <span>
+              {line.tokens.map((tok, ti) => (
+                <span key={ti} className={tok.c}>{tok.t}</span>
+              ))}
+              {li === cursorLine && li === visibleLines - 1 && (
+                <motion.span
+                  animate={{ opacity: [1, 0, 1] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                  className="inline-block w-0.5 h-4 bg-orange-400 ml-0.5 align-middle"
+                />
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Status bar */}
+      <div className="bg-gray-800 px-4 py-1.5 flex items-center gap-4 text-[10px] font-mono text-gray-500">
+        <span className="text-orange-400">TypeScript</span>
+        <span>·</span>
+        <span>UTF-8</span>
+        <span className="ml-auto text-green-400">● No errors</span>
+      </div>
     </div>
   );
 };
 
-// Professional Data & Code Animation Component
-const TechAnimation = ({ scrollY }: { scrollY: any }) => {
-  const y = useTransform(scrollY, [0, 1000], [0, -50]);
-  const opacity = useTransform(scrollY, [0, 600], [1, 0.3]);
+// ── Subtle dot-grid background ────────────────────────────────────────────────
 
-  return (
-    <motion.div
-      style={{ y, opacity }}
-      className="relative w-full h-full flex items-center justify-center"
-    >
-      {/* Main system architecture container */}
-      <motion.div 
-        className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
-        style={{ willChange: 'transform' }}
-      >
-        
-        {/* Microservices architecture visualization */}
-        <motion.div className="absolute inset-0">
-          {/* Core application container */}
-          <motion.div 
-            className="absolute inset-8 bg-white/80 backdrop-blur-sm rounded-xl border-2 border-orange-200/50 shadow-lg"
-            animate={{
-              boxShadow: [
-                '0 4px 20px rgba(251, 146, 60, 0.1)',
-                '0 8px 30px rgba(251, 146, 60, 0.3)',
-                '0 4px 20px rgba(251, 146, 60, 0.1)',
-              ],
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            {/* Application layers */}
-            <div className="absolute inset-3 space-y-1">
-              {['Frontend', 'API Layer', 'Business Logic', 'Database'].map((layer, i) => (
-                <motion.div
-                  key={layer}
-                  className="h-6 bg-gradient-to-r from-orange-100 to-amber-100 rounded border border-orange-200/30 flex items-center px-2"
-                  animate={{
-                    backgroundColor: [
-                      'rgba(254, 215, 170, 0.5)',
-                      'rgba(251, 146, 60, 0.3)',
-                      'rgba(254, 215, 170, 0.5)',
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    delay: i * 0.5,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <div className="text-xs font-mono text-orange-700/80 truncate">
-                    {layer}
-                  </div>
-                  <motion.div
-                    className="ml-auto w-2 h-2 bg-orange-400 rounded-full"
-                    animate={{
-                      opacity: [0.3, 1, 0.3],
-                      scale: [0.8, 1.2, 0.8],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: i * 0.3,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+const Background = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {/* Radial glow */}
+    <div
+      className="absolute top-0 right-0 w-[600px] h-[600px] opacity-30"
+      style={{
+        background: "radial-gradient(circle at 70% 20%, #fb923c22 0%, transparent 65%)",
+      }}
+    />
+    <div
+      className="absolute bottom-0 left-0 w-[500px] h-[500px] opacity-20"
+      style={{
+        background: "radial-gradient(circle at 30% 80%, #f9731611 0%, transparent 65%)",
+      }}
+    />
+    {/* Dot grid */}
+    <div
+      className="absolute inset-0 opacity-[0.035]"
+      style={{
+        backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+      }}
+    />
+  </div>
+);
 
-          {/* External services and integrations */}
-          {[
-            { name: 'Database', pos: { x: -140, y: 0 }, icon: 'DB' },
-            { name: 'Auth Service', pos: { x: 140, y: 0 }, icon: 'AUTH' },
-            { name: 'File Storage', pos: { x: 0, y: -120 }, icon: 'S3' },
-            { name: 'Analytics', pos: { x: 0, y: 120 }, icon: 'DATA' },
-            { name: 'Email Service', pos: { x: -100, y: -80 }, icon: 'MAIL' },
-            { name: 'Payment API', pos: { x: 100, y: 80 }, icon: 'PAY' },
-          ].map((service, i) => (
-            <motion.div key={service.name} className="absolute">
-              {/* Connection line to main app */}
-              <motion.div
-                className="absolute bg-gradient-to-r from-orange-300 via-orange-400 to-orange-300 origin-center"
-                style={{
-                  width: `${Math.sqrt(service.pos.x ** 2 + service.pos.y ** 2)}px`,
-                  height: '2px',
-                  left: `calc(50% + ${service.pos.x > 0 ? 0 : service.pos.x}px)`,
-                  top: `calc(50% + ${service.pos.y > 0 ? 0 : service.pos.y}px)`,
-                  transform: `rotate(${Math.atan2(service.pos.y, service.pos.x) * 180 / Math.PI}deg)`,
-                  transformOrigin: '0 50%',
-                }}
-                animate={{
-                  opacity: [0.2, 0.8, 0.2],
-                  scaleX: [0.8, 1.1, 0.8],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: i * 0.4,
-                  ease: "easeInOut",
-                }}
-              />
+// ── Floating pill stat ────────────────────────────────────────────────────────
 
-              {/* Service node */}
-              <motion.div
-                className="absolute w-12 h-12 bg-gradient-to-br from-orange-400 to-amber-500 rounded-lg border-2 border-white shadow-lg flex flex-col items-center justify-center"
-                style={{
-                  left: `calc(50% + ${service.pos.x}px - 24px)`,
-                  top: `calc(50% + ${service.pos.y}px - 24px)`,
-                }}
-                animate={{
-                  scale: [1, 1.15, 1],
-                  rotate: [0, 5, -5, 0],
-                }}
-                transition={{
-                  duration: 4 + i * 0.3,
-                  repeat: Infinity,
-                  delay: i * 0.6,
-                  ease: "easeInOut",
-                }}
-                whileHover={{ scale: 1.3 }}
-              >
-                <div className="text-white text-xs font-mono font-bold leading-3">
-                  {service.icon}
-                </div>
-              </motion.div>
+const FloatPill = ({
+  label,
+  value,
+  delay,
+  className,
+}: {
+  label: string;
+  value: string;
+  delay: number;
+  className?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: [0, -6, 0] }}
+    transition={{
+      opacity: { duration: 0.5, delay },
+      y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay },
+    }}
+    className={`absolute bg-white border border-gray-100 rounded-xl px-3.5 py-2.5 shadow-lg shadow-gray-100 flex items-center gap-2.5 ${className}`}
+  >
+    <div className="w-2 h-2 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex-shrink-0" />
+    <div>
+      <p className="text-xs font-bold text-gray-900 leading-none mb-0.5">{value}</p>
+      <p className="text-[10px] text-gray-400 leading-none">{label}</p>
+    </div>
+  </motion.div>
+);
 
-              {/* Data flow indicators */}
-              <motion.div
-                className="absolute w-1 h-4 bg-gradient-to-t from-orange-400 to-transparent rounded-full"
-                style={{
-                  left: `calc(50% + ${service.pos.x * 0.7}px)`,
-                  top: `calc(50% + ${service.pos.y * 0.7}px)`,
-                }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0.5, 1.5, 0.5],
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+// ── Hero ──────────────────────────────────────────────────────────────────────
 
-        {/* API request visualization */}
-        <motion.div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => {
-            const angle = (i * 60) * Math.PI / 180;
-            const radius = 110;
-            return (
-              <motion.div
-                key={`api-request-${i}`}
-                className="absolute w-3 h-3 bg-orange-400 rounded-full"
-                style={{
-                  left: `calc(50% + ${Math.cos(angle) * radius}px - 6px)`,
-                  top: `calc(50% + ${Math.sin(angle) * radius}px - 6px)`,
-                }}
-                animate={{
-                  scale: [0, 1.5, 0],
-                  opacity: [0, 1, 0],
-                  x: [0, -Math.cos(angle) * 30, -Math.cos(angle) * 60],
-                  y: [0, -Math.sin(angle) * 30, -Math.sin(angle) * 60],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: i * 0.5,
-                  ease: "easeOut",
-                }}
-              />
-            );
-          })}
-        </motion.div>
-
-        {/* System status dashboard */}
-        <motion.div 
-          className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-lg border border-orange-200/50 p-3 shadow-lg"
-          animate={{
-            y: [0, -5, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <div className="flex items-center space-x-4">
-            <div className="text-center">
-              <motion.div 
-                className="text-lg font-mono font-bold text-orange-600"
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                99.9%
-              </motion.div>
-              <div className="text-xs text-orange-500/70">Uptime</div>
-            </div>
-            <div className="w-px h-8 bg-orange-200/50" />
-            <div className="text-center">
-              <motion.div 
-                className="text-lg font-mono font-bold text-orange-600"
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 2.5, repeat: Infinity }}
-              >
-                &lt;50ms
-              </motion.div>
-              <div className="text-xs text-orange-500/70">Response</div>
-            </div>
-            <div className="w-px h-8 bg-orange-200/50" />
-            <div className="text-center">
-              <motion.div 
-                className="w-3 h-3 bg-green-400 rounded-full mx-auto"
-                animate={{
-                  backgroundColor: ['#4ade80', '#22c55e', '#4ade80'],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <div className="text-xs text-orange-500/70">Status</div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Code deployment pipeline */}
-        <motion.div 
-          className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-lg border border-orange-200/50 p-2 shadow-lg"
-          animate={{
-            y: [0, 3, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          <div className="flex space-x-1">
-            {['Code', 'Test', 'Build', 'Deploy'].map((stage, i) => (
-              <motion.div
-                key={stage}
-                className="px-3 py-1 text-xs font-mono font-medium rounded-md"
-                animate={{
-                  backgroundColor: [
-                    'rgba(251, 146, 60, 0.1)',
-                    'rgba(251, 146, 60, 0.6)',
-                    'rgba(34, 197, 94, 0.6)',
-                    'rgba(251, 146, 60, 0.1)',
-                  ],
-                  color: [
-                    'rgba(234, 88, 12, 0.7)',
-                    'rgba(255, 255, 255, 1)',
-                    'rgba(255, 255, 255, 1)',
-                    'rgba(234, 88, 12, 0.7)',
-                  ],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  delay: i * 0.8,
-                  ease: "easeInOut",
-                }}
-              >
-                {stage}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Real-time performance metrics */}
-        <motion.div className="absolute -right-20 top-1/2 transform -translate-y-1/2">
-          <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-orange-200/50 p-3 shadow-lg">
-            <div className="text-xs font-mono text-orange-600/80 mb-2 text-center">
-              Live Metrics
-            </div>
-            <div className="flex items-end justify-center space-x-1 h-12">
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={`metric-${i}`}
-                  className="bg-gradient-to-t from-orange-500 to-amber-400 rounded-sm w-2"
-                  animate={{
-                    height: [`${15 + Math.sin(Date.now() * 0.001 + i) * 10}px`],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                    ease: "easeInOut",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Security & compliance indicator */}
-        <motion.div className="absolute -left-20 top-1/2 transform -translate-y-1/2">
-          <motion.div
-            className="bg-white/90 backdrop-blur-sm rounded-lg border border-orange-200/50 p-3 shadow-lg text-center"
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <motion.div
-              className="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center mx-auto mb-1"
-              animate={{
-                rotate: [0, 360],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-            >
-              <div className="text-white text-xs">🔒</div>
-            </motion.div>
-            <div className="text-xs font-mono text-orange-600/80">
-              Secure
-            </div>
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  );
-};
-
-// Hero Section
 export default function HeroSection() {
-  const [loading, setLoading] = React.useState(true);
-  const [progress, setProgress] = React.useState(0);
-  const [showScramble, setShowScramble] = React.useState(false);
-
+  const [scramble, setScramble] = useState(false);
   const { scrollY } = useScroll();
-  const smoothScrollY = useSpring(scrollY, { stiffness: 50, damping: 25 });
+  const smooth = useSpring(scrollY, { stiffness: 50, damping: 25 });
+  const textY = useTransform(smooth, [0, 500], [0, -80]);
+  const textOpacity = useTransform(smooth, [0, 350], [1, 0]);
 
-  const heroHeader = "Your vision, Our mission.";
-  const heroSubtext =
-    "Empower your business with cutting-edge software, web, and app solutions. Make your mark in the digital landscape with solutions designed with scalability, performance, and impact in mind.";
-
-  // Scroll transforms
-  const textY = useTransform(smoothScrollY, [0, 500], [0, -100]);
-  const textOpacity = useTransform(smoothScrollY, [0, 300], [1, 0]);
-  const backgroundY = useTransform(smoothScrollY, [0, 1000], [0, -200]);
-
-  // Faster Loader
   useEffect(() => {
-    let interval: number;
-    if (loading) {
-      interval = window.setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            window.clearInterval(interval);
-            setTimeout(() => {
-              setLoading(false);
-              setShowScramble(true);
-            }, 100);
-            return 100;
-          }
-          return prev + 3.33;
-        });
-      }, 10);
-    }
-    return () => window.clearInterval(interval);
-  }, [loading]);
+    const t = setTimeout(() => setScramble(true), 300);
+    return () => clearTimeout(t);
+  }, []);
+
+  const headline = "Your vision,\nOur mission.";
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#fffaf5]">
-      {/* Professional Tech Background */}
-      <motion.div style={{ y: backgroundY }}>
-        <TechBackground />
-      </motion.div>
+    <section className="relative min-h-screen bg-[#fffaf5] overflow-hidden flex items-center">
+      <Background />
 
-      {/* Loading Screen - Clean and Professional */}
-      <AnimatePresence>
-        {loading && (
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full">
+
+          {/* ── Left: copy ── */}
           <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ 
-              opacity: 0,
-            }}
-            transition={{ 
-              duration: 0.5,
-              ease: "easeOut"
-            }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#fffaf5]"
+            style={{ y: textY, opacity: textOpacity }}
+            className="flex flex-col gap-5 sm:gap-6 text-center lg:text-left"
           >
-            <div className="relative mb-8">
-              <div className="w-24 h-24 rounded-full border-4 border-gray-200"></div>
-              
-              <svg 
-                className="absolute top-0 left-0 w-24 h-24 transform -rotate-90"
-                viewBox="0 0 96 96"
-              >
-                <circle
-                  cx="48"
-                  cy="48"
-                  r="44"
-                  stroke="url(#tech-gradient)"
-                  strokeWidth="4"
-                  fill="none"
-                  strokeDasharray={276.46}
-                  strokeDashoffset={276.46 - (276.46 * progress) / 100}
-                  className="transition-all duration-100 ease-linear"
-                  strokeLinecap="round"
-                />
-                <defs>
-                  <linearGradient id="tech-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#fb923c" />
-                    <stop offset="50%" stopColor="#f97316" />
-                    <stop offset="100%" stopColor="#ea580c" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                  opacity: [0.8, 1, 0.8]
-                }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute top-1/2 left-1/2 w-2 h-2 bg-orange-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"
-              />
-            </div>
-
+            {/* Eyebrow */}
             <motion.div
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ 
-                duration: 1.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              className="text-center"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex items-center gap-2 justify-center lg:justify-start"
             >
-              <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600 font-mono mb-2">
-                {progress}%
-              </div>
-              <div className="text-gray-600 text-sm font-medium">
-                Initializing System...
-              </div>
+              <div className="h-px w-6 bg-orange-400" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-orange-500">
+                Nexcy Technologies
+              </span>
+            </motion.div>
+
+            {/* Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-[clamp(2.2rem,6vw,4.5rem)] font-extrabold leading-[1.08] text-gray-900 tracking-tight"
+            >
+              <ScrambleText
+                text="Your vision,"
+                trigger={scramble}
+                speed={38}
+                className="block"
+              />
+              <ScrambleText
+                text="Our mission."
+                trigger={scramble}
+                speed={38}
+                className="block bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent"
+              />
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="text-gray-500 text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0"
+            >
+              Empower your business with cutting-edge web, mobile, and AI
+              solutions — built for scalability, performance, and real impact.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 1.1 }}
+              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
+            >
+              <Link href="/contact">
+                <GlassButton variant="primary" className="w-full sm:w-auto">
+                  <span>Get Started</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </GlassButton>
+              </Link>
+              <Link href="#services">
+                <GlassButton variant="outline" className="w-full sm:w-auto">
+                  Explore Solutions
+                </GlassButton>
+              </Link>
+            </motion.div>
+
+            {/* Inline trust bar */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+              className="flex items-center gap-5 justify-center lg:justify-start pt-2"
+            >
+              {[
+                { v: "10+", l: "Projects" },
+                { v: "100%", l: "Satisfaction" },
+                { v: "24/7", l: "Support" },
+              ].map((s, i) => (
+                <React.Fragment key={s.l}>
+                  {i > 0 && <div className="w-px h-6 bg-gray-200" />}
+                  <div className="text-center lg:text-left">
+                    <p className="text-sm font-bold text-gray-900 leading-none mb-0.5">{s.v}</p>
+                    <p className="text-[10px] text-gray-400 uppercase tracking-wide">{s.l}</p>
+                  </div>
+                </React.Fragment>
+              ))}
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Hero Content */}
-      <AnimatePresence>
-        {!loading && (
+          {/* ── Right: code editor + floating pills ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-            style={{ opacity: textOpacity }}
-            className="relative z-10 min-h-screen flex items-center"
+            initial={{ opacity: 0, x: 30, scale: 0.97 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+            className="relative flex items-center justify-center px-4 sm:px-8 lg:px-0"
           >
-            <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-screen">
-                {/* Left Content */}
-                <motion.div 
-                  style={{ y: textY }}
-                  className="flex flex-col justify-center space-y-4 sm:space-y-6 text-center lg:text-left pt-16 lg:pt-0"
-                >
-                  <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight font-mono">
-                    <ScrambleText
-                      text={heroHeader}
-                      scrambleSpeed={40}
-                      characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;':,.<>/?"
-                      trigger={showScramble}
-                      className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-orange-600 to-orange-500"
-                    />
-                  </h1>
+            {/* Floating pills — positioned relative to editor */}
+            <div className="relative w-full max-w-md lg:max-w-none">
+              <FloatPill
+                value="< 50ms"
+                label="Response time"
+                delay={1.6}
+                className="-top-4 -right-2 sm:-right-6 z-10"
+              />
+              <FloatPill
+                value="99.9%"
+                label="Uptime SLA"
+                delay={2.0}
+                className="-bottom-4 -left-2 sm:-left-6 z-10"
+              />
 
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.5 }}
-                    className="text-gray-600 text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0"
-                  >
-                    {heroSubtext}
-                  </motion.p>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.8 }}
-                    className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
-                  >
-                    <GlassButton
-                      variant="primary"
-                      className="group transform hover:scale-105 w-full sm:w-auto"
-                    >
-                      <span>Get Started</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </GlassButton>
-
-                    <GlassButton
-                      variant="outline"
-                      className="group transform hover:scale-105 w-full sm:w-auto"
-                    >
-                      <span>Explore Solutions</span>
-                    </GlassButton>
-                  </motion.div>
-                </motion.div>
-
-                {/* Right Content - Professional Tech Animation */}
-                <motion.div
-                  initial={{ opacity: 0, x: 50, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 1.2 }}
-                  className="flex items-center justify-center h-96 sm:h-[500px] lg:h-full lg:min-h-[600px] relative"
-                >
-                  <TechAnimation scrollY={smoothScrollY} />
-                </motion.div>
-              </div>
+              <CodeEditor />
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
+      >
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown className="w-5 h-5 text-gray-300" />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
