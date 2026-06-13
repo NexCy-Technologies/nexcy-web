@@ -467,7 +467,7 @@ export default function Services() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="text-center mt-12 sm:mt-16"
         >
-          <Link href="/contact">
+          <Link href="/#contact">
             <Button
               size="lg"
               className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105"

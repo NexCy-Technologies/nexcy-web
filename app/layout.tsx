@@ -54,14 +54,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable} scroll-smooth`}>
+    <html lang="en" className={`${roboto.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
         <meta name="theme-color" content="#ff6a00" />
-        <meta name="color-scheme" content="dark" />
+        <meta name="color-scheme" content="light dark" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
@@ -114,8 +114,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-roboto antialiased bg-white dark:bg-black text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <body className="font-roboto antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
           <ThemeToggle />
         </ThemeProvider>

@@ -314,13 +314,13 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 1.1 }}
               className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
             >
-              <Link href="/contact">
+              <Link href="/#contact">
                 <GlassButton variant="primary" className="w-full sm:w-auto">
                   <span>Get Started</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </GlassButton>
               </Link>
-              <Link href="#services">
+              <Link href="/#services">
                 <GlassButton variant="outline" className="w-full sm:w-auto">
                   Explore Solutions
                 </GlassButton>
