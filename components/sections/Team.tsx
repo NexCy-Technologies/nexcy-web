@@ -27,10 +27,11 @@ const teamMembers = [
   },
 ]
 
-const stats = [
-  { value: "🔥", label: "Passion-Driven", description: "We build things we're proud of" },
-  { value: "🎯", label: "Detail-Obsessed", description: "Every pixel, every line of code" },
-  { value: "🚀", label: "Ship-First", description: "Ideas turned into products fast" },
+const values = [
+  { label: "Passion-Driven", description: "We build things we're proud of" },
+  { label: "Detail-Obsessed", description: "Every pixel, every line of code" },
+  { label: "Ship-First", description: "Ideas into products, fast" },
+  { label: "Client-Focused", description: "Your success is our benchmark" },
 ]
 
 export default function Team() {
@@ -149,34 +150,33 @@ export default function Team() {
           ))}
         </div>
 
-        {/* ── Stats row ── */}
+        {/* ── Values strip ── */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-3 gap-3 sm:gap-6 mb-14 sm:mb-20"
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mb-14 sm:mb-20"
         >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-              className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300"
-            >
-              <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">
-                {stat.value}
-              </div>
-              <div className="text-gray-900 font-bold text-xs sm:text-sm md:text-base leading-tight mb-1 sm:mb-1.5">
-                {stat.label}
-              </div>
-              <div className="text-gray-400 text-[10px] sm:text-xs leading-snug hidden sm:block">
-                {stat.description}
-              </div>
-            </motion.div>
-          ))}
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white">
+            {values.map((v, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
+                className="px-5 py-5 sm:px-6 sm:py-6 group hover:bg-orange-50 transition-colors duration-300"
+              >
+                <p className="text-sm sm:text-base font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors duration-300">
+                  {v.label}
+                </p>
+                <p className="text-xs text-gray-400 leading-relaxed">
+                  {v.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* ── CTA ── */}
