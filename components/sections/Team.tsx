@@ -28,9 +28,9 @@ const teamMembers = [
 ]
 
 const stats = [
-  { value: "100%", label: "Cloud Native", description: "Scalable architecture" },
-  { value: "Zero", label: "Downtime Deploy", description: "Seamless updates" },
-  { value: "24/7", label: "Support Available", description: "Always here to help" },
+  { value: "🔥", label: "Passion-Driven", description: "We build things we're proud of" },
+  { value: "🎯", label: "Detail-Obsessed", description: "Every pixel, every line of code" },
+  { value: "🚀", label: "Ship-First", description: "Ideas turned into products fast" },
 ]
 
 export default function Team() {
@@ -166,13 +166,13 @@ export default function Team() {
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300"
             >
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent mb-1 sm:mb-2">
+              <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">
                 {stat.value}
               </div>
-              <div className="text-gray-800 font-semibold text-[11px] sm:text-xs md:text-sm leading-tight mb-0.5 sm:mb-1">
+              <div className="text-gray-900 font-bold text-xs sm:text-sm md:text-base leading-tight mb-1 sm:mb-1.5">
                 {stat.label}
               </div>
-              <div className="text-gray-400 text-[10px] sm:text-xs hidden sm:block">
+              <div className="text-gray-400 text-[10px] sm:text-xs leading-snug hidden sm:block">
                 {stat.description}
               </div>
             </motion.div>
