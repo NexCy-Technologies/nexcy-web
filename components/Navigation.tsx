@@ -3,356 +3,298 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { GlassCard } from "@/components/ui/glass-card"
 
 const navItems = [
-  { name: "Home", section: "home" },
-  { name: "About", section: "about" },
+  { name: "Home",     section: "home" },
+  { name: "About",   section: "about" },
   { name: "Services", section: "services" },
-  { name: "Team", section: "team" },
+  { name: "Team",    section: "team" },
 ]
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [isScrolled,       setIsScrolled]       = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
-  const [isNavigating, setIsNavigating] = useState(false)
+  const [activeSection,    setActiveSection]    = useState("home")
+  const [isNavigating,     setIsNavigating]     = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 24)
       if (isNavigating) return
 
       const sections = ["home", "about", "services", "team", "contact"]
-      let currentSection = "home"
-      
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          const elementTop = rect.top
-          const elementBottom = rect.bottom
-          const viewportHeight = window.innerHeight
-          
-          if (elementTop <= viewportHeight * 0.3 && elementBottom >= viewportHeight * 0.3) {
-            currentSection = section
+      for (const id of sections) {
+        const el = document.getElementById(id)
+        if (el) {
+          const { top, bottom } = el.getBoundingClientRect()
+          const vh = window.innerHeight
+          if (top <= vh * 0.35 && bottom >= vh * 0.35) {
+            if (id !== activeSection) {
+              setActiveSection(id)
+              window.history.replaceState(null, "", id === "home" ? "/" : `/#${id}`)
+            }
             break
           }
         }
       }
-      
-      if (currentSection !== activeSection) {
-        setActiveSection(currentSection)
-        const newUrl = currentSection === "home" ? "/" : `/#${currentSection}`
-        window.history.replaceState(null, "", newUrl)
-      }
     }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
   }, [activeSection, isNavigating])
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollTo = (sectionId: string) => {
     setIsMobileMenuOpen(false)
     setIsNavigating(true)
-    
-    const element = document.getElementById(sectionId)
-    if (element) {
+    const el = document.getElementById(sectionId)
+    if (el) {
       setActiveSection(sectionId)
-      const newUrl = sectionId === "home" ? "/" : `/#${sectionId}`
-      window.history.pushState(null, "", newUrl)
-      element.scrollIntoView({ behavior: "smooth" })
-      setTimeout(() => {
-        setIsNavigating(false)
-      }, 1000)
+      window.history.pushState(null, "", sectionId === "home" ? "/" : `/#${sectionId}`)
+      el.scrollIntoView({ behavior: "smooth" })
+      setTimeout(() => setIsNavigating(false), 1000)
     }
-  }
-
-  const isActive = (section: string) => {
-    return activeSection === section
   }
 
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 no-print",
-        isScrolled ? "py-2 sm:py-3" : "py-3 sm:py-4"
-      )}
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <div className={cn(
-        "absolute inset-0 transition-all duration-500",
-        isScrolled ? "opacity-100" : "opacity-0"
-      )}>
-        <div className="w-full h-full bg-[#fffaf5]/80 backdrop-blur-xl border-b border-orange-200/30 shadow-lg shadow-orange-500/5" />
-        <div className="absolute inset-0 bg-gradient-to-b from-orange-50/50 to-transparent" />
-      </div>
+    <>
+      <motion.nav
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 no-print"
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        {/* ── Glass bar ── */}
+        <div
+          className={cn(
+            "transition-all duration-500",
+            isScrolled ? "py-2 sm:py-2.5" : "py-3 sm:py-4"
+          )}
+        >
+          {/* Background layer — clean white glass, not warm tinted */}
+          <div
+            className={cn(
+              "absolute inset-0 transition-all duration-500",
+              isScrolled
+                ? "bg-white/75 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
+                : "bg-transparent"
+            )}
+          />
 
-      <div className="relative container mx-auto px-3 sm:px-4 lg:px-8">
-        <div className="flex items-center justify-between w-full">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          >
-            <button
-              onClick={() => scrollToSection("home")}
-              className="flex items-center space-x-2 group touch-target flex-shrink-0"
-              aria-label="NexCy Technologies home"
-            >
-              <img
-                src="/logo.png"
-                alt="NexCy Technologies logo"
-                className="w-8 h-8 sm:w-10 sm:h-10 object-contain group-hover:scale-110 transition-transform duration-300"
-              />
-              <span className="text-gray-900 font-bold text-lg sm:text-xl group-hover:text-orange-600 transition-colors duration-300" style={{ fontFamily: 'Geometr415 Blk BT, sans-serif' }}>
-                NEXCY
-              </span>
-            </button>
-          </motion.div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex items-center space-x-8"
-              role="menubar"
-            >
-              {navItems.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                >
-                  <button
-                    onClick={() => scrollToSection(item.section)}
-                    role="menuitem"
-                    className={cn(
-                      "text-sm font-medium transition-all duration-300 touch-target relative",
-                      "hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2 px-1 py-2",
-                      isActive(item.section)
-                        ? "text-orange-600 font-semibold"
-                        : "text-gray-700"
-                    )}
-                    aria-current={isActive(item.section) ? "page" : undefined}
-                  >
-                    <span className="relative z-10">{item.name}</span>
-                    {isActive(item.section) && (
-                      <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-500"
-                        layoutId="activeTab"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    )}
-                  </button>
-                </motion.div>
-              ))}
-              
-              <motion.div
-                initial={{ y: -20, opacity: 0, scale: 0.9 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.7, type: "spring", stiffness: 200 }}
+              {/* Logo */}
+              <motion.button
+                onClick={() => scrollTo("home")}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="flex items-center gap-2 group flex-shrink-0"
+                aria-label="Nexcy Technologies home"
               >
-                <button
-                  onClick={() => scrollToSection("contact")}
+                <img
+                  src="/logo.png"
+                  alt="Nexcy logo"
+                  className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
+                />
+                <span
+                  className="text-gray-900 font-black text-lg sm:text-xl tracking-tight group-hover:text-orange-500 transition-colors duration-300"
+                  style={{ fontFamily: "Geometr415 Blk BT, sans-serif" }}
+                >
+                  NEXCY
+                </span>
+              </motion.button>
+
+              {/* Desktop links */}
+              <div className="hidden md:flex items-center gap-1">
+                {/* Nav pill container */}
+                <div
                   className={cn(
-                    "px-6 py-2.5 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600",
-                    "text-white font-semibold text-sm rounded-lg touch-target relative overflow-hidden",
-                    "shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30",
-                    "transition-all duration-300 transform hover:scale-105",
-                    "focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2",
-                    isActive("contact") ? "ring-2 ring-orange-300" : ""
+                    "flex items-center gap-1 px-2 py-1.5 rounded-full transition-all duration-500",
+                    isScrolled
+                      ? "bg-gray-100/80 backdrop-blur-sm"
+                      : "bg-white/20 backdrop-blur-sm border border-white/30"
                   )}
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                    animate={{ x: ["-100%", "100%"] }}
-                    transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
+                  {navItems.map((item) => (
+                    <button
+                      key={item.name}
+                      onClick={() => scrollTo(item.section)}
+                      className={cn(
+                        "relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-300",
+                        activeSection === item.section
+                          ? "text-white"
+                          : "text-gray-600 hover:text-gray-900"
+                      )}
+                    >
+                      {activeSection === item.section && (
+                        <motion.div
+                          layoutId="activeDesktopPill"
+                          className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full shadow-md shadow-orange-300/40"
+                          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                      <span className="relative z-10">{item.name}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Contact CTA */}
+                <motion.button
+                  onClick={() => scrollTo("contact")}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  className={cn(
+                    "ml-3 px-5 py-2 text-sm font-semibold rounded-full relative overflow-hidden",
+                    "bg-gradient-to-r from-orange-400 to-orange-500",
+                    "hover:from-orange-500 hover:to-orange-600",
+                    "text-white shadow-md shadow-orange-400/30",
+                    "transition-all duration-300",
+                    activeSection === "contact" && "ring-2 ring-orange-300 ring-offset-1"
+                  )}
+                >
+                  {/* Shimmer */}
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent"
+                    animate={{ x: ["-100%", "150%"] }}
+                    transition={{ repeat: Infinity, duration: 2.8, ease: "linear", repeatDelay: 1 }}
                   />
                   <span className="relative z-10">Contact Us</span>
-                </button>
-              </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Mobile menu toggle */}
-          <div className="md:hidden flex-shrink-0">
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2.5 text-gray-700 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:ring-offset-2 touch-target transition-all duration-300"
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-              aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            >
-              <div className="w-6 h-6 flex flex-col justify-center items-center">
-                <motion.span
-                  className="block w-5 h-0.5 bg-current transition-all duration-300"
-                  animate={{
-                    rotate: isMobileMenuOpen ? 45 : 0,
-                    y: isMobileMenuOpen ? 2 : -2
-                  }}
-                />
-                <motion.span
-                  className="block w-5 h-0.5 bg-current transition-all duration-300"
-                  animate={{
-                    opacity: isMobileMenuOpen ? 0 : 1
-                  }}
-                />
-                <motion.span
-                  className="block w-5 h-0.5 bg-current transition-all duration-300"
-                  animate={{
-                    rotate: isMobileMenuOpen ? -45 : 0,
-                    y: isMobileMenuOpen ? -2 : 2
-                  }}
-                />
+                </motion.button>
               </div>
-            </motion.button>
+
+              {/* Mobile hamburger */}
+              <motion.button
+                whileTap={{ scale: 0.93 }}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden p-2 rounded-xl text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400/50"
+                aria-expanded={isMobileMenuOpen}
+                aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              >
+                <div className="w-5 h-5 flex flex-col justify-center gap-1.5">
+                  <motion.span
+                    className="block h-0.5 bg-current rounded-full"
+                    animate={{ rotate: isMobileMenuOpen ? 45 : 0, y: isMobileMenuOpen ? 8 : 0 }}
+                    transition={{ duration: 0.22 }}
+                  />
+                  <motion.span
+                    className="block h-0.5 bg-current rounded-full"
+                    animate={{ opacity: isMobileMenuOpen ? 0 : 1, scaleX: isMobileMenuOpen ? 0 : 1 }}
+                    transition={{ duration: 0.22 }}
+                  />
+                  <motion.span
+                    className="block h-0.5 bg-current rounded-full"
+                    animate={{ rotate: isMobileMenuOpen ? -45 : 0, y: isMobileMenuOpen ? -8 : 0 }}
+                    transition={{ duration: 0.22 }}
+                  />
+                </div>
+              </motion.button>
+            </div>
           </div>
         </div>
-      </div>
+      </motion.nav>
 
-      {/* Mobile menu overlay */}
+      {/* ── Mobile menu overlay ── */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            key="overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-gray-900/20 backdrop-blur-md z-40 md:hidden"
+            className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-40 md:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
-            aria-hidden="true"
           />
         )}
       </AnimatePresence>
 
-      {/* Mobile menu */}
+      {/* ── Mobile slide-in panel ── */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            key="panel"
             initial={{ x: "100%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "100%", opacity: 0 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 30,
-              duration: 0.3
-            }}
-            id="mobile-menu"
-            className="fixed top-0 right-0 h-full w-72 xs:w-80 max-w-[85vw] z-50 md:hidden"
+            transition={{ type: "spring", stiffness: 320, damping: 34 }}
+            className="fixed top-0 right-0 h-full w-72 max-w-[85vw] z-50 md:hidden"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="mobile-menu-title"
           >
-            <GlassCard className="h-full rounded-none rounded-l-2xl xs:rounded-l-3xl p-4 xs:p-5 sm:p-6 bg-[#fffaf5]/95 backdrop-blur-2xl border-l border-orange-200/50 shadow-2xl shadow-orange-500/10">
-              <div className="flex flex-col h-full">
-                {/* Close button - faster animation */}
-                <div className="flex justify-between items-center mb-6 xs:mb-8">
-                  <motion.h2 
-                    initial={{ x: 20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: 0.05, duration: 0.2 }}
-                    id="mobile-menu-title" 
-                    className="text-gray-900 font-bold text-lg xs:text-xl bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent"
+            {/* Glass panel */}
+            <div className="h-full bg-white/90 backdrop-blur-2xl border-l border-gray-200/60 shadow-2xl shadow-black/10 rounded-l-3xl flex flex-col p-6">
+
+              {/* Header */}
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-2">
+                  <img src="/logo.png" alt="Nexcy" className="w-7 h-7 object-contain" />
+                  <span
+                    className="font-black text-base text-gray-900"
+                    style={{ fontFamily: "Geometr415 Blk BT, sans-serif" }}
                   >
-                    Menu
-                  </motion.h2>
-                  <motion.button
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.05, duration: 0.15 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 xs:p-2.5 rounded-lg xs:rounded-xl text-gray-700 hover:bg-orange-100/70 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400/50 touch-target transition-all duration-200"
-                    aria-label="Close navigation menu"
-                  >
-                    <div className="w-5 h-5 xs:w-6 xs:h-6 flex items-center justify-center relative">
-                      <span className="block w-4 xs:w-5 h-0.5 bg-current rotate-45 absolute" />
-                      <span className="block w-4 xs:w-5 h-0.5 bg-current -rotate-45 absolute" />
-                    </div>
-                  </motion.button>
+                    NEXCY
+                  </span>
                 </div>
-
-                <nav className="flex-1" role="navigation" aria-label="Mobile navigation">
-                  <ul className="space-y-1 xs:space-y-1.5" role="menubar">
-                    {navItems.map((item, index) => (
-                      <motion.li 
-                        key={item.name} 
-                        role="none"
-                        initial={{ x: 30, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.1 + index * 0.05, duration: 0.2 }}
-                      >
-                        <button
-                          onClick={() => scrollToSection(item.section)}
-                          role="menuitem"
-                          className={cn(
-                            "block px-3 xs:px-4 py-2.5 xs:py-3 text-sm xs:text-base font-medium transition-all duration-200 touch-target relative w-full text-left rounded-lg",
-                            "hover:text-orange-600 hover:bg-orange-50/50 focus:outline-none focus:ring-2 focus:ring-orange-400/50",
-                            isActive(item.section)
-                              ? "text-orange-600 font-semibold bg-orange-50/30"
-                              : "text-gray-700"
-                          )}
-                          aria-current={isActive(item.section) ? "page" : undefined}
-                        >
-                          <span className="relative z-10">{item.name}</span>
-                          {isActive(item.section) && (
-                            <motion.div
-                              className="absolute left-0 top-1/2 transform -translate-y-1/2 w-1 h-6 xs:h-7 bg-gradient-to-b from-orange-400 to-orange-500 rounded-full"
-                              layoutId="activeMobileTab"
-                              initial={{ scaleY: 0 }}
-                              animate={{ scaleY: 1 }}
-                              transition={{ duration: 0.2 }}
-                            />
-                          )}
-                        </button>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </nav>
-
-                {/* Contact CTA - responsive sizing */}
-                <motion.div 
-                  className="mt-6 xs:mt-8"
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.25, duration: 0.2 }}
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 rounded-xl text-gray-500 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200"
+                  aria-label="Close menu"
                 >
-                  <button
-                    onClick={() => scrollToSection("contact")}
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Nav links */}
+              <nav className="flex-1 space-y-1">
+                {navItems.map((item, i) => (
+                  <motion.button
+                    key={item.name}
+                    initial={{ x: 24, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.06 + i * 0.05, duration: 0.22 }}
+                    onClick={() => scrollTo(item.section)}
                     className={cn(
-                      "w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600",
-                      "text-white font-medium py-2.5 xs:py-3 sm:py-3.5 text-sm xs:text-base rounded-lg xs:rounded-xl touch-target relative overflow-hidden",
-                      "shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30",
-                      "transition-all duration-200 active:scale-95",
-                      "focus:outline-none focus:ring-2 focus:ring-orange-400/50"
+                      "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-left",
+                      activeSection === item.section
+                        ? "bg-orange-50 text-orange-600 font-semibold"
+                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     )}
                   >
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                      animate={{ x: ["-100%", "100%"] }}
-                      transition={{ repeat: Infinity, duration: 3, ease: "linear" }}
-                    />
-                    <span className="relative z-10 font-semibold">Contact Us</span>
-                  </button>
-                </motion.div>
-              </div>
-            </GlassCard>
+                    {activeSection === item.section && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500 flex-shrink-0" />
+                    )}
+                    {item.name}
+                  </motion.button>
+                ))}
+              </nav>
+
+              {/* Contact CTA */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.22 }}
+                className="mt-6"
+              >
+                <button
+                  onClick={() => scrollTo("contact")}
+                  className="w-full py-3 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold text-sm rounded-xl shadow-md shadow-orange-300/30 transition-all duration-200 active:scale-95 relative overflow-hidden"
+                >
+                  <motion.span
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                    animate={{ x: ["-100%", "150%"] }}
+                    transition={{ repeat: Infinity, duration: 2.8, ease: "linear", repeatDelay: 1 }}
+                  />
+                  <span className="relative z-10">Contact Us</span>
+                </button>
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </>
   )
 }
