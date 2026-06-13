@@ -335,7 +335,7 @@ export default function HeroSection() {
               className="flex items-center gap-5 justify-center lg:justify-start pt-2"
             >
               {[
-                { v: "10+", l: "Projects" },
+                { v: "🇱🇰", l: "Sri Lanka" },
                 { v: "100%", l: "Satisfaction" },
                 { v: "24/7", l: "Support" },
               ].map((s, i) => (
