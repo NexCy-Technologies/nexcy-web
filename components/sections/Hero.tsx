@@ -97,16 +97,18 @@ const CODE_LINES = [
 
 // ── Live typing code editor ───────────────────────────────────────────────────
 
+const EDITOR_HEIGHT = 320; // fixed px height for code area
+
 const CodeEditor = () => {
   const [visibleLines, setVisibleLines] = useState(0);
   const [cursorLine, setCursorLine] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let line = 0;
     const next = () => {
       if (line >= CODE_LINES.length) {
-        // pause then restart
         timerRef.current = setTimeout(() => {
           setVisibleLines(0);
           setCursorLine(0);
@@ -123,6 +125,13 @@ const CodeEditor = () => {
     timerRef.current = setTimeout(next, 800);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, []);
+
+  // auto-scroll to bottom as lines appear, without resizing container
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [visibleLines]);
 
   return (
     <div className="w-full rounded-2xl overflow-hidden shadow-2xl shadow-gray-900/20 border border-gray-200/60">
@@ -142,10 +151,29 @@ const CodeEditor = () => {
         </span>
       </div>
 
-      {/* Code area */}
-      <div className="bg-gray-900 px-5 py-5 font-mono text-sm leading-7 min-h-[260px]">
+      {/* Code area — fixed height, never reflows */}
+      <div
+        ref={containerRef}
+        className="relative bg-gray-900 px-5 py-5 font-mono text-sm leading-7 overflow-hidden"
+        style={{ height: EDITOR_HEIGHT }}
+      >
+        {/* subtle scanline glow */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.04]"
+          style={{
+            background:
+              "repeating-linear-gradient(0deg, #fff 0px, transparent 1px, transparent 2px, #fff 3px)",
+          }}
+        />
+
         {CODE_LINES.slice(0, visibleLines).map((line, li) => (
-          <div key={li} className="flex items-center gap-4">
+          <motion.div
+            key={li}
+            initial={{ opacity: 0, x: -6 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex items-center gap-4"
+          >
             <span className="text-gray-600 text-xs w-4 text-right select-none flex-shrink-0">
               {li + 1}
             </span>
@@ -161,7 +189,7 @@ const CodeEditor = () => {
                 />
               )}
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
 
