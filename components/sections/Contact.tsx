@@ -106,13 +106,13 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 px-2">
+          <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-6 px-2">
             Get In{" "}
             <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
               Touch
             </span>
           </h2>
-          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+          <p className="text-xs sm:text-sm md:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
             Got an idea or just want to say hello? We'd love to hear from you! Feel free to reach out via the form or contact us directly through email or WhatsApp.
           </p>
         </motion.div>

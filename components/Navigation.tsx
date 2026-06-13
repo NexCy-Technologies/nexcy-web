@@ -1,17 +1,15 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import { useRouter, usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { GlassCard } from "@/components/ui/glass-card"
 
 const navItems = [
-  { name: "Home", href: "/", section: "home" },
-  { name: "About", href: "/about", section: "about" },
-  { name: "Services", href: "/services", section: "services" },
-  { name: "Team", href: "/team", section: "team" },
+  { name: "Home", section: "home" },
+  { name: "About", section: "about" },
+  { name: "Services", section: "services" },
+  { name: "Team", section: "team" },
 ]
 
 export default function Navigation() {
@@ -19,8 +17,6 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [isNavigating, setIsNavigating] = useState(false)
-  const router = useRouter()
-  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,42 +44,24 @@ export default function Navigation() {
       
       if (currentSection !== activeSection) {
         setActiveSection(currentSection)
-        const newUrl = currentSection === "home" ? "/" : `/${currentSection}`
+        const newUrl = currentSection === "home" ? "/" : `/#${currentSection}`
         window.history.replaceState(null, "", newUrl)
       }
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [pathname, activeSection, isNavigating])
+  }, [activeSection, isNavigating])
 
-  useEffect(() => {
-    const handleInitialScroll = () => {
-      const hash = pathname.replace("/", "") || "home"
-      const element = document.getElementById(hash)
-      if (element && hash !== "home") {
-        setIsNavigating(true)
-        setTimeout(() => {
-          element.scrollIntoView({ behavior: "smooth" })
-          setActiveSection(hash)
-          setTimeout(() => setIsNavigating(false), 1000)
-        }, 100)
-      } else if (hash === "home") {
-        setActiveSection("home")
-      }
-    }
-
-    handleInitialScroll()
-  }, [pathname])
-
-  const scrollToSection = (sectionId: string, href: string) => {
+  const scrollToSection = (sectionId: string) => {
     setIsMobileMenuOpen(false)
     setIsNavigating(true)
     
     const element = document.getElementById(sectionId)
     if (element) {
       setActiveSection(sectionId)
-      window.history.pushState(null, "", href)
+      const newUrl = sectionId === "home" ? "/" : `/#${sectionId}`
+      window.history.pushState(null, "", newUrl)
       element.scrollIntoView({ behavior: "smooth" })
       setTimeout(() => {
         setIsNavigating(false)
@@ -123,7 +101,7 @@ export default function Navigation() {
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
           >
             <button
-              onClick={() => scrollToSection("home", "/")}
+              onClick={() => scrollToSection("home")}
               className="flex items-center space-x-2 group touch-target flex-shrink-0"
               aria-label="NexCy Technologies home"
             >
@@ -155,7 +133,7 @@ export default function Navigation() {
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                 >
                   <button
-                    onClick={() => scrollToSection(item.section, item.href)}
+                    onClick={() => scrollToSection(item.section)}
                     role="menuitem"
                     className={cn(
                       "text-sm font-medium transition-all duration-300 touch-target relative",
@@ -186,7 +164,7 @@ export default function Navigation() {
                 transition={{ duration: 0.5, delay: 0.7, type: "spring", stiffness: 200 }}
               >
                 <button
-                  onClick={() => scrollToSection("contact", "/contact")}
+                  onClick={() => scrollToSection("contact")}
                   className={cn(
                     "px-6 py-2.5 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600",
                     "text-white font-semibold text-sm rounded-lg touch-target relative overflow-hidden",
@@ -318,7 +296,7 @@ export default function Navigation() {
                         transition={{ delay: 0.1 + index * 0.05, duration: 0.2 }}
                       >
                         <button
-                          onClick={() => scrollToSection(item.section, item.href)}
+                          onClick={() => scrollToSection(item.section)}
                           role="menuitem"
                           className={cn(
                             "block px-3 xs:px-4 py-2.5 xs:py-3 text-sm xs:text-base font-medium transition-all duration-200 touch-target relative w-full text-left rounded-lg",
@@ -353,7 +331,7 @@ export default function Navigation() {
                   transition={{ delay: 0.25, duration: 0.2 }}
                 >
                   <button
-                    onClick={() => scrollToSection("contact", "/contact")}
+                    onClick={() => scrollToSection("contact")}
                     className={cn(
                       "w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600",
                       "text-white font-medium py-2.5 xs:py-3 sm:py-3.5 text-sm xs:text-base rounded-lg xs:rounded-xl touch-target relative overflow-hidden",

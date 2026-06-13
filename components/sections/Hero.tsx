@@ -92,35 +92,35 @@ const TechBackground = () => {
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full opacity-30"
+          className="absolute rounded-full opacity-20"
           style={{
             background: `radial-gradient(circle, ${
-              ['#fb923c20', '#f9731630', '#ea580c25', '#fed7aa20', '#fdba7420', '#fb923c15'][i % 6]
+              ['#fb923c15', '#f9731615', '#ea580c12'][i % 3]
             }, transparent 70%)`,
-            width: `${200 + i * 50}px`,
-            height: `${200 + i * 50}px`,
-            left: `${10 + i * 15}%`,
-            top: `${10 + i * 10}%`,
+            width: `${300 + i * 100}px`,
+            height: `${300 + i * 100}px`,
+            left: `${20 + i * 25}%`,
+            top: `${15 + i * 15}%`,
+            willChange: 'transform',
           }}
           animate={{
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-            scale: [1, 1.05, 1],
+            x: [0, 15, 0],
+            y: [0, -10, 0],
           }}
           transition={{
-            duration: 15 + i * 3,
+            duration: 20 + i * 2,
             repeat: Infinity,
             repeatType: "reverse",
             ease: "easeInOut",
-            delay: i * 2,
+            delay: i * 1,
           }}
         />
       ))}
 
       {/* Grid pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div 
-          className="w-full h-full"
+        <div
+          className="w-full h-full pointer-events-none"
           style={{
             backgroundImage: `
               linear-gradient(rgba(251, 146, 60, 0.1) 1px, transparent 1px),
@@ -135,21 +135,21 @@ const TechBackground = () => {
       {[...Array(25)].map((_, i) => (
         <motion.div
           key={`tech-particle-${i}`}
-          className="absolute w-1 h-1 bg-orange-400/40 rounded-full"
+          className="absolute w-1 h-1 bg-orange-400/50 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
+            willChange: 'transform',
           }}
           animate={{
-            y: [0, -80, 0],
-            opacity: [0, 0.8, 0],
-            scale: [0, 1, 0],
+            y: [0, -60, 0],
+            opacity: [0, 0.6, 0],
           }}
           transition={{
-            duration: 6 + Math.random() * 4,
+            duration: 5 + Math.random() * 3,
             repeat: Infinity,
-            delay: Math.random() * 10,
-            ease: "easeInOut",
+            delay: Math.random() * 8,
+            ease: "easeOut",
           }}
         />
       ))}
@@ -170,6 +170,7 @@ const TechAnimation = ({ scrollY }: { scrollY: any }) => {
       {/* Main system architecture container */}
       <motion.div 
         className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
+        style={{ willChange: 'transform' }}
       >
         
         {/* Microservices architecture visualization */}
@@ -499,7 +500,7 @@ export default function HeroSection() {
   const [showScramble, setShowScramble] = React.useState(false);
 
   const { scrollY } = useScroll();
-  const smoothScrollY = useSpring(scrollY, { stiffness: 100, damping: 30 });
+  const smoothScrollY = useSpring(scrollY, { stiffness: 50, damping: 25 });
 
   const heroHeader = "Your vision, Our mission.";
   const heroSubtext =
@@ -521,12 +522,12 @@ export default function HeroSection() {
             setTimeout(() => {
               setLoading(false);
               setShowScramble(true);
-            }, 200);
+            }, 100);
             return 100;
           }
-          return prev + 2.5;
+          return prev + 3.33;
         });
-      }, 15);
+      }, 10);
     }
     return () => window.clearInterval(interval);
   }, [loading]);
@@ -545,12 +546,10 @@ export default function HeroSection() {
             initial={{ opacity: 1 }}
             exit={{ 
               opacity: 0,
-              scale: 0.95,
-              filter: "blur(10px)"
             }}
             transition={{ 
-              duration: 0.8,
-              ease: [0.25, 0.46, 0.45, 0.94]
+              duration: 0.5,
+              ease: "easeOut"
             }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#fffaf5]"
           >
@@ -633,7 +632,7 @@ export default function HeroSection() {
                   style={{ y: textY }}
                   className="flex flex-col justify-center space-y-4 sm:space-y-6 text-center lg:text-left pt-16 lg:pt-0"
                 >
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight font-mono">
+                  <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight font-mono">
                     <ScrambleText
                       text={heroHeader}
                       scrambleSpeed={40}

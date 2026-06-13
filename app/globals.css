@@ -529,3 +529,73 @@
     line-height: 1.7;
   }
 }
+
+/* Dark Mode - AMOLED Optimized */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background: #000000;
+  color: #ffffff;
+}
+
+/* Hero Section Dark Mode */
+.dark #home {
+  background: linear-gradient(to bottom right, #000000, #1a0f05, #000000);
+}
+
+/* Light backgrounds to dark for AMOLED */
+.dark [class*="bg-\[#fffaf5\]"],
+.dark [class*="bg-white"] {
+  background-color: #000000;
+}
+
+.dark [class*="text-gray-900"] {
+  color: #ffffff;
+}
+
+.dark [class*="text-gray-700"] {
+  color: #d1d5db;
+}
+
+.dark [class*="text-gray-600"] {
+  color: #9ca3af;
+}
+
+.dark [class*="border-gray-200"] {
+  border-color: #1f2937;
+}
+
+.dark [class*="border-orange-200"] {
+  border-color: #7c2d12;
+}
+
+/* Glass morphism dark mode */
+.dark .glass-morphism {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgba(17, 24, 39, 0.4);
+  border: 1px solid rgba(75, 85, 99, 0.2);
+}
+
+/* Smooth transitions */
+.dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Prevent transition on theme toggle button itself */
+.fixed.bottom-6.right-6 * {
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease !important;
+}

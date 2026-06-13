@@ -25,7 +25,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative pt-32 pb-24 px-4 sm:px-6 lg:px-12 bg-[#fffaf5] overflow-hidden"
+      className="relative py-16 sm:py-20 md:py-24 lg:pt-32 px-4 sm:px-6 lg:px-12 bg-[#fffaf5] overflow-hidden"
     >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -36,13 +36,13 @@ export default function About() {
           transition={{ duration: 1 }}
           className="text-center mb-16 px-4 sm:px-6 lg:px-0"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+          <h2 className="text-xl sm:text-3xl lg:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6 leading-tight">
             About{" "}
             <span className="bg-gradient-to-r from-orange-400 to-orange-500 bg-clip-text text-transparent">
               NexCy Technologies
             </span>
           </h2>
-          <p className="text-gray-700 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-700 text-sm sm:text-base lg:text-lg max-w-3xl mx-auto leading-relaxed">
             Nexcy technologies is the home for a group of aspiring young minds that believe in the power of technology to create meaningful change. We are committed to driving innovation and is passionate about helping businesses thrive in the digital age.
           </p>
         </motion.div>
@@ -57,8 +57,8 @@ export default function About() {
         >
           {aboutSummary.map((point, idx) => (
             <div key={idx} className="flex items-start gap-3">
-              <div className="text-orange-500 text-2xl mt-1">•</div>
-              <p className="text-gray-700 text-base sm:text-lg leading-relaxed">{point}</p>
+              <div className="text-orange-500 text-lg sm:text-xl mt-1">•</div>
+              <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{point}</p>
             </div>
           ))}
         </motion.div>
@@ -76,12 +76,12 @@ export default function About() {
                 transition={{ duration: 0.8, delay: idx * 0.2 }}
                 className="relative flex items-start gap-4 p-6 bg-white/20 rounded-2xl border border-white/30 backdrop-blur-3xl shadow-md hover:shadow-xl cursor-pointer transition-all duration-500"
               >
-                <div className="text-4xl text-orange-500 flex-shrink-0">
+                <div className="text-2xl sm:text-4xl text-orange-500 flex-shrink-0">
                   <Icon />
                 </div>
                 <div className="relative z-10">
-                  <h4 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-1">{feature.title}</h4>
-                  <p className="text-gray-700 text-sm sm:text-base leading-relaxed">{feature.description}</p>
+                  <h4 className="text-base sm:text-xl font-semibold text-gray-900 mb-1">{feature.title}</h4>
+                  <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">{feature.description}</p>
                 </div>
               </motion.div>
             );

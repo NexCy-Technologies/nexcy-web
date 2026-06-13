@@ -2,6 +2,8 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -112,8 +114,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-roboto antialiased bg-gradient-to-br from-black via-orange-950 to-black text-white min-h-screen">
-        {children}
+      <body className="font-roboto antialiased bg-white dark:bg-black text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {children}
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );
