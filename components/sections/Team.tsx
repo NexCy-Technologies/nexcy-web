@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import Image from "next/image"
 
 const teamMembers = [
   {
@@ -11,9 +10,9 @@ const teamMembers = [
     email: "dinuka@nexcy.lk",
     bio: "Specialized in creating responsive web applications and cross-platform mobile apps with modern frameworks. The leader behind Nexcy's tech vision.",
     skills: ["React", "Next.js", "Flutter", "React Native", "JavaScript"],
-    image: "/team/dinuka.png",
-    accent: "from-orange-400 to-orange-500",
     tag: "Co-Founder",
+    initial: "D",
+    gradient: "from-orange-400 to-orange-500",
   },
   {
     name: "Devindu Dissanayake",
@@ -21,17 +20,17 @@ const teamMembers = [
     email: "devindu@nexcy.lk",
     bio: "Expert in building scalable backend systems, cloud infrastructure, and implementing robust DevOps practices for seamless deployment and maintenance.",
     skills: ["Node.js", "Python", "AWS", "Docker", "Kubernetes"],
-    image: "/team/devindu.png",
-    accent: "from-orange-500 to-orange-600",
     tag: "Co-Founder",
+    initial: "D",
+    gradient: "from-orange-500 to-orange-600",
   },
 ]
 
 const values = [
-  { label: "Passion-Driven", description: "We build things we're proud of" },
+  { label: "Passion-Driven",  description: "We build things we're proud of" },
   { label: "Detail-Obsessed", description: "Every pixel, every line of code" },
-  { label: "Ship-First", description: "Ideas into products, fast" },
-  { label: "Client-Focused", description: "Your success is our benchmark" },
+  { label: "Ship-First",      description: "Ideas into products, fast" },
+  { label: "Client-Focused",  description: "Your success is our benchmark" },
 ]
 
 export default function Team() {
@@ -70,44 +69,41 @@ export default function Team() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-20px" }}
               transition={{ duration: 0.65, delay: index * 0.15, ease: "easeOut" }}
+              className="h-full"
             >
               <div className="relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group h-full flex flex-col">
 
-                {/* Top accent bar */}
-                <div className={`h-1 w-full bg-gradient-to-r ${member.accent}`} />
+                {/* Left accent border */}
+                <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${member.gradient}`} />
+
+                {/* Ghost initial — decorative background letter */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -right-4 -bottom-6 text-[10rem] sm:text-[12rem] font-black leading-none text-orange-500/[0.04] select-none pointer-events-none"
+                >
+                  {member.initial}
+                </div>
 
                 {/* Card body */}
-                <div className="p-6 sm:p-8 flex flex-col flex-1">
+                <div className="relative pl-8 pr-6 sm:pl-10 sm:pr-8 pt-6 sm:pt-8 pb-6 sm:pb-8 flex flex-col flex-1">
 
-                  {/* Header row */}
-                  <div className="flex items-center gap-4 sm:gap-5 mb-5 sm:mb-6">
-                    {/* Avatar */}
-                    <div className="relative flex-shrink-0">
-                      <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden ring-2 ring-orange-100 group-hover:ring-orange-300 transition-all duration-300`}>
-                        <Image
-                          src={member.image || "/placeholder.svg"}
-                          alt={`${member.name}`}
-                          width={80}
-                          height={80}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      {/* Co-founder badge */}
-                      <span className="absolute -bottom-2 -right-2 bg-gradient-to-r from-orange-400 to-orange-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap shadow-sm">
-                        {member.tag}
-                      </span>
-                    </div>
+                  {/* Co-founder tag */}
+                  <span className={`self-start mb-3 sm:mb-4 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full bg-gradient-to-r ${member.gradient} text-white`}>
+                    {member.tag}
+                  </span>
 
-                    {/* Name + role */}
-                    <div className="min-w-0">
-                      <h3 className="text-base sm:text-lg font-bold text-gray-900 leading-tight mb-0.5 group-hover:text-orange-600 transition-colors duration-300">
-                        {member.name}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-orange-500 font-medium leading-tight">
-                        {member.role}
-                      </p>
-                    </div>
-                  </div>
+                  {/* Name */}
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 leading-tight mb-1 group-hover:text-orange-600 transition-colors duration-300">
+                    {member.name}
+                  </h3>
+
+                  {/* Role */}
+                  <p className="text-xs sm:text-sm text-orange-500 font-semibold mb-4 sm:mb-5">
+                    {member.role}
+                  </p>
+
+                  {/* Divider */}
+                  <div className="w-8 h-px bg-orange-200 mb-4 sm:mb-5" />
 
                   {/* Bio */}
                   <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-5 sm:mb-6">
@@ -131,11 +127,11 @@ export default function Team() {
                     </div>
                   </div>
 
-                  {/* Spacer pushes email to bottom */}
+                  {/* Email — pinned to bottom */}
                   <div className="mt-auto pt-4 border-t border-gray-100">
                     <a
                       href={`mailto:${member.email}`}
-                      className="inline-flex items-center gap-2 text-xs sm:text-sm text-gray-500 hover:text-orange-500 transition-colors duration-200 group/link"
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm text-gray-400 hover:text-orange-500 transition-colors duration-200 group/link"
                     >
                       <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
