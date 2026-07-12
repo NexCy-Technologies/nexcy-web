@@ -3,20 +3,38 @@
     {
       "id": "udawalawa-safari",
       "title": "Udawalawa Safari",
-      "description": "Premium safari booking platform with real-time availability and secure payment processing",
+      "description": "Private safari experience in Udawalawe National Park with expert guidance, comfortable 4x4 travel, and photography-focused wildlife tours",
       "url": "https://udawalawasafari.lk",
-      "technologies": ["React", "Node.js", "MongoDB", "Stripe"],
+      "technologies": ["React", "Node.js", "MongoDB"],
       "category": "Tourism & Travel",
-      "features": ["Online Booking", "Payment Gateway", "Mobile Responsive", "Admin Dashboard"]
+      "features": ["Wildlife Expertise", "Comfortable Vehicles", "Photography Focus", "Safety First"]
     },
     {
       "id": "golden-pearl-safari-villa",
       "title": "Golden Pearl Safari Villa",
-      "description": "Luxury accommodation booking system with virtual tours and guest management",
+      "description": "Peaceful safari villa in Udawalawe offering family and double rooms, on-site dining, garden spaces, and safari jeep service",
       "url": "https://golden-pearl-safari-villa.web.app",
       "technologies": ["React", "Firebase", "Tailwind CSS", "PWA"],
       "category": "Hospitality",
-      "features": ["Virtual Tours", "Real-time Booking", "Guest Portal", "Multi-language"]
+      "features": ["Family Room", "Double Room", "On-Site Restaurant", "Safari Jeep Service"]
+    },
+    {
+      "id": "nexcysm",
+      "title": "NexCySM",
+      "description": "Powerful stock management system for inventory control, sales tracking, and real-time analytics",
+      "url": "https://nexcysm.nexcy.lk/",
+      "technologies": ["React", "Firebase", "Tailwind CSS", "PWA"],
+      "category": "Business & Inventory",
+      "features": ["Real-time Analytics", "Easy Checkout", "Inventory Control", "Secure & Reliable"]
+    },
+    {
+      "id": "wild-elephas-udawalawa",
+      "title": "Wild Elephas Udawalawa",
+      "description": "Nature-focused hospitality and safari experience in Udawalawe with rooms, activities, and guest services",
+      "url": "https://wild-elephas.web.app",
+      "technologies": ["React", "Firebase", "Tailwind CSS", "PWA"],
+      "category": "Hospitality",
+      "features": ["Luxury Accommodations", "Wildlife Activities", "Food Menu", "Gallery"]
     }
   ]
 }
