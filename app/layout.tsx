@@ -49,6 +49,9 @@ export const metadata: Metadata = {
 };
 
 import StringTuneWrapper from "@/components/StringTuneWrapper";
+import Preloader from "@/components/Preloader";
+import SmoothScroller from "@/components/SmoothScroller";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -122,7 +125,9 @@ export default function RootLayout({
       </head>
       <body className="font-roboto antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <SmoothScroller />
           <StringTuneWrapper>
+            <Preloader />
             {children}
             <ThemeToggle />
           </StringTuneWrapper>

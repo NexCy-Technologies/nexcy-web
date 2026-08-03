@@ -4,9 +4,9 @@ import { useEffect } from "react";
 
 export default function StringTuneWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    import("@fiddle-digital/string-tune").then(({ default: StringTune, StringMagnetic, StringProgress }) => {
+    import("@fiddle-digital/string-tune").then(({ default: StringTune, StringMagnetic, StringProgress, StringReveal }) => {
       const instance = StringTune.getInstance();
-      instance.use([StringMagnetic, StringProgress]);
+      instance.use([StringMagnetic, StringProgress, StringReveal]);
       instance.start(60);
     }).catch(console.error);
   }, []);
@@ -15,8 +15,8 @@ export default function StringTuneWrapper({ children }: { children: React.ReactN
     <>
       <div 
         data-string-progress 
-        className="fixed top-0 left-0 h-1 bg-gradient-to-r from-orange-400 to-orange-600 z-[9999] pointer-events-none" 
-        style={{ transformOrigin: "0% 50%" }}
+        className="fixed top-0 right-0 w-1 bg-gradient-to-b from-orange-400 to-orange-600 z-[9999] pointer-events-none" 
+        style={{ transformOrigin: "50% 0%", height: "100vh" }}
       />
       {children}
     </>

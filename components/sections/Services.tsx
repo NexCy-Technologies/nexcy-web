@@ -146,10 +146,8 @@ export default function Services() {
       <div className="max-w-7xl mx-auto">
         {/* ── Section Header ── */}
         <motion.div
+          data-string-reveal
           initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-6 px-2">
@@ -179,10 +177,8 @@ export default function Services() {
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-20px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  data-string-reveal
+                  data-string-reveal-delay={idx * 0.1}
                   className={`rounded-2xl bg-white shadow-md transition-shadow duration-300 overflow-hidden cursor-pointer ${
                     isOpen ? "shadow-xl ring-2 ring-orange-400/40" : "hover:shadow-lg"
                   }`}

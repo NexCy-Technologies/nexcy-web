@@ -25,10 +25,6 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
   loading: () => <div className="min-h-[300px] animate-pulse bg-gray-100 rounded-lg" />,
 })
 
-const Work = dynamic(() => import("@/components/sections/Work"), {
-  loading: () => <div className="min-h-[400px] animate-pulse bg-gray-100 rounded-lg" />,
-})
-
 export const metadata: Metadata = {
   title: "NexCy Technologies",
   description:
@@ -147,11 +143,6 @@ export default function AboutPage() {
           {/* Services Section */}
           <LazySection>
             <Services />
-          </LazySection>
-
-          {/* Work Section */}
-          <LazySection>
-            <Work />
           </LazySection>
 
           {/* Team Section */}

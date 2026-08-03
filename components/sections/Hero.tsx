@@ -7,6 +7,7 @@ import {
   useScroll,
   useTransform,
   useSpring,
+  useMotionValueEvent,
 } from "framer-motion";
 import Link from "next/link";
 
@@ -59,7 +60,10 @@ const ScrambleText = ({
   const [display, setDisplay] = useState("");
 
   useEffect(() => {
-    if (!trigger) return;
+    if (!trigger) {
+      setDisplay("");
+      return;
+    }
     let i = 0;
     const iv = setInterval(() => {
       if (i >= text.length) { setDisplay(text); clearInterval(iv); return; }
@@ -276,6 +280,14 @@ export default function HeroSection() {
     return () => clearTimeout(t);
   }, []);
 
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 300 && scramble) {
+      setScramble(false);
+    } else if (latest < 50 && !scramble) {
+      setScramble(true);
+    }
+  });
+
   const headline = "Your vision,\nOur mission.";
 
   return (
@@ -380,6 +392,7 @@ export default function HeroSection() {
 
           {/* ── Right: code editor + floating pills ── */}
           <motion.div
+            data-string-parallax
             initial={{ opacity: 0, x: 30, scale: 0.97 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
