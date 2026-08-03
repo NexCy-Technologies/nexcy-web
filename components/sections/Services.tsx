@@ -399,22 +399,7 @@ export default function Services() {
             </p>
           </div>
 
-          <style jsx>{`
-            @keyframes scroll-ltr {
-              0%   { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            @keyframes scroll-rtl {
-              0%   { transform: translateX(-50%); }
-              100% { transform: translateX(0); }
-            }
-            .track-ltr  { animation: scroll-ltr 28s linear infinite; }
-            .track-rtl  { animation: scroll-rtl 22s linear infinite; }
-            .track-ltr2 { animation: scroll-ltr 35s linear infinite; }
-            .marquee-wrap:hover .track-ltr,
-            .marquee-wrap:hover .track-rtl,
-            .marquee-wrap:hover .track-ltr2 { animation-play-state: paused; }
-          `}</style>
+
 
           {/* Outer container — clips rows and adds edge fades */}
           <div
@@ -428,7 +413,7 @@ export default function Services() {
           >
             {/* Row 1 — left to right, normal speed */}
             <div className="overflow-hidden mb-3">
-              <div className="track-ltr flex gap-3 w-max">
+              <div data-string-marquee className="flex gap-3 w-max">
                 {[...ROW_1, ...ROW_1, ...ROW_1, ...ROW_1].map((tech, i) => (
                   <TechPill key={`r1-${i}`} tech={tech} />
                 ))}
@@ -437,7 +422,7 @@ export default function Services() {
 
             {/* Row 2 — right to left, faster */}
             <div className="overflow-hidden mb-3">
-              <div className="track-rtl flex gap-3 w-max">
+              <div data-string-marquee="reverse" className="flex gap-3 w-max">
                 {[...ROW_2, ...ROW_2, ...ROW_2, ...ROW_2].map((tech, i) => (
                   <TechPill key={`r2-${i}`} tech={tech} />
                 ))}
@@ -446,7 +431,7 @@ export default function Services() {
 
             {/* Row 3 — left to right, slowest */}
             <div className="overflow-hidden">
-              <div className="track-ltr2 flex gap-3 w-max">
+              <div data-string-marquee className="flex gap-3 w-max">
                 {[...ROW_3, ...ROW_1.slice(0, 3), ...ROW_3, ...ROW_1.slice(0, 3), ...ROW_3, ...ROW_1.slice(0, 3)].map((tech, i) => (
                   <TechPill key={`r3-${i}`} tech={tech} />
                 ))}
