@@ -77,8 +77,8 @@ export default function Navigation() {
             className={cn(
               "absolute inset-0 transition-all duration-500",
               isScrolled
-                ? "bg-white/75 backdrop-blur-xl border-b border-gray-200/60 shadow-sm"
-                : "bg-transparent"
+                ? "bg-background/75 dark:bg-slate-950/75 backdrop-blur-xl border-b border-border/60 shadow-sm"
+                : "bg-transparent border-b border-transparent"
             )}
           />
 
@@ -225,7 +225,7 @@ export default function Navigation() {
             aria-modal="true"
           >
             {/* Glass panel */}
-            <div className="h-full bg-white/90 backdrop-blur-2xl border-l border-gray-200/60 shadow-2xl shadow-black/10 rounded-l-3xl flex flex-col p-6">
+            <div className="h-full bg-background/90 backdrop-blur-2xl border-l border-gray-200/60 shadow-2xl shadow-black/10 rounded-l-3xl flex flex-col p-6">
 
               {/* Header */}
               <div className="flex items-center justify-between mb-8">

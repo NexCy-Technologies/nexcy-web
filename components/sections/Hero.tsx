@@ -33,7 +33,7 @@ const GlassButton = ({
     primary:
       "bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white border-transparent shadow-lg shadow-orange-400/30 hover:shadow-orange-500/40 hover:scale-105",
     outline:
-      "border-gray-200 text-gray-700 bg-white hover:bg-orange-50 hover:border-orange-300 hover:text-orange-600 hover:scale-105",
+      "border-border text-foreground bg-background hover:bg-orange-50 dark:hover:bg-orange-950 hover:border-orange-300 hover:text-orange-600 hover:scale-105",
   };
   return (
     <button className={`${base} ${variants[variant]} ${className}`} {...props}>
@@ -250,13 +250,10 @@ const FloatPill = ({
   className?: string;
 }) => (
   <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: [0, -6, 0] }}
-    transition={{
-      opacity: { duration: 0.5, delay },
-      y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay },
-    }}
-    className={`absolute bg-white border border-gray-100 rounded-xl px-3.5 py-2.5 shadow-lg shadow-gray-100 flex items-center gap-2.5 ${className}`}
+    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+    animate={{ opacity: 1, scale: 1, y: 0 }}
+    transition={{ duration: 0.5, delay }}
+    className={`absolute bg-background dark:bg-slate-900 border border-border rounded-xl px-3.5 py-2.5 shadow-lg shadow-black/5 flex items-center gap-2.5 ${className}`}
   >
     <div className="w-2 h-2 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex-shrink-0" />
     <div>

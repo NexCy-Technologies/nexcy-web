@@ -155,7 +155,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-30px" }}
           transition={{ duration: 0.75, delay: 0.1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white"
+          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-background"
         >
           {pillars.map((pillar, idx) => (
             <motion.div

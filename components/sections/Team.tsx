@@ -67,7 +67,7 @@ export default function Team() {
               data-string-reveal-delay={index * 0.15}
               className="h-full"
             >
-              <div className="relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group h-full flex flex-col">
+              <div className="relative bg-background rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group h-full flex flex-col">
 
                 {/* Left accent border */}
                 <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${member.gradient}`} />
@@ -148,7 +148,7 @@ export default function Team() {
           initial={{ opacity: 0, y: 30 }}
           className="mb-14 sm:mb-20"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-background">
             {values.map((v, i) => (
               <motion.div
                 key={i}

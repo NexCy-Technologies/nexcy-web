@@ -14,7 +14,7 @@ import {
 import projectsData from "@/data/projects.json";
 import { motion, AnimatePresence, useScroll, useTransform, MotionValue } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const services = [
   {
@@ -138,33 +138,13 @@ function TechPill({ tech }: { tech: { name: string; logo: string } }) {
 function ProjectCard({
   project,
   index,
-  total,
-  containerProgress,
 }: {
   project: any;
   index: number;
-  total: number;
-  containerProgress: MotionValue<number>;
 }) {
-  // Define the exact range where this card is scaled and darkened by the NEXT card coming up
-  // The card is pinned when containerProgress hits (index / total). 
-  // It begins to scale down immediately as containerProgress moves towards ((index + 1) / total)
-  const startRange = index / total;
-  const endRange = (index + 1) / total;
-  
-  // 3. Define the exact scale/opacity curve
-  const scale = useTransform(containerProgress, [startRange, endRange], [1, 0.92]);
-  const overlayOpacity = useTransform(containerProgress, [startRange, endRange], [0, 0.6]); // ~40% darken is 60% black overlay
-
-  // 1. Scroll/inview-triggered pan/zoom on the preview pane
-  const imgScale = useTransform(containerProgress, [startRange, endRange], [1, 1.08]);
-
   return (
-    <div className="h-screen flex items-center justify-center sticky top-0 px-2 sm:px-4 py-8">
-      <motion.div
-        style={{ scale }}
-        className="w-full max-w-5xl h-[85vh] sm:h-[75vh] md:h-[70vh] bg-[#0f1115] rounded-xl border border-gray-800 shadow-2xl overflow-hidden flex flex-col relative"
-      >
+    <div className="w-[85vw] sm:w-[60vw] md:w-[50vw] h-[70vh] flex-shrink-0 px-2 sm:px-4 flex items-center justify-center relative group">
+      <div className="w-full h-full bg-[#0f1115] rounded-xl border border-gray-800 shadow-2xl overflow-hidden flex flex-col relative transition-transform duration-500 group-hover:scale-[1.02]">
         {/* Fake Window Header */}
         <div className="h-10 bg-[#1a1d24] border-b border-gray-800 flex items-center px-4 flex-shrink-0">
           <div className="flex gap-2">
@@ -177,59 +157,38 @@ function ProjectCard({
           </div>
         </div>
 
-        {/* Content Split - 2. Stack vertically on mobile, do not hide code pane */}
-        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-          {/* Code Pane (Top on mobile, Left on desktop) */}
-          <div className="w-full h-1/2 md:h-full md:w-1/2 p-4 sm:p-6 overflow-y-auto bg-[#0a0a0c] font-mono text-[10px] sm:text-xs leading-loose text-gray-300 scrollbar-hide">
-            <div className="text-orange-400 inline">const</div> <div className="text-blue-400 inline">project</div> = {"{"}
-            <div className="pl-4">
-              <span className="text-gray-400">"title"</span>: <span className="text-green-400">"{project.title}"</span>,<br />
-              <span className="text-gray-400">"category"</span>: <span className="text-green-400">"{project.category}"</span>,<br />
-              <span className="text-gray-400">"technologies"</span>: [<br />
-              {project.technologies.map((t: string) => (
-                <div key={t} className="pl-4">
-                  <span className="text-green-400">"{t}"</span>,
-                </div>
-              ))}
-              ],<br />
-              <span className="text-gray-400">"features"</span>: [<br />
-              {project.features.map((f: string) => (
-                <div key={f} className="pl-4">
-                  <span className="text-green-400">"{f}"</span>,
-                </div>
-              ))}
-              ],<br />
-              <span className="text-gray-400">"description"</span>: <span className="text-green-400">"{project.description}"</span><br />
-            </div>
-            {"}"};
-          </div>
-
-          {/* Preview Pane (Bottom on mobile, Right on desktop) */}
-          <div className="w-full h-1/2 md:h-full md:w-1/2 relative overflow-hidden bg-black border-t md:border-t-0 md:border-l border-gray-800">
-            <motion.img
-              style={{ scale: imgScale }}
+        {/* Content Split */}
+        <div className="flex flex-col flex-1 overflow-hidden">
+          {/* Preview Pane (Top) */}
+          <div className="w-full h-1/2 relative overflow-hidden bg-black border-b border-gray-800">
+            <img
               src={getMicrolicPreviewUrl(project.url)}
               alt={`${project.title} preview`}
-              className="w-full h-full object-cover object-top opacity-80"
+              className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
               loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex justify-between items-center">
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
               <Link href={project.url} target="_blank" rel="noopener noreferrer">
-                <Button size="sm" className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md rounded-md font-mono text-[10px] sm:text-xs">
+                <Button size="sm" className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md rounded-md font-mono text-[10px]">
                   [EXECUTE_PREVIEW]
                 </Button>
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Overlay for exact darken curve */}
-        <motion.div
-          style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 bg-black pointer-events-none"
-        />
-      </motion.div>
+          {/* Code Pane (Bottom) */}
+          <div className="w-full h-1/2 p-4 overflow-y-auto bg-slate-950 font-mono text-[10px] leading-loose text-gray-300 scrollbar-hide">
+            <div className="text-orange-400 inline">const</div> <div className="text-blue-400 inline">project</div> = {"{"}
+            <div className="pl-4">
+              <span className="text-slate-400">"title"</span>: <span className="text-green-400">"{project.title}"</span>,<br />
+              <span className="text-slate-400">"category"</span>: <span className="text-green-400">"{project.category}"</span>,<br />
+              <span className="text-slate-400">"description"</span>: <span className="text-green-400">"{project.description}"</span><br />
+            </div>
+            {"}"};
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -238,10 +197,32 @@ export default function Services() {
   const [activeService, setActiveService] = useState<number | null>(null);
   
   const projectsRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: projectsProgress } = useScroll({
-    target: projectsRef,
-    offset: ["start start", "end end"]
-  });
+  
+  useEffect(() => {
+    if (!projectsRef.current) return;
+    
+    // We import smooothy dynamically to avoid SSR issues if any, or just require it.
+    // Since it's a client component, we can import it at the top, but we'll just require it here to be safe.
+    import('smooothy').then(({ default: Smooothy }) => {
+      const instance = new Smooothy(projectsRef.current!, {
+        infinite: false,
+        snap: false, // We'll let it scroll freely
+        scrollInput: true // maps wheel to horizontal scroll
+      });
+      
+      let rafId: number;
+      const tick = () => {
+        instance.update();
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+      
+      return () => {
+        cancelAnimationFrame(rafId);
+        instance.destroy();
+      };
+    }).catch(console.error);
+  }, []);
 
   return (
     <section
@@ -370,18 +351,18 @@ export default function Services() {
         </motion.div>
 
         {/* ── Success Projects ── */}
-        <div className="relative bg-[#050505] -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 py-16 sm:py-24 mt-16 sm:mt-24 border-y border-gray-900">
+        <div className="relative bg-slate-950 -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 py-16 sm:py-24 mt-16 sm:mt-24 border-y border-gray-800">
           {/* Subtle grid background */}
           <div 
             className="absolute inset-0 opacity-[0.03] pointer-events-none" 
             style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
           />
           
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+          <div className="max-w-[100vw] mx-auto relative z-10 overflow-hidden">
             <motion.div
-              data-string-reveal
               initial={{ opacity: 0, y: 50 }}
-              className="text-center mb-16 sm:mb-24"
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-center mb-10 sm:mb-16 px-4"
             >
               <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-6">
                 Our{" "}
@@ -394,16 +375,15 @@ export default function Services() {
               </p>
             </motion.div>
 
-            <div ref={projectsRef} className="relative w-full" style={{ height: `${projectsData.projects.length * 100}vh` }}>
-              {projectsData.projects.map((project, idx) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={idx}
-                  total={projectsData.projects.length}
-                  containerProgress={projectsProgress}
-                />
-              ))}
+            {/* Smooothy Horizontal Scroll Container */}
+            <div ref={projectsRef} className="relative w-full h-[75vh] cursor-grab active:cursor-grabbing pb-8 overflow-hidden">
+               {projectsData.projects.map((project, idx) => (
+                 <ProjectCard
+                   key={project.id}
+                   project={project}
+                   index={idx}
+                 />
+               ))}
             </div>
           </div>
         </div>
@@ -479,6 +459,7 @@ export default function Services() {
         >
           <Link href="/#contact">
             <Button
+              data-string-magnetic
               size="lg"
               className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105"
             >
