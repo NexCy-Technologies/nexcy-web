@@ -25,6 +25,10 @@ const Footer = dynamic(() => import("@/components/sections/Footer"), {
   loading: () => <div className="min-h-[300px] animate-pulse bg-gray-100 rounded-lg" />,
 })
 
+const Work = dynamic(() => import("@/components/sections/Work"), {
+  loading: () => <div className="min-h-[400px] animate-pulse bg-gray-100 rounded-lg" />,
+})
+
 export const metadata: Metadata = {
   title: "NexCy Technologies",
   description:
@@ -39,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "NexCy Technologies",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "NexCy Technologies",
@@ -53,7 +57,7 @@ export const metadata: Metadata = {
     title: "NexCy Technologies",
     description:
       "NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
-    images: ["/og-image.jpg"],
+    images: ["/logo.png"],
   },
 }
 
@@ -143,6 +147,11 @@ export default function AboutPage() {
           {/* Services Section */}
           <LazySection>
             <Services />
+          </LazySection>
+
+          {/* Work Section */}
+          <LazySection>
+            <Work />
           </LazySection>
 
           {/* Team Section */}

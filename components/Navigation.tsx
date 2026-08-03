@@ -8,6 +8,7 @@ const navItems = [
   { name: "Home",     section: "home" },
   { name: "About",   section: "about" },
   { name: "Services", section: "services" },
+  { name: "Work",     section: "work" },
   { name: "Team",    section: "team" },
 ]
 
@@ -22,7 +23,7 @@ export default function Navigation() {
       setIsScrolled(window.scrollY > 24)
       if (isNavigating) return
 
-      const sections = ["home", "about", "services", "team", "contact"]
+      const sections = ["home", "about", "services", "work", "team", "contact"]
       for (const id of sections) {
         const el = document.getElementById(id)
         if (el) {

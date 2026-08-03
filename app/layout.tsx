@@ -48,6 +48,7 @@ export const metadata: Metadata = {
   generator: "v0.app",
 };
 
+import StringTuneWrapper from "@/components/StringTuneWrapper";
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -83,6 +84,11 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
+        {/* Open Graph & Twitter */}
+        <meta property="og:image" content="/logo.png" />
+        <meta name="twitter:image" content="/logo.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+
         {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
@@ -116,8 +122,10 @@ export default function RootLayout({
       </head>
       <body className="font-roboto antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-          <ThemeToggle />
+          <StringTuneWrapper>
+            {children}
+            <ThemeToggle />
+          </StringTuneWrapper>
         </ThemeProvider>
       </body>
     </html>
