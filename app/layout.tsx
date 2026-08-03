@@ -89,8 +89,10 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
 
         {/* Open Graph & Twitter */}
-        <meta property="og:image" content="/logo.png" />
-        <meta name="twitter:image" content="/logo.png" />
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:image" content="/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
 
         {/* JSON-LD Structured Data */}
