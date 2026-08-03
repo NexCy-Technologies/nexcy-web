@@ -51,6 +51,8 @@ export const metadata: Metadata = {
 import StringTuneWrapper from "@/components/StringTuneWrapper";
 import Preloader from "@/components/Preloader";
 import SmoothScroller from "@/components/SmoothScroller";
+import CustomCursor from "@/components/CustomCursor";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 export default function RootLayout({
   children,
@@ -82,8 +84,7 @@ export default function RootLayout({
         />
 
         {/* Favicon & App icons */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/icon-192x192.png" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
 
@@ -126,6 +127,8 @@ export default function RootLayout({
       <body className="font-roboto antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <SmoothScroller />
+          <CustomCursor />
+          <AnimatedBackground />
           <StringTuneWrapper>
             <Preloader />
             {children}

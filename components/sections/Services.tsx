@@ -12,9 +12,9 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import projectsData from "@/data/projects.json";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, MotionValue } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const services = [
   {
@@ -135,8 +135,113 @@ function TechPill({ tech }: { tech: { name: string; logo: string } }) {
   );
 }
 
+function ProjectCard({
+  project,
+  index,
+  total,
+  containerProgress,
+}: {
+  project: any;
+  index: number;
+  total: number;
+  containerProgress: MotionValue<number>;
+}) {
+  // Define the exact range where this card is scaled and darkened by the NEXT card coming up
+  // The card is pinned when containerProgress hits (index / total). 
+  // It begins to scale down immediately as containerProgress moves towards ((index + 1) / total)
+  const startRange = index / total;
+  const endRange = (index + 1) / total;
+  
+  // 3. Define the exact scale/opacity curve
+  const scale = useTransform(containerProgress, [startRange, endRange], [1, 0.92]);
+  const overlayOpacity = useTransform(containerProgress, [startRange, endRange], [0, 0.6]); // ~40% darken is 60% black overlay
+
+  // 1. Scroll/inview-triggered pan/zoom on the preview pane
+  const imgScale = useTransform(containerProgress, [startRange, endRange], [1, 1.08]);
+
+  return (
+    <div className="h-screen flex items-center justify-center sticky top-0 px-2 sm:px-4 py-8">
+      <motion.div
+        style={{ scale }}
+        className="w-full max-w-5xl h-[85vh] sm:h-[75vh] md:h-[70vh] bg-[#0f1115] rounded-xl border border-gray-800 shadow-2xl overflow-hidden flex flex-col relative"
+      >
+        {/* Fake Window Header */}
+        <div className="h-10 bg-[#1a1d24] border-b border-gray-800 flex items-center px-4 flex-shrink-0">
+          <div className="flex gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+            <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+          </div>
+          <div className="mx-auto text-[10px] font-mono text-gray-500">
+            ~/projects/{project.id}.json
+          </div>
+        </div>
+
+        {/* Content Split - 2. Stack vertically on mobile, do not hide code pane */}
+        <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
+          {/* Code Pane (Top on mobile, Left on desktop) */}
+          <div className="w-full h-1/2 md:h-full md:w-1/2 p-4 sm:p-6 overflow-y-auto bg-[#0a0a0c] font-mono text-[10px] sm:text-xs leading-loose text-gray-300 scrollbar-hide">
+            <div className="text-orange-400 inline">const</div> <div className="text-blue-400 inline">project</div> = {"{"}
+            <div className="pl-4">
+              <span className="text-gray-400">"title"</span>: <span className="text-green-400">"{project.title}"</span>,<br />
+              <span className="text-gray-400">"category"</span>: <span className="text-green-400">"{project.category}"</span>,<br />
+              <span className="text-gray-400">"technologies"</span>: [<br />
+              {project.technologies.map((t: string) => (
+                <div key={t} className="pl-4">
+                  <span className="text-green-400">"{t}"</span>,
+                </div>
+              ))}
+              ],<br />
+              <span className="text-gray-400">"features"</span>: [<br />
+              {project.features.map((f: string) => (
+                <div key={f} className="pl-4">
+                  <span className="text-green-400">"{f}"</span>,
+                </div>
+              ))}
+              ],<br />
+              <span className="text-gray-400">"description"</span>: <span className="text-green-400">"{project.description}"</span><br />
+            </div>
+            {"}"};
+          </div>
+
+          {/* Preview Pane (Bottom on mobile, Right on desktop) */}
+          <div className="w-full h-1/2 md:h-full md:w-1/2 relative overflow-hidden bg-black border-t md:border-t-0 md:border-l border-gray-800">
+            <motion.img
+              style={{ scale: imgScale }}
+              src={getMicrolicPreviewUrl(project.url)}
+              alt={`${project.title} preview`}
+              className="w-full h-full object-cover object-top opacity-80"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex justify-between items-center">
+              <Link href={project.url} target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md rounded-md font-mono text-[10px] sm:text-xs">
+                  [EXECUTE_PREVIEW]
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Overlay for exact darken curve */}
+        <motion.div
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-black pointer-events-none"
+        />
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Services() {
   const [activeService, setActiveService] = useState<number | null>(null);
+  
+  const projectsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: projectsProgress } = useScroll({
+    target: projectsRef,
+    offset: ["start start", "end end"]
+  });
 
   return (
     <section
@@ -265,119 +370,43 @@ export default function Services() {
         </motion.div>
 
         {/* ── Success Projects ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="mb-16 sm:mb-20"
-        >
-          <div className="text-center mb-8 sm:mb-12">
-            <h3 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
-              Our{" "}
-              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                Success Projects
-              </span>
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-600 max-w-2xl mx-auto px-4">
-              Discover some of our recent successful projects that showcase our
-              expertise and commitment to excellence.
-            </p>
+        <div className="relative bg-[#050505] -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 py-16 sm:py-24 mt-16 sm:mt-24 border-y border-gray-900">
+          {/* Subtle grid background */}
+          <div 
+            className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+            style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+          />
+          
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
+            <motion.div
+              data-string-reveal
+              initial={{ opacity: 0, y: 50 }}
+              className="text-center mb-16 sm:mb-24"
+            >
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-6">
+                Our{" "}
+                <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                  Success Projects
+                </span>
+              </h3>
+              <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto px-4">
+                Real-world impact. Explore the architecture and output of our recent deployments.
+              </p>
+            </motion.div>
+
+            <div ref={projectsRef} className="relative w-full" style={{ height: `${projectsData.projects.length * 100}vh` }}>
+              {projectsData.projects.map((project, idx) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={idx}
+                  total={projectsData.projects.length}
+                  containerProgress={projectsProgress}
+                />
+              ))}
+            </div>
           </div>
-
-          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-3 sm:-mx-0 px-3 sm:px-0">
-            {projectsData.projects.map((project, idx) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.6, delay: idx * 0.12 }}
-                className="flex-shrink-0 w-72 sm:w-80 md:w-96 snap-start"
-              >
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white group">
-                  {/* Live screenshot preview */}
-                  <div className="relative overflow-hidden aspect-video bg-gray-100">
-                    <img
-                      src={getMicrolicPreviewUrl(project.url)}
-                      alt={`${project.title} preview`}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    {/* Category badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="bg-orange-500/90 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm">
-                        {project.category}
-                      </span>
-                    </div>
-                    {/* Gradient overlay at bottom */}
-                    <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-4 sm:p-5">
-                    <div className="flex items-start justify-between mb-2 gap-2">
-                      <h4 className="text-sm sm:text-base font-bold text-gray-900 leading-tight flex-1">
-                        {project.title}
-                      </h4>
-                      <Link
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-shrink-0 text-orange-500 hover:text-orange-600 transition-colors mt-0.5"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`Visit ${project.title}`}
-                      >
-                        <FaExternalLinkAlt className="text-xs" />
-                      </Link>
-                    </div>
-
-                    <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-3 line-clamp-2">
-                      {project.description}
-                    </p>
-
-                    {/* Tech tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.technologies.slice(0, 4).map((tech, i) => (
-                        <span
-                          key={i}
-                          className="text-xs bg-orange-50 text-orange-600 border border-orange-100 px-2 py-0.5 rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Features */}
-                    <div className="grid grid-cols-2 gap-1.5 mb-4">
-                      {project.features.slice(0, 4).map((feat, i) => (
-                        <div key={i} className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
-                          <span className="text-xs text-gray-600 leading-tight">{feat}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Link
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        size="sm"
-                        className="w-full bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white text-xs rounded-lg transition-all duration-300"
-                      >
-                        <FaGlobe className="mr-1.5 text-xs" />
-                        Visit Live Site
-                        <FaExternalLinkAlt className="ml-auto text-xs" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        </div>
 
         {/* ── Technologies We Use ── */}
         <motion.div
