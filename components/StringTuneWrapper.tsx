@@ -4,9 +4,9 @@ import { useEffect } from "react";
 
 export default function StringTuneWrapper({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    import("@fiddle-digital/string-tune").then(({ default: StringTune, StringMagnetic, StringProgress, StringReveal }) => {
+    import("@fiddle-digital/string-tune").then(({ default: StringTune, StringMagnetic, StringProgress, StringReveal, StringMarquee }) => {
       const instance = StringTune.getInstance();
-      instance.use([StringMagnetic, StringProgress, StringReveal]);
+      instance.use([StringMagnetic, StringProgress, StringReveal, StringMarquee]);
       instance.start(60);
     }).catch(console.error);
   }, []);
