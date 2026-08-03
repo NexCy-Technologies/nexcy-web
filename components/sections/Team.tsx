@@ -43,10 +43,8 @@ export default function Team() {
 
         {/* ── Section Header ── */}
         <motion.div
+          data-string-reveal
           initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-12 sm:mb-16 md:mb-20"
         >
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-5 px-2">
@@ -65,10 +63,8 @@ export default function Team() {
           {teamMembers.map((member, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ duration: 0.65, delay: index * 0.15, ease: "easeOut" }}
+              data-string-reveal
+              data-string-reveal-delay={index * 0.15}
               className="h-full"
             >
               <div className="relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-500 group h-full flex flex-col">
@@ -148,20 +144,16 @@ export default function Team() {
 
         {/* ── Values strip ── */}
         <motion.div
+          data-string-reveal
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.7, delay: 0.2 }}
           className="mb-14 sm:mb-20"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white">
             {values.map((v, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
+                data-string-reveal
+                data-string-reveal-delay={i * 0.08}
                 className="px-5 py-5 sm:px-6 sm:py-6 group hover:bg-orange-50 transition-colors duration-300"
               >
                 <p className="text-sm sm:text-base font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors duration-300">
@@ -177,10 +169,8 @@ export default function Team() {
 
         {/* ── CTA ── */}
         <motion.div
+          data-string-reveal
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-30px" }}
-          transition={{ duration: 0.7, delay: 0.3 }}
           className="text-center"
         >
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 px-2">
