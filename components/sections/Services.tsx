@@ -114,7 +114,8 @@ const ROW_2 = techLogos.slice(7, 14);
 const ROW_3 = techLogos.slice(14);
 
 function getMicrolicPreviewUrl(url: string) {
-  return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&embed=screenshot.url&meta=false`;
+  // Use Thum.io for reliable free website screenshots
+  return `https://image.thum.io/get/width/800/crop/600/maxAge/24/${url}`;
 }
 
 function TechPill({ tech }: { tech: { name: string; logo: string } }) {
@@ -143,7 +144,7 @@ function ProjectCard({
   index: number;
 }) {
   return (
-    <div className="w-[85vw] sm:w-[60vw] md:w-[50vw] h-[70vh] flex-shrink-0 px-2 sm:px-4 flex items-center justify-center relative group">
+    <div className="w-[85vw] sm:w-[500px] md:w-[600px] h-[400px] sm:h-[450px] flex-shrink-0 px-2 sm:px-4 flex items-center justify-center relative group">
       <div className="w-full h-full bg-[#0f1115] rounded-xl border border-gray-800 shadow-2xl overflow-hidden flex flex-col relative transition-transform duration-500 group-hover:scale-[1.02]">
         {/* Fake Window Header */}
         <div className="h-10 bg-[#1a1d24] border-b border-gray-800 flex items-center px-4 flex-shrink-0">
@@ -359,11 +360,7 @@ export default function Services() {
           />
           
           <div className="max-w-[100vw] mx-auto relative z-10 overflow-hidden">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-center mb-10 sm:mb-16 px-4"
-            >
+            <div className="text-center mb-8 sm:mb-12 px-4">
               <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-6">
                 Our{" "}
                 <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
@@ -373,17 +370,19 @@ export default function Services() {
               <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto px-4">
                 Real-world impact. Explore the architecture and output of our recent deployments.
               </p>
-            </motion.div>
+            </div>
 
             {/* Smooothy Horizontal Scroll Container */}
-            <div ref={projectsRef} className="relative w-full h-[75vh] cursor-grab active:cursor-grabbing pb-8 overflow-hidden">
-               {projectsData.projects.map((project, idx) => (
-                 <ProjectCard
-                   key={project.id}
-                   project={project}
-                   index={idx}
-                 />
-               ))}
+            <div className="relative w-full h-[450px] sm:h-[500px] mt-6 sm:mt-10">
+               <div ref={projectsRef} className="absolute inset-0 flex flex-nowrap items-center w-max cursor-grab active:cursor-grabbing pb-8 overflow-visible px-[5vw]">
+                 {projectsData.projects.map((project, idx) => (
+                   <ProjectCard
+                     key={project.id}
+                     project={project}
+                     index={idx}
+                   />
+                 ))}
+               </div>
             </div>
           </div>
         </div>
