@@ -60,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${roboto.variable}`} suppressHydrationWarning>
       <head>
         <meta
           name="viewport"
