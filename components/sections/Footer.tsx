@@ -1,6 +1,8 @@
 "use client"
 
 import { FaFacebook, FaWhatsapp, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa"
+import { motion } from "framer-motion"
+import { useState } from "react"
 
 const navLinks = [
   { name: "Home",     href: "/",        section: "home" },
@@ -158,6 +160,38 @@ export default function Footer() {
             Built with passion in{" "}
             <span className="text-orange-400 font-medium">Sri Lanka 🇱🇰</span>
           </p>
+        </div>
+
+        {/* ── Terminal sign-off ── */}
+        <div className="border-t border-gray-100 py-4 sm:py-6 flex justify-center items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.8 }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+            }}
+            className="font-mono text-xs sm:text-sm text-gray-500 flex items-center"
+          >
+            <span className="text-orange-400 mr-2">&gt;</span>
+            {"process.exit(0)".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                variants={{
+                  hidden: { opacity: 0, display: "none" },
+                  visible: { opacity: 1, display: "inline" },
+                }}
+              >
+                {char}
+              </motion.span>
+            ))}
+            <motion.span
+              animate={{ opacity: [1, 0] }}
+              transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
+              className="inline-block w-1.5 h-3.5 bg-orange-400 ml-1 translate-y-[2px]"
+            />
+          </motion.div>
         </div>
       </div>
     </footer>
