@@ -1,10 +1,19 @@
 {
   "projects": [
     {
+      "id": "udawalawe-wild",
+      "title": "Udawalawe Wild",
+      "description": "Private, wildlife-first safaris with verified local partners, transparent pricing, and simple planning in Udawalawe National Park.",
+      "url": "https://www.udawalawe-wild.com",
+      "technologies": ["React", "Tailwind CSS", "Vite"],
+      "category": "Tourism & Travel",
+      "features": ["Verified Local Partners", "Private Jeeps", "Transparent Pricing", "Wildlife First"]
+    },
+    {
       "id": "udawalawa-safari",
       "title": "Udawalawa Safari",
       "description": "Private safari experience in Udawalawe National Park with expert guidance, comfortable 4x4 travel, and photography-focused wildlife tours",
-      "url": "https://udawalawasafari.lk",
+      "url": "https://www.udawalawasafari.lk",
       "technologies": ["Next.js", "React", "Tailwind CSS"],
       "category": "Tourism & Travel",
       "features": ["Wildlife Expertise", "Comfortable Vehicles", "Photography Focus", "Safety First"]
