@@ -12,9 +12,9 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import projectsData from "@/data/projects.json";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, MotionValue } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const services = [
   {
@@ -114,7 +114,8 @@ const ROW_2 = techLogos.slice(7, 14);
 const ROW_3 = techLogos.slice(14);
 
 function getMicrolicPreviewUrl(url: string) {
-  return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&embed=screenshot.url&meta=false`;
+  // Use Thum.io for reliable free website screenshots
+  return `https://image.thum.io/get/width/800/crop/600/maxAge/24/${url}`;
 }
 
 function TechPill({ tech }: { tech: { name: string; logo: string } }) {
@@ -135,21 +136,105 @@ function TechPill({ tech }: { tech: { name: string; logo: string } }) {
   );
 }
 
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: any;
+  index: number;
+}) {
+  return (
+    <div className="w-[85vw] sm:w-[500px] md:w-[600px] h-[400px] sm:h-[450px] flex-shrink-0 px-2 sm:px-4 flex items-center justify-center relative group">
+      <div className="w-full h-full bg-[#0f1115] rounded-xl border border-gray-800 shadow-2xl overflow-hidden flex flex-col relative transition-transform duration-500 group-hover:scale-[1.02]">
+        {/* Fake Window Header */}
+        <div className="h-10 bg-[#1a1d24] border-b border-gray-800 flex items-center px-4 flex-shrink-0">
+          <div className="flex gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+            <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+          </div>
+          <div className="mx-auto text-[10px] font-mono text-gray-500">
+            ~/projects/{project.id}.json
+          </div>
+        </div>
+
+        {/* Content Split */}
+        <div className="flex flex-col flex-1 overflow-hidden">
+          {/* Preview Pane (Top) */}
+          <div className="w-full h-1/2 relative overflow-hidden bg-black border-b border-gray-800">
+            <img
+              src={getMicrolicPreviewUrl(project.url)}
+              alt={`${project.title} preview`}
+              className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+              <Link href={project.url} target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md rounded-md font-mono text-[10px]">
+                  [EXECUTE_PREVIEW]
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* Code Pane (Bottom) */}
+          <div className="w-full h-1/2 p-4 overflow-y-auto bg-slate-950 font-mono text-[10px] leading-loose text-gray-300 scrollbar-hide">
+            <div className="text-orange-400 inline">const</div> <div className="text-blue-400 inline">project</div> = {"{"}
+            <div className="pl-4">
+              <span className="text-slate-400">"title"</span>: <span className="text-green-400">"{project.title}"</span>,<br />
+              <span className="text-slate-400">"category"</span>: <span className="text-green-400">"{project.category}"</span>,<br />
+              <span className="text-slate-400">"description"</span>: <span className="text-green-400">"{project.description}"</span><br />
+            </div>
+            {"}"};
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Services() {
   const [activeService, setActiveService] = useState<number | null>(null);
+  
+  const projectsRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!projectsRef.current) return;
+    
+    // We import smooothy dynamically to avoid SSR issues if any, or just require it.
+    // Since it's a client component, we can import it at the top, but we'll just require it here to be safe.
+    import('smooothy').then(({ default: Smooothy }) => {
+      const instance = new Smooothy(projectsRef.current!, {
+        infinite: false,
+        snap: false, // We'll let it scroll freely
+        scrollInput: true // maps wheel to horizontal scroll
+      });
+      
+      let rafId: number;
+      const tick = () => {
+        instance.update();
+        rafId = requestAnimationFrame(tick);
+      };
+      rafId = requestAnimationFrame(tick);
+      
+      return () => {
+        cancelAnimationFrame(rafId);
+        instance.destroy();
+      };
+    }).catch(console.error);
+  }, []);
 
   return (
     <section
       id="services"
-      className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 md:px-6 lg:px-8 bg-[#fffaf5] overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 px-3 sm:px-4 md:px-6 lg:px-8 bg-background overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         {/* ── Section Header ── */}
         <motion.div
+          data-string-reveal
           initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-6 px-2">
@@ -179,10 +264,8 @@ export default function Services() {
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-20px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.08 }}
+                  data-string-reveal
+                  data-string-reveal-delay={idx * 0.1}
                   className={`rounded-2xl bg-white shadow-md transition-shadow duration-300 overflow-hidden cursor-pointer ${
                     isOpen ? "shadow-xl ring-2 ring-orange-400/40" : "hover:shadow-lg"
                   }`}
@@ -269,119 +352,40 @@ export default function Services() {
         </motion.div>
 
         {/* ── Success Projects ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="mb-16 sm:mb-20"
-        >
-          <div className="text-center mb-8 sm:mb-12">
-            <h3 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
-              Our{" "}
-              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                Success Projects
-              </span>
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-600 max-w-2xl mx-auto px-4">
-              Discover some of our recent successful projects that showcase our
-              expertise and commitment to excellence.
-            </p>
+        <div className="relative bg-slate-950 -mx-3 sm:-mx-4 md:-mx-6 lg:-mx-8 py-16 sm:py-24 mt-16 sm:mt-24 border-y border-gray-800">
+          {/* Subtle grid background */}
+          <div 
+            className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+            style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+          />
+          
+          <div className="max-w-[100vw] mx-auto relative z-10 overflow-hidden">
+            <div className="text-center mb-8 sm:mb-12 px-4">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-6">
+                Our{" "}
+                <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                  Success Projects
+                </span>
+              </h3>
+              <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl mx-auto px-4">
+                Real-world impact. Explore the architecture and output of our recent deployments.
+              </p>
+            </div>
+
+            {/* Smooothy Horizontal Scroll Container */}
+            <div className="relative w-full h-[450px] sm:h-[500px] mt-6 sm:mt-10">
+               <div ref={projectsRef} className="absolute inset-0 flex flex-nowrap items-center w-max cursor-grab active:cursor-grabbing pb-8 overflow-visible px-[5vw]">
+                 {projectsData.projects.map((project, idx) => (
+                   <ProjectCard
+                     key={project.id}
+                     project={project}
+                     index={idx}
+                   />
+                 ))}
+               </div>
+            </div>
           </div>
-
-          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-3 sm:-mx-0 px-3 sm:px-0">
-            {projectsData.projects.map((project, idx) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-20px" }}
-                transition={{ duration: 0.6, delay: idx * 0.12 }}
-                className="flex-shrink-0 w-72 sm:w-80 md:w-96 snap-start"
-              >
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white group">
-                  {/* Live screenshot preview */}
-                  <div className="relative overflow-hidden aspect-video bg-gray-100">
-                    <img
-                      src={getMicrolicPreviewUrl(project.url)}
-                      alt={`${project.title} preview`}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    {/* Category badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className="bg-orange-500/90 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm">
-                        {project.category}
-                      </span>
-                    </div>
-                    {/* Gradient overlay at bottom */}
-                    <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-4 sm:p-5">
-                    <div className="flex items-start justify-between mb-2 gap-2">
-                      <h4 className="text-sm sm:text-base font-bold text-gray-900 leading-tight flex-1">
-                        {project.title}
-                      </h4>
-                      <Link
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-shrink-0 text-orange-500 hover:text-orange-600 transition-colors mt-0.5"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`Visit ${project.title}`}
-                      >
-                        <FaExternalLinkAlt className="text-xs" />
-                      </Link>
-                    </div>
-
-                    <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-3 line-clamp-2">
-                      {project.description}
-                    </p>
-
-                    {/* Tech tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.technologies.slice(0, 4).map((tech, i) => (
-                        <span
-                          key={i}
-                          className="text-xs bg-orange-50 text-orange-600 border border-orange-100 px-2 py-0.5 rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Features */}
-                    <div className="grid grid-cols-2 gap-1.5 mb-4">
-                      {project.features.slice(0, 4).map((feat, i) => (
-                        <div key={i} className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
-                          <span className="text-xs text-gray-600 leading-tight">{feat}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Link
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        size="sm"
-                        className="w-full bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white text-xs rounded-lg transition-all duration-300"
-                      >
-                        <FaGlobe className="mr-1.5 text-xs" />
-                        Visit Live Site
-                        <FaExternalLinkAlt className="ml-auto text-xs" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        </div>
 
         {/* ── Technologies We Use ── */}
         <motion.div
@@ -403,22 +407,7 @@ export default function Services() {
             </p>
           </div>
 
-          <style jsx>{`
-            @keyframes scroll-ltr {
-              0%   { transform: translateX(0); }
-              100% { transform: translateX(-50%); }
-            }
-            @keyframes scroll-rtl {
-              0%   { transform: translateX(-50%); }
-              100% { transform: translateX(0); }
-            }
-            .track-ltr  { animation: scroll-ltr 28s linear infinite; }
-            .track-rtl  { animation: scroll-rtl 22s linear infinite; }
-            .track-ltr2 { animation: scroll-ltr 35s linear infinite; }
-            .marquee-wrap:hover .track-ltr,
-            .marquee-wrap:hover .track-rtl,
-            .marquee-wrap:hover .track-ltr2 { animation-play-state: paused; }
-          `}</style>
+
 
           {/* Outer container — clips rows and adds edge fades */}
           <div
@@ -432,7 +421,7 @@ export default function Services() {
           >
             {/* Row 1 — left to right, normal speed */}
             <div className="overflow-hidden mb-3">
-              <div className="track-ltr flex gap-3 w-max">
+              <div data-string-marquee className="flex gap-3 w-max">
                 {[...ROW_1, ...ROW_1, ...ROW_1, ...ROW_1].map((tech, i) => (
                   <TechPill key={`r1-${i}`} tech={tech} />
                 ))}
@@ -441,7 +430,7 @@ export default function Services() {
 
             {/* Row 2 — right to left, faster */}
             <div className="overflow-hidden mb-3">
-              <div className="track-rtl flex gap-3 w-max">
+              <div data-string-marquee="reverse" className="flex gap-3 w-max">
                 {[...ROW_2, ...ROW_2, ...ROW_2, ...ROW_2].map((tech, i) => (
                   <TechPill key={`r2-${i}`} tech={tech} />
                 ))}
@@ -450,7 +439,7 @@ export default function Services() {
 
             {/* Row 3 — left to right, slowest */}
             <div className="overflow-hidden">
-              <div className="track-ltr2 flex gap-3 w-max">
+              <div data-string-marquee className="flex gap-3 w-max">
                 {[...ROW_3, ...ROW_1.slice(0, 3), ...ROW_3, ...ROW_1.slice(0, 3), ...ROW_3, ...ROW_1.slice(0, 3)].map((tech, i) => (
                   <TechPill key={`r3-${i}`} tech={tech} />
                 ))}
@@ -469,6 +458,7 @@ export default function Services() {
         >
           <Link href="/#contact">
             <Button
+              data-string-magnetic
               size="lg"
               className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105"
             >

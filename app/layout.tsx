@@ -48,13 +48,19 @@ export const metadata: Metadata = {
   generator: "v0.app",
 };
 
+import StringTuneWrapper from "@/components/StringTuneWrapper";
+import Preloader from "@/components/Preloader";
+import SmoothScroller from "@/components/SmoothScroller";
+import CustomCursor from "@/components/CustomCursor";
+import AnimatedBackground from "@/components/AnimatedBackground";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${roboto.variable}`} suppressHydrationWarning>
       <head>
         <meta
           name="viewport"
@@ -78,10 +84,16 @@ export default function RootLayout({
         />
 
         {/* Favicon & App icons */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/icon-192x192.png" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+
+        {/* Open Graph & Twitter */}
+        <meta property="og:image" content="/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:image" content="/og-image.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
 
         {/* JSON-LD Structured Data */}
         <script
@@ -116,8 +128,14 @@ export default function RootLayout({
       </head>
       <body className="font-roboto antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-          <ThemeToggle />
+          <SmoothScroller />
+          <CustomCursor />
+          <AnimatedBackground />
+          <StringTuneWrapper>
+            <Preloader />
+            {children}
+            <ThemeToggle />
+          </StringTuneWrapper>
         </ThemeProvider>
       </body>
     </html>

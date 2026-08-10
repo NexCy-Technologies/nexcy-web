@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 const manifesto = [
   {
@@ -29,6 +30,23 @@ const pillars = [
 ];
 
 export default function About() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // If we're at the very bottom or top, clamp to valid indices
+    const index = Math.min(
+      manifesto.length - 1,
+      Math.max(0, Math.floor(latest * manifesto.length))
+    );
+    setActiveIndex(index);
+  });
+
   return (
     <section
       id="about"
@@ -81,35 +99,53 @@ export default function About() {
 
           {/* Right — numbered manifesto */}
           <motion.div
+            ref={containerRef}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
             className="flex flex-col gap-0 divide-y divide-gray-100"
           >
-            {manifesto.map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: 0.2 + idx * 0.12 }}
-                className="group flex items-start gap-5 py-6 sm:py-7"
-              >
-                {/* Number */}
-                <span className="flex-shrink-0 text-xs font-bold text-orange-400 tracking-widest mt-0.5 group-hover:text-orange-600 transition-colors duration-300">
-                  {item.index}
-                </span>
+            {manifesto.map((item, idx) => {
+              const isActive = activeIndex === idx;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.2 + idx * 0.12 }}
+                  className={`group flex items-start gap-5 py-6 sm:py-7 transition-opacity duration-500 ${
+                    isActive ? "opacity-100" : "opacity-30 hover:opacity-70"
+                  }`}
+                >
+                  {/* Number */}
+                  <span
+                    className={`flex-shrink-0 text-xs font-bold tracking-widest mt-0.5 transition-colors duration-300 ${
+                      isActive ? "text-orange-600" : "text-orange-400 group-hover:text-orange-500"
+                    }`}
+                  >
+                    {item.index}
+                  </span>
 
-                {/* Thin vertical rule */}
-                <div className="flex-shrink-0 w-px self-stretch bg-orange-200 group-hover:bg-orange-400 transition-colors duration-300" />
+                  {/* Thin vertical rule */}
+                  <div
+                    className={`flex-shrink-0 w-1 self-stretch transition-colors duration-300 rounded-full ${
+                      isActive ? "bg-orange-500" : "bg-orange-100 group-hover:bg-orange-300"
+                    }`}
+                  />
 
-                {/* Text */}
-                <p className="text-gray-600 text-sm sm:text-base leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
-                  {item.text}
-                </p>
-              </motion.div>
-            ))}
+                  {/* Text */}
+                  <p
+                    className={`text-sm sm:text-base leading-relaxed transition-colors duration-300 ${
+                      isActive ? "text-gray-900 font-medium" : "text-gray-500 group-hover:text-gray-700"
+                    }`}
+                  >
+                    {item.text}
+                  </p>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
 
@@ -119,7 +155,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-30px" }}
           transition={{ duration: 0.75, delay: 0.1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white"
+          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-background"
         >
           {pillars.map((pillar, idx) => (
             <motion.div

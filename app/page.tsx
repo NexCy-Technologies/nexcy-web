@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "NexCy Technologies",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "NexCy Technologies",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     title: "NexCy Technologies",
     description:
       "NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
-    images: ["/og-image.jpg"],
+    images: ["/logo.png"],
   },
 }
 

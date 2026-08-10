@@ -119,7 +119,10 @@ export default function Contact() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="lg:col-span-3"
           >
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 sm:p-8">
+            <div className="bg-background dark:bg-slate-900 rounded-2xl border border-border shadow-sm p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
+                Send us a message
+              </h3>
 
               <AnimatePresence mode="wait">
                 {isSuccess ? (
@@ -134,8 +137,8 @@ export default function Contact() {
                     <div className="w-14 h-14 rounded-full bg-green-50 border border-green-100 flex items-center justify-center mb-5">
                       <FaCheck className="text-green-500 text-xl" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Message sent!</h3>
-                    <p className="text-gray-500 text-sm">We'll get back to you within 24 hours.</p>
+                    <h3 className="text-lg font-bold text-foreground mb-2">Message sent!</h3>
+                    <p className="text-muted-foreground text-sm">We'll get back to you within 24 hours.</p>
                   </motion.div>
                 ) : (
                   <motion.form
@@ -149,29 +152,30 @@ export default function Contact() {
                     {/* Name + Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                           Full Name <span className="text-orange-400">*</span>
                         </label>
                         <Input
-                          type="text"
+                          name="name"
                           required
                           value={formData.name}
-                          onChange={(e) => set("name", e.target.value)}
+                          onChange={handleChange}
                           placeholder="Your full name"
-                          className="h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm"
+                          className="h-11 rounded-xl border-border focus:border-orange-400 focus:ring-orange-400 text-sm"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                           Email <span className="text-orange-400">*</span>
                         </label>
                         <Input
+                          name="email"
                           type="email"
                           required
                           value={formData.email}
-                          onChange={(e) => set("email", e.target.value)}
+                          onChange={handleChange}
                           placeholder="you@example.com"
-                          className="h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm"
+                          className="h-11 rounded-xl border-border focus:border-orange-400 focus:ring-orange-400 text-sm"
                         />
                       </div>
                     </div>
@@ -179,25 +183,27 @@ export default function Contact() {
                     {/* Phone + Project type */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                           Phone
                         </label>
                         <Input
+                          name="phone"
                           type="tel"
                           value={formData.phone}
-                          onChange={(e) => set("phone", e.target.value)}
+                          onChange={handleChange}
                           placeholder="+94 XXX XXX XXX"
-                          className="h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm"
+                          className="h-11 rounded-xl border-border focus:border-orange-400 focus:ring-orange-400 text-sm"
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                        <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                           Project Type
                         </label>
                         <select
+                          name="project"
                           value={formData.project}
-                          onChange={(e) => set("project", e.target.value)}
-                          className="w-full h-11 px-3 rounded-xl border border-gray-200 text-sm text-gray-700 bg-white focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                          onChange={handleChange}
+                          className="w-full h-11 px-3 rounded-xl border border-border text-sm text-foreground bg-background focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
                         >
                           <option value="">Select a type</option>
                           {projectTypes.map((t) => (
@@ -207,18 +213,34 @@ export default function Contact() {
                       </div>
                     </div>
 
+                    {/* Budget */}
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        Budget Range
+                      </label>
+                      <Input
+                        type="text"
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        placeholder="$5k - $10k"
+                        className="w-full h-11 px-3 rounded-xl border border-border text-sm text-foreground bg-background dark:bg-slate-950 focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                      />
+                    </div>
+
                     {/* Message */}
                     <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         Message <span className="text-orange-400">*</span>
                       </label>
                       <Textarea
+                        name="message"
                         required
                         rows={5}
                         value={formData.message}
-                        onChange={(e) => set("message", e.target.value)}
+                        onChange={handleChange}
                         placeholder="Tell us about your project — goals, timeline, anything that helps us understand what you need."
-                        className="rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm resize-none"
+                        className="rounded-xl border-border focus:border-orange-400 focus:ring-orange-400 text-sm resize-none"
                       />
                     </div>
 
@@ -265,26 +287,26 @@ export default function Contact() {
                     href={item.href}
                     target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className={`flex items-center gap-4 p-4 sm:p-5 bg-white rounded-2xl border ${item.border} hover:shadow-md transition-all duration-300 group`}
+                    className={`flex items-center gap-4 p-4 sm:p-5 bg-background dark:bg-slate-900 rounded-2xl border ${item.border} hover:shadow-md transition-all duration-300 group`}
                   >
                     <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
                       <item.icon className={`${item.color} text-base sm:text-lg`} />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">{item.label}</p>
+                      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide mb-0.5">{item.label}</p>
                       <p className={`text-sm font-semibold ${item.color} group-hover:underline underline-offset-2 truncate`}>
                         {item.value}
                       </p>
                     </div>
                   </a>
                 ) : (
-                  <div className={`flex items-center gap-4 p-4 sm:p-5 bg-white rounded-2xl border ${item.border}`}>
+                  <div className={`flex items-center gap-4 p-4 sm:p-5 bg-background dark:bg-slate-900 rounded-2xl border ${item.border}`}>
                     <div className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl ${item.bg} flex items-center justify-center flex-shrink-0`}>
                       <item.icon className={`${item.color} text-base sm:text-lg`} />
                     </div>
                     <div>
-                      <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">{item.label}</p>
-                      <p className="text-sm font-semibold text-gray-700">{item.value}</p>
+                      <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wide mb-0.5">{item.label}</p>
+                      <p className="text-sm font-semibold text-foreground">{item.value}</p>
                     </div>
                   </div>
                 )}
@@ -297,9 +319,9 @@ export default function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-white rounded-2xl border border-gray-100 p-5 sm:p-6"
+              className="bg-background dark:bg-slate-900 rounded-2xl border border-border p-5 sm:p-6"
             >
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Office Hours</p>
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-4">Office Hours</p>
               <div className="space-y-2.5">
                 {[
                   { day: "Monday – Friday", time: "9:00 AM – 6:00 PM" },
