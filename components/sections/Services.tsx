@@ -18,128 +18,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-const services = [
-  {
-    title: "Web Development",
-    description:
-      "Modern, responsive websites and web applications built with cutting-edge technologies.",
-    features: ["Responsive Design", "SEO Optimized", "Fast Loading", "Secure"],
-    icon: FaGlobe,
-  },
-  {
-    title: "ERP/POS Systems",
-    description:
-      "Comprehensive enterprise resource planning and point-of-sale solutions for your business.",
-    features: [
-      "Inventory Management",
-      "Sales Tracking",
-      "Reporting",
-      "Multi-location",
-    ],
-    icon: FaBriefcase,
-  },
-  {
-    title: "Mobile Apps",
-    description:
-      "Native Android and iOS applications that deliver exceptional user experiences.",
-    features: [
-      "Cross-platform",
-      "Native Performance",
-      "App Store Ready",
-      "Push Notifications",
-    ],
-    icon: FaMobile,
-  },
-  {
-    title: "Software Development",
-    description:
-      "Custom software solutions tailored to your specific business requirements.",
-    features: [
-      "Custom Solutions",
-      "Scalable Architecture",
-      "API Integration",
-      "Cloud Ready",
-    ],
-    icon: FaCog,
-  },
-  {
-    title: "AI/ML Solutions",
-    description:
-      "Intelligent systems powered by machine learning and artificial intelligence.",
-    features: [
-      "Predictive Analytics",
-      "Automation",
-      "Data Processing",
-      "Smart Insights",
-    ],
-    icon: FaRobot,
-  },
-  {
-    title: "IoT Development",
-    description:
-      "Internet of Things solutions connecting devices and enabling smart automation.",
-    features: [
-      "Device Integration",
-      "Real-time Monitoring",
-      "Data Analytics",
-      "Remote Control",
-    ],
-    icon: FaNetworkWired,
-  },
-];
+// Map icon strings to React Icons
+const IconMap: Record<string, React.ElementType> = {
+  FaGlobe,
+  FaBriefcase,
+  FaMobile,
+  FaCog,
+  FaRobot,
+  FaNetworkWired,
+};
 
-const techLogos = [
-  { name: "React", logo: "/technologies/react-logo.png" },
-  { name: "Next.js", logo: "/technologies/next.js-logo.png" },
-  { name: "TailwindCSS", logo: "/technologies/tailwind-css-logo.png" },
-  { name: "Flutter", logo: "/technologies/flutter-logo.png" },
-  { name: "Android", logo: "/technologies/android-logo.png" },
-  { name: "Node.js", logo: "/technologies/nodejs-logo.png" },
-  { name: "Laravel", logo: "/technologies/laravel-logo.png" },
-  { name: "Python", logo: "/technologies/python-logo.png" },
-  { name: "Flask", logo: "/technologies/flask-logo.png" },
-  { name: "Express", logo: "/technologies/express-logo.png" },
-  { name: "MongoDB", logo: "/technologies/mongodb-logo.png" },
-  { name: "Firebase", logo: "/technologies/firebase-logo.png" },
-  { name: "AWS", logo: "/technologies/aws-logo.png" },
-  { name: "Azure", logo: "/technologies/azure-logo.png" },
-  { name: "Google Cloud", logo: "/technologies/google-cloud-logo.png" },
-  { name: "Cloudflare", logo: "/technologies/cloudflare-logo.png" },
-  { name: "Vercel", logo: "/technologies/vercel-logo.png" },
-  { name: "GitHub", logo: "/technologies/github-logo.png" },
-  { name: "Git", logo: "/technologies/git-logo.png" },
-  { name: "Jira", logo: "/technologies/jira-logo.png" },
-];
+type ServiceProps = {
+  id?: string;
+  title: string;
+  description: string;
+  icon: string;
+  features: string[];
+};
 
-const ROW_1 = techLogos.slice(0, 7);
-const ROW_2 = techLogos.slice(7, 14);
-const ROW_3 = techLogos.slice(14);
-
-function getMicrolicPreviewUrl(url: string) {
-  return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&embed=screenshot.url&meta=false`;
-}
-
-function TechPill({ tech }: { tech: { name: string; logo: string } }) {
-  return (
-    <div className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white border border-gray-100 hover:border-border hover:shadow-sm hover:shadow-primary/20 transition-all duration-300 cursor-default flex-shrink-0">
-      <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-        <Image
-          src={tech.logo}
-          alt={tech.name}
-          width={20}
-          height={20}
-          className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-300"
-          unoptimized
-        />
-      </div>
-      <span className="text-xs font-medium text-gray-500 group-hover:text-primary transition-colors duration-300 whitespace-nowrap">
-        {tech.name}
-      </span>
-    </div>
-  );
-}
-
-export default function Services() {
+export default function Services({ services = [] }: { services?: ServiceProps[] }) {
   const [activeService, setActiveService] = useState<number | null>(null);
 
   return (
@@ -203,11 +100,16 @@ export default function Services() {
                           : "bg-muted"
                       }`}
                     >
-                      <service.icon
-                        className={`text-lg transition-colors duration-300 ${
-                          isOpen ? "text-white" : "text-primary"
-                        }`}
-                      />
+                      {(() => {
+                        const IconComponent = IconMap[service.icon] || Blocks;
+                        return (
+                          <IconComponent
+                            className={`text-lg transition-colors duration-300 ${
+                              isOpen ? "text-primary-foreground" : "text-primary"
+                            }`}
+                          />
+                        );
+                      })()}
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
@@ -484,5 +386,57 @@ export default function Services() {
         </motion.div>
       </div>
     </section>
+  );
+}
+
+// ── Static references ──
+const techLogos = [
+  { name: "React", logo: "/technologies/react-logo.png" },
+  { name: "Next.js", logo: "/technologies/next.js-logo.png" },
+  { name: "TailwindCSS", logo: "/technologies/tailwind-css-logo.png" },
+  { name: "Flutter", logo: "/technologies/flutter-logo.png" },
+  { name: "Android", logo: "/technologies/android-logo.png" },
+  { name: "Node.js", logo: "/technologies/nodejs-logo.png" },
+  { name: "Laravel", logo: "/technologies/laravel-logo.png" },
+  { name: "Python", logo: "/technologies/python-logo.png" },
+  { name: "Flask", logo: "/technologies/flask-logo.png" },
+  { name: "Express", logo: "/technologies/express-logo.png" },
+  { name: "MongoDB", logo: "/technologies/mongodb-logo.png" },
+  { name: "Firebase", logo: "/technologies/firebase-logo.png" },
+  { name: "AWS", logo: "/technologies/aws-logo.png" },
+  { name: "Azure", logo: "/technologies/azure-logo.png" },
+  { name: "Google Cloud", logo: "/technologies/google-cloud-logo.png" },
+  { name: "Cloudflare", logo: "/technologies/cloudflare-logo.png" },
+  { name: "Vercel", logo: "/technologies/vercel-logo.png" },
+  { name: "GitHub", logo: "/technologies/github-logo.png" },
+  { name: "Git", logo: "/technologies/git-logo.png" },
+  { name: "Jira", logo: "/technologies/jira-logo.png" },
+];
+
+const ROW_1 = techLogos.slice(0, 7);
+const ROW_2 = techLogos.slice(7, 14);
+const ROW_3 = techLogos.slice(14);
+
+function getMicrolicPreviewUrl(url: string) {
+  return `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&embed=screenshot.url&meta=false`;
+}
+
+function TechPill({ tech }: { tech: { name: string; logo: string } }) {
+  return (
+    <div className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white border border-gray-100 transition-all duration-300 cursor-default flex-shrink-0 active:scale-95">
+      <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+        <Image
+          src={tech.logo}
+          alt={tech.name}
+          width={20}
+          height={20}
+          className="max-w-full max-h-full object-contain filter grayscale group-active:grayscale-0 opacity-50 group-active:opacity-100 transition-all duration-300"
+          unoptimized
+        />
+      </div>
+      <span className="text-xs font-medium text-gray-500 group-active:text-primary transition-colors duration-300 whitespace-nowrap">
+        {tech.name}
+      </span>
+    </div>
   );
 }
