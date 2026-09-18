@@ -32,7 +32,7 @@ export async function Work() {
             <Link 
               key={project.id} 
               href={`/work/${project.slug}`}
-              className="group flex flex-col md:flex-row md:items-center justify-between py-6 md:py-8 border-b border-border border-l-2 border-l-transparent hover:border-l-accent focus-visible:border-l-accent transition-colors pl-4 pr-4 -ml-[2px]"
+              className="group flex flex-col md:flex-row md:items-center justify-between py-6 md:py-8 border-b border-border border-l-2 border-l-transparent hover:border-l-accent focus-visible:border-l-accent active:border-l-accent active:bg-surface-hover transition-colors pl-4 pr-4 -ml-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
             >
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-12 flex-1">
                 <span className="text-2xl md:text-3xl font-mono text-muted-foreground/30 w-12 font-medium">
@@ -49,7 +49,7 @@ export async function Work() {
               </div>
               
               <div className="mt-6 md:mt-0 shrink-0 md:pl-8">
-                <div className="inline-flex items-center justify-center border border-border bg-transparent text-foreground rounded-[2px] px-6 py-2.5 text-sm font-mono font-medium tracking-wide uppercase transition-colors group-hover:bg-accent group-hover:text-[#0A0A0A] group-hover:border-accent group-focus-visible:bg-accent group-focus-visible:text-[#0A0A0A] group-focus-visible:border-accent">
+                <div className="inline-flex items-center justify-center border border-border bg-transparent text-foreground rounded-[2px] px-6 py-2.5 text-sm font-mono font-medium tracking-wide uppercase transition-colors group-hover:bg-accent group-hover:text-[#0A0A0A] group-hover:border-accent group-focus-visible:bg-accent group-focus-visible:text-[#0A0A0A] group-focus-visible:border-accent group-active:bg-accent group-active:text-[#0A0A0A] group-active:border-accent">
                   VIEW &rarr;
                 </div>
               </div>

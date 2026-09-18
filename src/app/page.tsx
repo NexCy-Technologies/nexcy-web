@@ -4,6 +4,8 @@ import { Team } from "@/components/sections/Team";
 import { Services } from "@/components/sections/Services";
 import { Technologies } from "@/components/sections/Technologies";
 import { Work } from "@/components/sections/Work";
+import { Contact } from "@/components/sections/Contact";
+import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
       <Services />
       <Technologies />
       <Work />
+      <Contact />
+      <Footer />
     </main>
   );
 }

@@ -33,7 +33,8 @@ export function Navigation() {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "font-mono text-sm tracking-wide text-foreground relative group py-2",
+                    "font-mono text-sm tracking-wide text-foreground relative group py-2 transition-colors",
+                    "focus-visible:outline-none focus-visible:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background active:text-accent"
                   )}
                   style={{ fontVariant: "small-caps" }}
                 >
@@ -71,7 +72,7 @@ export function Navigation() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="font-mono text-lg tracking-wide border-b border-[var(--border)] py-6 px-6 text-foreground flex justify-between items-center bg-[var(--background)]"
+                  className="font-mono text-lg tracking-wide border-b border-[var(--border)] py-6 px-6 text-foreground flex justify-between items-center bg-[var(--background)] transition-colors focus-visible:outline-none focus-visible:bg-[var(--surface)] active:bg-[var(--surface)]"
                   style={{ fontVariant: "small-caps" }}
                 >
                   {link.name}
