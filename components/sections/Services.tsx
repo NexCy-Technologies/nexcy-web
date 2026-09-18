@@ -1,17 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  FaGlobe,
-  FaBriefcase,
-  FaMobile,
-  FaCog,
-  FaRobot,
-  FaNetworkWired,
-  FaExternalLinkAlt,
-  FaCheckCircle,
-} from "react-icons/fa";
-import projectsData from "@/data/projects.json";
+import { FaGlobe, FaBriefcase, FaMobile, FaCog, FaRobot, FaNetworkWired, FaExternalLinkAlt, FaCheckCircle, FaArrowRight } from "react-icons/fa";
 import { ArrowRight, Code2, Smartphone, Database, Brain, Cpu, Blocks } from "lucide-react"
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -36,7 +26,18 @@ type ServiceProps = {
   features: string[];
 };
 
-export default function Services({ services = [] }: { services?: ServiceProps[] }) {
+type CaseStudyProps = {
+  id?: string;
+  slug: string;
+  title: string;
+  description: string;
+  url: string;
+  category: string;
+  technologies: string[];
+  features: string[];
+};
+
+export default function Services({ services = [], caseStudies = [] }: { services?: ServiceProps[], caseStudies?: CaseStudyProps[] }) {
   const [activeService, setActiveService] = useState<number | null>(null);
 
   return (
@@ -164,6 +165,11 @@ export default function Services({ services = [] }: { services?: ServiceProps[] 
                               </li>
                             ))}
                           </ul>
+                          {service.id && (
+                            <Link href={`/services/${service.id}`} className="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
+                              Explore Service <FaArrowRight className="ml-2 text-xs" />
+                            </Link>
+                          )}
                         </div>
                       </motion.div>
                     )}
@@ -196,26 +202,30 @@ export default function Services({ services = [] }: { services?: ServiceProps[] 
           </div>
 
           <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-3 sm:-mx-0 px-3 sm:px-0">
-            {projectsData.projects.map((project, idx) => (
+            {caseStudies.map((project, idx) => (
               <motion.div
-                key={project.id}
+                key={project.id || idx}
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-20px" }}
                 transition={{ duration: 0.6, delay: idx * 0.12 }}
                 className="flex-shrink-0 w-72 sm:w-80 md:w-96 snap-start"
               >
-                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white group">
+                <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white group flex flex-col h-full">
                   {/* Live screenshot preview */}
-                  <div className="relative overflow-hidden aspect-video bg-gray-100">
-                    <Image
-                      src={getMicrolicPreviewUrl(project.url)}
-                      alt={`${project.title} preview`}
-                      width={600}
-                      height={338}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      unoptimized
-                    />
+                  <Link href={`/work/${project.slug}`} className="relative overflow-hidden aspect-video bg-gray-100 block">
+                    {project.url ? (
+                      <Image
+                        src={getMicrolicPreviewUrl(project.url)}
+                        alt={`${project.title} preview`}
+                        width={600}
+                        height={338}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">No Preview</div>
+                    )}
                     {/* Category badge */}
                     <div className="absolute top-3 right-3">
                       <span className="bg-muted0/90 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm">
@@ -224,24 +234,28 @@ export default function Services({ services = [] }: { services?: ServiceProps[] 
                     </div>
                     {/* Gradient overlay at bottom */}
                     <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-black/20 to-transparent" />
-                  </div>
+                  </Link>
 
                   {/* Info */}
-                  <div className="p-4 sm:p-5">
+                  <div className="p-4 sm:p-5 flex flex-col flex-grow">
                     <div className="flex items-start justify-between mb-2 gap-2">
-                      <h4 className="text-sm sm:text-base font-bold text-gray-900 leading-tight flex-1">
-                        {project.title}
-                      </h4>
-                      <Link
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-shrink-0 text-primary hover:text-primary transition-colors mt-0.5"
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label={`Visit ${project.title}`}
-                      >
-                        <FaExternalLinkAlt className="text-xs" />
+                      <Link href={`/work/${project.slug}`} className="flex-1">
+                        <h4 className="text-sm sm:text-base font-bold text-gray-900 leading-tight group-hover:text-primary transition-colors">
+                          {project.title}
+                        </h4>
                       </Link>
+                      {project.url && (
+                        <Link
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-shrink-0 text-primary hover:text-primary transition-colors mt-0.5"
+                          onClick={(e) => e.stopPropagation()}
+                          aria-label={`Visit ${project.title}`}
+                        >
+                          <FaExternalLinkAlt className="text-xs" />
+                        </Link>
+                      )}
                     </div>
 
                     <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-3 line-clamp-2">
@@ -270,20 +284,33 @@ export default function Services({ services = [] }: { services?: ServiceProps[] 
                       ))}
                     </div>
 
-                    <Link
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button
-                        size="sm"
-                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-white text-xs rounded-lg transition-all duration-300"
-                      >
-                        <FaGlobe className="mr-1.5 text-xs" />
-                        Visit Live Site
-                        <FaExternalLinkAlt className="ml-auto text-xs" />
-                      </Button>
-                    </Link>
+                    <div className="mt-auto pt-4 flex gap-2">
+                      <Link href={`/work/${project.slug}`} className="flex-1">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full text-primary border-primary hover:bg-primary hover:text-white text-xs rounded-lg transition-all duration-300"
+                        >
+                          View Details
+                        </Button>
+                      </Link>
+                      {project.url && (
+                        <Link
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1"
+                        >
+                          <Button
+                            size="sm"
+                            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-white text-xs rounded-lg transition-all duration-300"
+                          >
+                            <FaGlobe className="mr-1.5 text-xs" />
+                            Live Site
+                          </Button>
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>
