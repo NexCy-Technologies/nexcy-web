@@ -1,8 +1,19 @@
 import { ImageResponse } from 'next/og'
 import { createClient } from '@supabase/supabase-js'
 
-export const runtime = 'edge'
+export const dynamic = 'force-static'
 export const alt = 'Case Study Preview'
+
+export async function generateStaticParams() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  const { data: projects } = await supabase.from("case_studies").select("slug");
+  return (projects || []).map((project) => ({
+    slug: project.slug,
+  }));
+}
 export const size = {
   width: 1200,
   height: 630,
