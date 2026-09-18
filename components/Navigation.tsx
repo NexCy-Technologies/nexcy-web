@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 
@@ -93,9 +94,11 @@ export default function Navigation() {
                 className="flex items-center gap-2 group flex-shrink-0"
                 aria-label="Nexcy Technologies home"
               >
-                <img
+                <Image
                   src="/logo.png"
                   alt="Nexcy logo"
+                  width={36}
+                  height={36}
                   className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
                 />
                 <span
@@ -229,7 +232,7 @@ export default function Navigation() {
               {/* Header */}
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-2">
-                  <img src="/logo.png" alt="Nexcy" className="w-7 h-7 object-contain" />
+                  <Image src="/logo.png" alt="Nexcy" width={28} height={28} className="w-7 h-7 object-contain" />
                   <span
                     className="font-black text-base text-gray-900"
                     style={{ fontFamily: "Geometr415 Blk BT, sans-serif" }}
