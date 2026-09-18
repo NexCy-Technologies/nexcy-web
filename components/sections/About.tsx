@@ -39,7 +39,7 @@ export default function About() {
         {/* ── Signature background word ── */}
         <span
           aria-hidden="true"
-          className="pointer-events-none select-none absolute left-1/2 top-8 -translate-x-1/2 text-[clamp(5rem,18vw,14rem)] font-black uppercase leading-none tracking-tighter text-orange-500/[0.04] whitespace-nowrap"
+          className="pointer-events-none select-none absolute left-1/2 top-8 -translate-x-1/2 text-[clamp(5rem,18vw,14rem)] font-black uppercase leading-none tracking-tighter text-primary/[0.04] whitespace-nowrap"
         >
           NEXCY
         </span>
@@ -57,15 +57,15 @@ export default function About() {
           >
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-5 sm:mb-6">
-              <div className="h-px w-8 bg-orange-400" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-orange-500">
+              <div className="h-px w-8 bg-primary" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-primary">
                 Who We Are
               </span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight mb-6 sm:mb-8">
               Building the{" "}
-              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-primary">
                 digital future
               </span>
               , one product at a time.
@@ -97,12 +97,12 @@ export default function About() {
                 className="group flex items-start gap-5 py-6 sm:py-7"
               >
                 {/* Number */}
-                <span className="flex-shrink-0 text-xs font-bold text-orange-400 tracking-widest mt-0.5 group-hover:text-orange-600 transition-colors duration-300">
+                <span className="flex-shrink-0 text-xs font-bold text-primary tracking-widest mt-0.5 group-hover:text-primary transition-colors duration-300">
                   {item.index}
                 </span>
 
                 {/* Thin vertical rule */}
-                <div className="flex-shrink-0 w-px self-stretch bg-orange-200 group-hover:bg-orange-400 transition-colors duration-300" />
+                <div className="flex-shrink-0 w-px self-stretch bg-muted group-hover:bg-primary transition-colors duration-300" />
 
                 {/* Text */}
                 <p className="text-gray-600 text-sm sm:text-base leading-relaxed group-hover:text-gray-900 transition-colors duration-300">
@@ -119,7 +119,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-30px" }}
           transition={{ duration: 0.75, delay: 0.1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white"
+          className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-border border border-border rounded-2xl overflow-hidden bg-white"
         >
           {pillars.map((pillar, idx) => (
             <motion.div
@@ -128,12 +128,12 @@ export default function About() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: 0.2 + idx * 0.1 }}
-              className="group px-7 py-7 sm:px-8 sm:py-8 hover:bg-orange-50 transition-colors duration-300"
+              className="group px-7 py-7 sm:px-8 sm:py-8 hover:bg-muted transition-colors duration-300"
             >
               {/* Orange top accent on hover */}
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-1.5 h-1.5 rounded-full bg-orange-400 group-hover:scale-125 transition-transform duration-300" />
-                <h4 className="text-sm sm:text-base font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary group-hover:scale-125 transition-transform duration-300" />
+                <h4 className="text-sm sm:text-base font-bold text-gray-900 group-hover:text-primary transition-colors duration-300">
                   {pillar.label}
                 </h4>
               </div>
