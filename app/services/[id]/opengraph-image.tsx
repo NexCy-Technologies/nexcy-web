@@ -1,8 +1,19 @@
 import { ImageResponse } from 'next/og'
 import { createClient } from '@supabase/supabase-js'
 
-export const runtime = 'edge'
+export const dynamic = 'force-static'
 export const alt = 'Service Detail'
+
+export async function generateStaticParams() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  const { data: services } = await supabase.from("services").select("id");
+  return (services || []).map((service) => ({
+    id: service.id,
+  }));
+}
 export const size = {
   width: 1200,
   height: 630,
