@@ -13,6 +13,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.nexcy.lk'),
   title: {
     default: "NexCy Technologies - Future of Digital Innovation",
     template: "%s | NexCy Technologies",
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: { canonical: "https://nexcy.lk" },
+  alternates: { canonical: "https://www.nexcy.lk" },
   category: "Technology",
   classification: "Business",
   other: {
@@ -91,8 +92,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "NexCy Technologies",
-              url: "https://nexcy.lk",
-              logo: "https://nexcy.lk/logo.png",
+              url: "https://www.nexcy.lk",
+              logo: "https://www.nexcy.lk/logo.png",
               description:
                 "NexCy Technologies provides web development, mobile apps, ERP/POS systems, AI/ML solutions, IoT development, and custom software solutions.",
               address: {
