@@ -121,7 +121,7 @@ function getMicrolicPreviewUrl(url: string) {
 
 function TechPill({ tech }: { tech: { name: string; logo: string } }) {
   return (
-    <div className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white border border-gray-100 hover:border-orange-300 hover:shadow-sm hover:shadow-orange-100 transition-all duration-300 cursor-default flex-shrink-0">
+    <div className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white border border-gray-100 hover:border-border hover:shadow-sm hover:shadow-primary/20 transition-all duration-300 cursor-default flex-shrink-0">
       <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
         <Image
           src={tech.logo}
@@ -132,7 +132,7 @@ function TechPill({ tech }: { tech: { name: string; logo: string } }) {
           unoptimized
         />
       </div>
-      <span className="text-xs font-medium text-gray-500 group-hover:text-orange-500 transition-colors duration-300 whitespace-nowrap">
+      <span className="text-xs font-medium text-gray-500 group-hover:text-primary transition-colors duration-300 whitespace-nowrap">
         {tech.name}
       </span>
     </div>
@@ -158,7 +158,7 @@ export default function Services() {
         >
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-6 px-2">
             Our{" "}
-            <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+            <span className="text-primary">
               Services
             </span>
           </h2>
@@ -188,7 +188,7 @@ export default function Services() {
                   viewport={{ once: true, margin: "-20px" }}
                   transition={{ duration: 0.5, delay: idx * 0.08 }}
                   className={`rounded-2xl bg-white shadow-md transition-shadow duration-300 overflow-hidden cursor-pointer ${
-                    isOpen ? "shadow-xl ring-2 ring-orange-400/40" : "hover:shadow-lg"
+                    isOpen ? "shadow-xl ring-2 ring-primary" : "hover:shadow-lg"
                   }`}
                   onClick={() =>
                     setActiveService(isOpen ? null : idx)
@@ -199,13 +199,13 @@ export default function Services() {
                     <div
                       className={`flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-colors duration-300 ${
                         isOpen
-                          ? "bg-gradient-to-br from-orange-400 to-orange-600"
-                          : "bg-orange-50"
+                          ? "bg-primary text-primary-foreground"
+                          : "bg-muted"
                       }`}
                     >
                       <service.icon
                         className={`text-lg transition-colors duration-300 ${
-                          isOpen ? "text-white" : "text-orange-500"
+                          isOpen ? "text-white" : "text-primary"
                         }`}
                       />
                     </div>
@@ -217,7 +217,7 @@ export default function Services() {
                     <span
                       className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                         isOpen
-                          ? "border-orange-500 bg-orange-500 text-white rotate-45"
+                          ? "border-primary bg-muted0 text-white rotate-45"
                           : "border-gray-300 text-gray-400"
                       }`}
                     >
@@ -257,7 +257,7 @@ export default function Services() {
                                 key={fidx}
                                 className="flex items-center gap-2.5 text-xs sm:text-sm text-gray-700"
                               >
-                                <FaCheckCircle className="text-orange-500 flex-shrink-0 text-xs" />
+                                <FaCheckCircle className="text-primary flex-shrink-0 text-xs" />
                                 {feat}
                               </li>
                             ))}
@@ -283,7 +283,7 @@ export default function Services() {
           <div className="text-center mb-8 sm:mb-12">
             <h3 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
               Our{" "}
-              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-primary">
                 Success Projects
               </span>
             </h3>
@@ -316,7 +316,7 @@ export default function Services() {
                     />
                     {/* Category badge */}
                     <div className="absolute top-3 right-3">
-                      <span className="bg-orange-500/90 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm">
+                      <span className="bg-muted0/90 text-white text-xs px-2.5 py-1 rounded-full backdrop-blur-sm">
                         {project.category}
                       </span>
                     </div>
@@ -334,7 +334,7 @@ export default function Services() {
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-shrink-0 text-orange-500 hover:text-orange-600 transition-colors mt-0.5"
+                        className="flex-shrink-0 text-primary hover:text-primary transition-colors mt-0.5"
                         onClick={(e) => e.stopPropagation()}
                         aria-label={`Visit ${project.title}`}
                       >
@@ -351,7 +351,7 @@ export default function Services() {
                       {project.technologies.slice(0, 4).map((tech, i) => (
                         <span
                           key={i}
-                          className="text-xs bg-orange-50 text-orange-600 border border-orange-100 px-2 py-0.5 rounded-full"
+                          className="text-xs bg-muted text-primary border border-border px-2 py-0.5 rounded-full"
                         >
                           {tech}
                         </span>
@@ -362,7 +362,7 @@ export default function Services() {
                     <div className="grid grid-cols-2 gap-1.5 mb-4">
                       {project.features.slice(0, 4).map((feat, i) => (
                         <div key={i} className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                           <span className="text-xs text-gray-600 leading-tight">{feat}</span>
                         </div>
                       ))}
@@ -375,7 +375,7 @@ export default function Services() {
                     >
                       <Button
                         size="sm"
-                        className="w-full bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white text-xs rounded-lg transition-all duration-300"
+                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-white text-xs rounded-lg transition-all duration-300"
                       >
                         <FaGlobe className="mr-1.5 text-xs" />
                         Visit Live Site
@@ -399,7 +399,7 @@ export default function Services() {
           <div className="text-center mb-8 sm:mb-10">
             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 px-2">
               Technologies{" "}
-              <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+              <span className="text-primary">
                 We Use
               </span>
             </h3>
@@ -476,7 +476,7 @@ export default function Services() {
           <Link href="/#contact">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/20 transition-all duration-300 transform hover:scale-105"
             >
               Get Started Today
             </Button>
