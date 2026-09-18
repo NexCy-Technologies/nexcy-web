@@ -1,6 +1,7 @@
 "use client"
 
 import { FaFacebook, FaWhatsapp, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa"
+import Image from "next/image"
 
 const navLinks = [
   { name: "Home",     href: "/",        section: "home" },
@@ -38,9 +39,11 @@ export default function Footer() {
             {/* Brand block */}
             <div className="lg:col-span-5">
               <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Nexcy Technologies"
+                  width={40}
+                  height={40}
                   className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl flex-shrink-0"
                 />
                 <span
