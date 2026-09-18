@@ -4,6 +4,7 @@ import Hero from "@/components/sections/Hero"
 import Navigation from "@/components/Navigation"
 import { LazySection } from "@/components/ui/lazy-section"
 import { SkipLink } from "@/components/ui/skip-link"
+import { createClient } from "@/utils/supabase/server"
 
 const About = dynamic(() => import("@/components/sections/About"), {
   loading: () => <div className="min-h-[400px] animate-pulse bg-gray-100 rounded-lg" />,
@@ -58,7 +59,29 @@ export const metadata: Metadata = {
 }
 
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient();
+
+  // Fetch site_content
+  const { data: contentData } = await supabase
+    .from('site_content')
+    .select('section, key, value');
+
+  // Fetch services
+  const { data: services } = await supabase
+    .from('services')
+    .select('*')
+    .order('display_order', { ascending: true });
+
+  const content = contentData?.reduce((acc, item) => {
+    if (!acc[item.section]) acc[item.section] = {};
+    acc[item.section][item.key] = item.value;
+    return acc;
+  }, {} as Record<string, Record<string, any>>);
+
+  const heroHeadline = content?.about?.headline || "Your vision,\nOur mission.";
+  const heroIntro = content?.about?.intro_text || "Empower your business with cutting-edge web, mobile, and AI solutions — built for scalability, performance, and real impact.";
+
   return (
     <>
       <SkipLink />
@@ -69,12 +92,12 @@ export default function HomePage() {
         <main id="main-content" tabIndex={-1}>
           {/* Hero Section */}
           <div id="home">
-            <Hero />
+            <Hero headline={heroHeadline} introText={heroIntro} />
           </div>
 
           {/* Services Section */}
           <LazySection>
-            <Services />
+            <Services services={services || []} />
           </LazySection>
 
           {/* Process / Team Section */}
