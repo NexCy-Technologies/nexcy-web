@@ -1,15 +1,21 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const roboto = Roboto({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-roboto",
-  weight: ["300", "400", "500", "700"],
+  variable: "--font-inter",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -40,7 +46,7 @@ export const metadata: Metadata = {
   category: "Technology",
   classification: "Business",
   other: {
-    "theme-color": "#ff6a00", // Updated orange theme
+    "theme-color": "#020617", // Deep Slate theme
     "color-scheme": "dark",
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
@@ -55,13 +61,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <meta name="theme-color" content="#ff6a00" />
+        <meta name="theme-color" content="#020617" />
         <meta name="color-scheme" content="light dark" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -115,7 +121,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-roboto antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
+      <body className="font-sans antialiased bg-background text-foreground min-h-screen transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
           <ThemeToggle />
