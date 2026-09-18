@@ -4,7 +4,6 @@ import Hero from "@/components/sections/Hero"
 import Navigation from "@/components/Navigation"
 import { LazySection } from "@/components/ui/lazy-section"
 import { SkipLink } from "@/components/ui/skip-link"
-import { createClient } from "@/utils/supabase/server"
 
 const About = dynamic(() => import("@/components/sections/About"), {
   loading: () => <div className="min-h-[400px] animate-pulse bg-gray-100 rounded-lg" />,
@@ -58,9 +57,13 @@ export const metadata: Metadata = {
   },
 }
 
+import { createClient } from "@supabase/supabase-js"
 
 export default async function HomePage() {
-  const supabase = await createClient();
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   // Fetch site_content
   const { data: contentData } = await supabase
