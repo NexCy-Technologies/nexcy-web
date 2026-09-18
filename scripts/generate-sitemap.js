@@ -1,15 +1,11 @@
 import fs from "fs";
 import path from "path";
 
-const baseUrl = "https://nexcy.lk";
+const baseUrl = "https://www.nexcy.lk";
 const currentDate = new Date().toISOString();
 
 const pages = [
   { path: "", changefreq: "weekly", priority: 1 },
-  { path: "about", changefreq: "monthly", priority: 0.8 },
-  { path: "services", changefreq: "monthly", priority: 0.9 },
-  { path: "team", changefreq: "monthly", priority: 0.7 },
-  { path: "contact", changefreq: "monthly", priority: 0.8 },
 ];
 
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
