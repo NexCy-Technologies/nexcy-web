@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%; /* Slate 50 */
-    --foreground: 222.2 84% 4.9%; /* Slate 950 */
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%; /* Slate 900 */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --background: 240 7% 4%; /* #0A0A0B */
+    --foreground: 48 16% 94%; /* #F2F1ED */
+    --card: 240 5% 10%; /* slightly lighter than bg */
+    --card-foreground: 48 16% 94%;
+    --popover: 240 5% 10%;
+    --popover-foreground: 48 16% 94%;
+    --primary: 75 100% 50%; /* #CCFF00 Electric Lime */
+    --primary-foreground: 240 7% 4%; /* Dark on lime */
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 48 16% 94%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 2% 65%;
+    --accent: 75 100% 50%;
+    --accent-foreground: 240 7% 4%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive-foreground: 48 16% 94%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 75 100% 50%; /* Lime ring */
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -32,25 +32,25 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%; /* Deep Slate / Slate 950 */
-    --foreground: 210 40% 98%; /* Off-White / Slate 50 */
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 199 89% 48%; /* Electric Cyan Accent */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Dark Text on Cyan */
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --background: 240 7% 4%; /* #0A0A0B */
+    --foreground: 48 16% 94%; /* #F2F1ED */
+    --card: 240 5% 10%;
+    --card-foreground: 48 16% 94%;
+    --popover: 240 5% 10%;
+    --popover-foreground: 48 16% 94%;
+    --primary: 75 100% 50%; /* #CCFF00 Electric Lime */
+    --primary-foreground: 240 7% 4%; /* Dark on lime */
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 48 16% 94%;
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 2% 65%;
+    --accent: 75 100% 50%;
+    --accent-foreground: 240 7% 4%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 199 89% 48%; /* Electric Cyan Ring */
+    --destructive-foreground: 48 16% 94%;
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 75 100% 50%; /* Lime ring */
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -76,7 +76,7 @@
     overflow-x: hidden;
     width: 100%;
     position: relative;
-    /* Clean Deep Slate background without the orange gradient */
+    /* Clean background without the orange gradient */
   }
 
   /* Accessible Focus Rings */
