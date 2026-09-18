@@ -264,7 +264,7 @@ const FloatPill = ({
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 
-export default function HeroSection() {
+export default function HeroSection({ headline = "Your vision,\nOur mission.", introText = "Empower your business with cutting-edge web, mobile, and AI solutions — built for scalability, performance, and real impact." }: { headline?: string, introText?: string }) {
   const [scramble, setScramble] = useState(false);
   const { scrollY } = useScroll();
   const smooth = useSpring(scrollY, { stiffness: 50, damping: 25 });
@@ -276,7 +276,10 @@ export default function HeroSection() {
     return () => clearTimeout(t);
   }, []);
 
-  const headline = "Your vision,\nOur mission.";
+  // Split headline into two parts for the design (if it has a comma or newline, we can split it, otherwise just use it)
+  // But let's just make the whole headline scramble for simplicity if it's dynamic, 
+  // or we can split it by the first comma or newline.
+  const headlineParts = headline.includes(",") ? headline.split(/(,)/) : [headline];
 
   return (
     <section className="relative min-h-screen bg-background overflow-hidden flex items-center">
@@ -311,17 +314,19 @@ export default function HeroSection() {
               className="text-[clamp(2.2rem,6vw,4.5rem)] font-heading font-bold leading-[1.08] text-foreground tracking-tight"
             >
               <ScrambleText
-                text="Your vision,"
+                text={headlineParts[0] + (headlineParts[1] || "")}
                 trigger={scramble}
                 speed={38}
                 className="block"
               />
-              <ScrambleText
-                text="Our mission."
-                trigger={scramble}
-                speed={38}
-                className="block text-primary"
-              />
+              {headlineParts[2] && (
+                <ScrambleText
+                  text={headlineParts.slice(2).join("")}
+                  trigger={scramble}
+                  speed={38}
+                  className="block text-primary"
+                />
+              )}
             </motion.h1>
 
             {/* Subtext */}
@@ -331,8 +336,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0"
             >
-              Empower your business with cutting-edge web, mobile, and AI
-              solutions — built for scalability, performance, and real impact.
+              {introText}
             </motion.p>
 
             {/* CTAs */}
