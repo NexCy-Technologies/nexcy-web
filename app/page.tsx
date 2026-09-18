@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "NexCy Technologies",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "https://www.nexcy.lk/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "NexCy Technologies",
@@ -48,12 +48,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-    twitter: {
+  twitter: {
     card: "summary_large_image",
     title: "NexCy Technologies",
     description:
       "NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
-    images: ["/og-image.jpg"],
+    images: ["https://www.nexcy.lk/og-image.jpg"],
   },
 }
 
@@ -74,6 +74,13 @@ export default async function HomePage() {
   const { data: services } = await supabase
     .from('services')
     .select('*')
+    .order('display_order', { ascending: true });
+
+  // Fetch case studies
+  const { data: caseStudies } = await supabase
+    .from('case_studies')
+    .select('*')
+    .eq('published', true)
     .order('display_order', { ascending: true });
 
   const content = contentData?.reduce((acc, item) => {
@@ -100,7 +107,7 @@ export default async function HomePage() {
 
           {/* Services Section */}
           <LazySection>
-            <Services services={services || []} />
+            <Services services={services || []} caseStudies={caseStudies || []} />
           </LazySection>
 
           {/* Process / Team Section */}
