@@ -12,6 +12,8 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import projectsData from "@/data/projects.json";
+import { ArrowRight, Code2, Smartphone, Database, Brain, Cpu, Blocks } from "lucide-react"
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -121,11 +123,13 @@ function TechPill({ tech }: { tech: { name: string; logo: string } }) {
   return (
     <div className="group flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white border border-gray-100 hover:border-orange-300 hover:shadow-sm hover:shadow-orange-100 transition-all duration-300 cursor-default flex-shrink-0">
       <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-        <img
+        <Image
           src={tech.logo}
           alt={tech.name}
+          width={20}
+          height={20}
           className="max-w-full max-h-full object-contain filter grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-300"
-          loading="lazy"
+          unoptimized
         />
       </div>
       <span className="text-xs font-medium text-gray-500 group-hover:text-orange-500 transition-colors duration-300 whitespace-nowrap">
@@ -302,11 +306,13 @@ export default function Services() {
                 <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white group">
                   {/* Live screenshot preview */}
                   <div className="relative overflow-hidden aspect-video bg-gray-100">
-                    <img
+                    <Image
                       src={getMicrolicPreviewUrl(project.url)}
                       alt={`${project.title} preview`}
+                      width={600}
+                      height={338}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
+                      unoptimized
                     />
                     {/* Category badge */}
                     <div className="absolute top-3 right-3">
