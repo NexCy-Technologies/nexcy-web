@@ -15,9 +15,9 @@ const contactMeta = [
     label: "Email",
     value: "contact@nexcy.lk",
     href: "mailto:contact@nexcy.lk",
-    color: "text-orange-500",
-    bg: "bg-orange-50",
-    border: "border-orange-100",
+    color: "text-primary",
+    bg: "bg-muted",
+    border: "border-border",
   },
   {
     icon: FaWhatsapp,
@@ -100,7 +100,7 @@ export default function Contact() {
         >
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-5 px-2">
             Get In{" "}
-            <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+            <span className="text-primary">
               Touch
             </span>
           </h2>
@@ -150,7 +150,7 @@ export default function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
                         <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                          Full Name <span className="text-orange-400">*</span>
+                          Full Name <span className="text-primary">*</span>
                         </label>
                         <Input
                           type="text"
@@ -158,12 +158,12 @@ export default function Contact() {
                           value={formData.name}
                           onChange={(e) => set("name", e.target.value)}
                           placeholder="Your full name"
-                          className="h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm"
+                          className="h-11 rounded-xl border-gray-200 focus:border-primary focus:ring-primary text-sm"
                         />
                       </div>
                       <div className="space-y-1.5">
                         <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                          Email <span className="text-orange-400">*</span>
+                          Email <span className="text-primary">*</span>
                         </label>
                         <Input
                           type="email"
@@ -171,7 +171,7 @@ export default function Contact() {
                           value={formData.email}
                           onChange={(e) => set("email", e.target.value)}
                           placeholder="you@example.com"
-                          className="h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm"
+                          className="h-11 rounded-xl border-gray-200 focus:border-primary focus:ring-primary text-sm"
                         />
                       </div>
                     </div>
@@ -187,7 +187,7 @@ export default function Contact() {
                           value={formData.phone}
                           onChange={(e) => set("phone", e.target.value)}
                           placeholder="+94 XXX XXX XXX"
-                          className="h-11 rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm"
+                          className="h-11 rounded-xl border-gray-200 focus:border-primary focus:ring-primary text-sm"
                         />
                       </div>
                       <div className="space-y-1.5">
@@ -197,7 +197,7 @@ export default function Contact() {
                         <select
                           value={formData.project}
                           onChange={(e) => set("project", e.target.value)}
-                          className="w-full h-11 px-3 rounded-xl border border-gray-200 text-sm text-gray-700 bg-white focus:border-orange-400 focus:outline-none focus:ring-1 focus:ring-orange-400"
+                          className="w-full h-11 px-3 rounded-xl border border-gray-200 text-sm text-gray-700 bg-white focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                         >
                           <option value="">Select a type</option>
                           {projectTypes.map((t) => (
@@ -210,7 +210,7 @@ export default function Contact() {
                     {/* Message */}
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                        Message <span className="text-orange-400">*</span>
+                        Message <span className="text-primary">*</span>
                       </label>
                       <Textarea
                         required
@@ -218,7 +218,7 @@ export default function Contact() {
                         value={formData.message}
                         onChange={(e) => set("message", e.target.value)}
                         placeholder="Tell us about your project — goals, timeline, anything that helps us understand what you need."
-                        className="rounded-xl border-gray-200 focus:border-orange-400 focus:ring-orange-400 text-sm resize-none"
+                        className="rounded-xl border-gray-200 focus:border-primary focus:ring-primary text-sm resize-none"
                       />
                     </div>
 
@@ -226,7 +226,7 @@ export default function Contact() {
                     <Button
                       type="submit"
                       disabled={!canSubmit}
-                      className="w-full h-12 bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-semibold rounded-xl shadow-md shadow-orange-200 hover:shadow-orange-300 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                      className="w-full h-12 bg-primary text-primary-foreground hover:bg-primary/90 text-white font-semibold rounded-xl shadow-md shadow-primary/20 hover:shadow-primary/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -325,7 +325,7 @@ export default function Contact() {
               className="grid grid-cols-2 gap-3"
             >
               <a href="mailto:contact@nexcy.lk" className="block">
-                <button className="w-full h-11 flex items-center justify-center gap-2 rounded-xl border border-orange-200 text-orange-500 text-sm font-semibold hover:bg-orange-50 hover:border-orange-400 transition-all duration-200">
+                <button className="w-full h-11 flex items-center justify-center gap-2 rounded-xl border border-border text-primary text-sm font-semibold hover:bg-muted hover:border-primary transition-all duration-200">
                   <FaEnvelope className="text-xs" />
                   Email Us
                 </button>
