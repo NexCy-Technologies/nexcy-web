@@ -57,7 +57,7 @@ export default function Footer() {
               {/* Headline — hidden on mobile to keep it compact */}
               <h2 className="hidden sm:block text-2xl sm:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight mb-3 sm:mb-4">
                 Let's build something{" "}
-                <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                <span className="text-primary">
                   amazing together.
                 </span>
               </h2>
@@ -68,7 +68,7 @@ export default function Footer() {
 
               <button
                 onClick={() => scrollTo("contact", "/#contact")}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-semibold px-5 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm shadow-md shadow-orange-200 hover:shadow-orange-300 transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 text-white font-semibold px-5 py-2 sm:px-6 sm:py-2.5 rounded-full text-xs sm:text-sm shadow-md shadow-primary/20 hover:shadow-primary/20 transition-all duration-300 hover:scale-105"
               >
                 Start a Project
                 <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@ export default function Footer() {
                     <li key={link.name}>
                       <button
                         onClick={() => scrollTo(link.section, link.href)}
-                        className="text-xs sm:text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 text-left"
+                        className="text-xs sm:text-sm text-gray-600 hover:text-primary transition-colors duration-200 text-left"
                       >
                         {link.name}
                       </button>
@@ -107,10 +107,10 @@ export default function Footer() {
                 <div className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-6">
                   <a
                     href="mailto:contact@nexcy.lk"
-                    className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 hover:text-orange-500 transition-colors duration-200 group"
+                    className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 hover:text-primary transition-colors duration-200 group"
                   >
-                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-orange-50 flex items-center justify-center flex-shrink-0 group-hover:bg-orange-100 transition-colors">
-                      <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-muted flex items-center justify-center flex-shrink-0 group-hover:bg-muted transition-colors">
+                      <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
                       </svg>
@@ -141,7 +141,7 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.name}
-                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-400 hover:text-orange-500 hover:border-orange-200 hover:bg-orange-50 transition-all duration-200"
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-400 hover:text-primary hover:border-border hover:bg-muted transition-all duration-200"
                     >
                       <s.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     </a>
@@ -159,7 +159,7 @@ export default function Footer() {
           </p>
           <p className="text-[10px] sm:text-xs text-gray-400">
             Built with passion in{" "}
-            <span className="text-orange-400 font-medium">Sri Lanka 🇱🇰</span>
+            <span className="text-primary font-medium">Sri Lanka </span>
           </p>
         </div>
       </div>
