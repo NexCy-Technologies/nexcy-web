@@ -58,30 +58,26 @@ export const metadata: Metadata = {
 }
 
 
-export default function AboutPage() {
+export default function HomePage() {
   return (
     <>
       <SkipLink />
-      <div className="min-h-screen overflow-x-hidden">
-        {/* Hero Section with dark background */}
-        <div className="bg-gradient-to-br from-black via-orange-950 to-black" id="home">
-          <Navigation />
-          <Hero />
-        </div>
-
-        {/* Main content with light background */}
-        <main id="main-content" tabIndex={-1} className="bg-[#fffaf5]">
-          {/* About Section */}
-          <LazySection>
-            <About />
-          </LazySection>
+      <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
+        <Navigation />
+        
+        {/* Main content */}
+        <main id="main-content" tabIndex={-1}>
+          {/* Hero Section */}
+          <div id="home">
+            <Hero />
+          </div>
 
           {/* Services Section */}
           <LazySection>
             <Services />
           </LazySection>
 
-          {/* Team Section */}
+          {/* Process / Team Section */}
           <LazySection>
             <Team />
           </LazySection>
@@ -92,7 +88,7 @@ export default function AboutPage() {
           </LazySection>
         </main>
 
-        {/* Footer - separate from main content */}
+        {/* Footer */}
         <LazySection>
           <Footer />
         </LazySection>
