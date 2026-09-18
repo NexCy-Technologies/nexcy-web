@@ -14,7 +14,7 @@ export function SectionLabel({
         className
       )}
     >
-      <span className="text-accent mr-3 select-none">{">"}</span>
+      <span className="text-accent mr-3 select-none">{"//"}</span>
       {children}
     </p>
   );
