@@ -51,7 +51,7 @@ export default function Team() {
         >
           <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-5 px-2">
             Meet Our{" "}
-            <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+            <span className="text-primary">
               Team
             </span>
           </h2>
@@ -79,7 +79,7 @@ export default function Team() {
                 {/* Ghost initial — decorative background letter */}
                 <div
                   aria-hidden="true"
-                  className="absolute -right-4 -bottom-6 text-[10rem] sm:text-[12rem] font-black leading-none text-orange-500/[0.04] select-none pointer-events-none"
+                  className="absolute -right-4 -bottom-6 text-[10rem] sm:text-[12rem] font-black leading-none text-primary/[0.04] select-none pointer-events-none"
                 >
                   {member.initial}
                 </div>
@@ -93,17 +93,17 @@ export default function Team() {
                   </span>
 
                   {/* Name */}
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 leading-tight mb-1 group-hover:text-orange-600 transition-colors duration-300">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-extrabold text-gray-900 leading-tight mb-1 group-hover:text-primary transition-colors duration-300">
                     {member.name}
                   </h3>
 
                   {/* Role */}
-                  <p className="text-xs sm:text-sm text-orange-500 font-semibold mb-4 sm:mb-5">
+                  <p className="text-xs sm:text-sm text-primary font-semibold mb-4 sm:mb-5">
                     {member.role}
                   </p>
 
                   {/* Divider */}
-                  <div className="w-8 h-px bg-orange-200 mb-4 sm:mb-5" />
+                  <div className="w-8 h-px bg-muted mb-4 sm:mb-5" />
 
                   {/* Bio */}
                   <p className="text-gray-500 text-xs sm:text-sm leading-relaxed mb-5 sm:mb-6">
@@ -119,7 +119,7 @@ export default function Team() {
                       {member.skills.map((skill, i) => (
                         <span
                           key={i}
-                          className="px-2.5 py-1 bg-orange-50 text-orange-600 text-[11px] sm:text-xs font-medium rounded-full border border-orange-100 hover:bg-orange-100 transition-colors duration-200"
+                          className="px-2.5 py-1 bg-muted text-primary text-[11px] sm:text-xs font-medium rounded-full border border-border hover:bg-muted transition-colors duration-200"
                         >
                           {skill}
                         </span>
@@ -131,7 +131,7 @@ export default function Team() {
                   <div className="mt-auto pt-4 border-t border-gray-100">
                     <a
                       href={`mailto:${member.email}`}
-                      className="inline-flex items-center gap-2 text-xs sm:text-sm text-gray-400 hover:text-orange-500 transition-colors duration-200 group/link"
+                      className="inline-flex items-center gap-2 text-xs sm:text-sm text-gray-400 hover:text-primary transition-colors duration-200 group/link"
                     >
                       <svg className="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -154,7 +154,7 @@ export default function Team() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="mb-14 sm:mb-20"
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-orange-100 border border-orange-100 rounded-2xl overflow-hidden bg-white">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-border border border-border rounded-2xl overflow-hidden bg-white">
             {values.map((v, i) => (
               <motion.div
                 key={i}
@@ -162,9 +162,9 @@ export default function Team() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-                className="px-5 py-5 sm:px-6 sm:py-6 group hover:bg-orange-50 transition-colors duration-300"
+                className="px-5 py-5 sm:px-6 sm:py-6 group hover:bg-muted transition-colors duration-300"
               >
-                <p className="text-sm sm:text-base font-bold text-gray-900 mb-1 group-hover:text-orange-600 transition-colors duration-300">
+                <p className="text-sm sm:text-base font-bold text-gray-900 mb-1 group-hover:text-primary transition-colors duration-300">
                   {v.label}
                 </p>
                 <p className="text-xs text-gray-400 leading-relaxed">
@@ -192,7 +192,7 @@ export default function Team() {
           <a href="mailto:contact@nexcy.lk">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-orange-400 to-orange-600 hover:from-orange-500 hover:to-orange-700 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300 transform hover:scale-105"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 text-white font-medium px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base rounded-full shadow-lg shadow-primary/20 hover:shadow-primary/20 transition-all duration-300 transform hover:scale-105"
             >
               Contact Our Team
             </Button>
