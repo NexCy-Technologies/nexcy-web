@@ -4,7 +4,7 @@ import { forwardRef } from "react"
 import { cn } from "@/lib/utils"
 import { Button, type ButtonProps } from "@/components/ui/button"
 
-interface GlassButtonProps extends ButtonProps {
+interface GlassButtonProps extends Omit<ButtonProps, "variant"> {
   variant?: "primary" | "secondary" | "outline"
 }
 
