@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "NexCy Technologies",
     description:
       "NexCy Technologies, our mission, vision, and commitment to delivering innovative technology solutions.",
-    url: "https://nexcy.lk",
+    url: "https://www.nexcy.lk",
     siteName: "NexCy Technologies",
     images: [
       {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-  twitter: {
+    twitter: {
     card: "summary_large_image",
     title: "NexCy Technologies",
     description:
@@ -57,75 +57,11 @@ export const metadata: Metadata = {
   },
 }
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "NexCy Technologies",
-  url: "https://nexcy.lk",
-  logo: "https://nexcy.lk/logo.png",
-  description:
-    "Leading technology company specializing in web development, mobile apps, ERP/POS systems, AI/ML solutions, and IoT development.",
-  address: {
-    "@type": "PostalAddress",
-    addressCountry: "LK",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+94725299199",
-    contactType: "customer service",
-    email: "contact@nexcy.lk",
-  },
-  sameAs: [
-    "https://www.facebook.com/nexcytechnologies",
-    "https://www.instagram.com/nexcytechnologies",
-    "https://www.linkedin.com/company/nexcy-technologies",
-  ],
-  offers: {
-    "@type": "AggregateOffer",
-    offerCount: "6",
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Web Development",
-        description: "Modern, responsive websites and web applications",
-      },
-      {
-        "@type": "Offer",
-        name: "Mobile App Development",
-        description: "Native Android and iOS applications",
-      },
-      {
-        "@type": "Offer",
-        name: "ERP/POS Systems",
-        description: "Enterprise resource planning and point-of-sale solutions",
-      },
-      {
-        "@type": "Offer",
-        name: "AI/ML Solutions",
-        description: "Intelligent systems powered by machine learning",
-      },
-      {
-        "@type": "Offer",
-        name: "IoT Development",
-        description: "Internet of Things solutions and smart automation",
-      },
-      {
-        "@type": "Offer",
-        name: "Software Development",
-        description: "Custom software solutions for businesses",
-      },
-    ],
-  },
-}
 
 export default function AboutPage() {
   return (
     <>
       <SkipLink />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <div className="min-h-screen overflow-x-hidden">
         {/* Hero Section with dark background */}
         <div className="bg-gradient-to-br from-black via-orange-950 to-black" id="home">
