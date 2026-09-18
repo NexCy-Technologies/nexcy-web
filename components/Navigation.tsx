@@ -102,7 +102,7 @@ export default function Navigation() {
                   className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
                 />
                 <span
-                  className="text-gray-900 font-black text-lg sm:text-xl tracking-tight group-hover:text-orange-500 transition-colors duration-300"
+                  className="text-gray-900 font-black text-lg sm:text-xl tracking-tight group-hover:text-primary transition-colors duration-300"
                   style={{ fontFamily: "Geometr415 Blk BT, sans-serif" }}
                 >
                   NEXCY
@@ -134,7 +134,7 @@ export default function Navigation() {
                       {activeSection === item.section && (
                         <motion.div
                           layoutId="activeDesktopPill"
-                          className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full shadow-md shadow-orange-300/40"
+                          className="absolute inset-0 bg-primary text-primary-foreground rounded-full shadow-md shadow-primary/20"
                           transition={{ type: "spring", stiffness: 380, damping: 32 }}
                         />
                       )}
@@ -150,11 +150,11 @@ export default function Navigation() {
                   whileTap={{ scale: 0.97 }}
                   className={cn(
                     "ml-3 px-5 py-2 text-sm font-semibold rounded-full relative overflow-hidden",
-                    "bg-gradient-to-r from-orange-400 to-orange-500",
-                    "hover:from-orange-500 hover:to-orange-600",
-                    "text-white shadow-md shadow-orange-400/30",
+                    "bg-primary text-primary-foreground",
+                    "hover:bg-primary/90",
+                    "text-white shadow-md shadow-primary/20",
                     "transition-all duration-300",
-                    activeSection === "contact" && "ring-2 ring-orange-300 ring-offset-1"
+                    activeSection === "contact" && "ring-2 ring-primary ring-offset-1"
                   )}
                 >
                   {/* Shimmer */}
@@ -171,7 +171,7 @@ export default function Navigation() {
               <motion.button
                 whileTap={{ scale: 0.93 }}
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="md:hidden p-2 rounded-xl text-gray-700 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-orange-400/50"
+                className="md:hidden p-2 rounded-xl text-gray-700 hover:text-primary hover:bg-muted transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
                 aria-expanded={isMobileMenuOpen}
                 aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               >
@@ -242,7 +242,7 @@ export default function Navigation() {
                 </div>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 rounded-xl text-gray-500 hover:text-orange-500 hover:bg-orange-50 transition-all duration-200"
+                  className="p-2 rounded-xl text-gray-500 hover:text-primary hover:bg-muted transition-all duration-200"
                   aria-label="Close menu"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -263,12 +263,12 @@ export default function Navigation() {
                     className={cn(
                       "w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 text-left",
                       activeSection === item.section
-                        ? "bg-orange-50 text-orange-600 font-semibold"
+                        ? "bg-muted text-primary font-semibold"
                         : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     )}
                   >
                     {activeSection === item.section && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-muted0 flex-shrink-0" />
                     )}
                     {item.name}
                   </motion.button>
@@ -284,7 +284,7 @@ export default function Navigation() {
               >
                 <button
                   onClick={() => scrollTo("contact")}
-                  className="w-full py-3 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-semibold text-sm rounded-xl shadow-md shadow-orange-300/30 transition-all duration-200 active:scale-95 relative overflow-hidden"
+                  className="w-full py-3 bg-primary text-primary-foreground hover:bg-primary/90 text-white font-semibold text-sm rounded-xl shadow-md shadow-primary/20 transition-all duration-200 active:scale-95 relative overflow-hidden"
                 >
                   <motion.span
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
