@@ -45,6 +45,12 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return {
     title: `${service.title} | NexCy Technologies`,
     description: service.description,
+    openGraph: {
+      images: [`/services/${resolvedParams.id}/og`],
+    },
+    twitter: {
+      images: [`/services/${resolvedParams.id}/og`],
+    },
   };
 }
 
