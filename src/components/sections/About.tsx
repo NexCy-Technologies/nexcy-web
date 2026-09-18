@@ -65,13 +65,13 @@ export function About() {
             <Card indexPrefix="SYS.01" className="flex flex-col">
               <h4 className="font-mono uppercase text-xl font-bold mb-4">Innovation First</h4>
               <p className="font-[family-name:var(--font-inter)] text-muted leading-relaxed">
-                We thrive on solving complex technical challenges and pushing the boundaries of what's possible. From AI-driven analytics to real-time distributed systems, we leverage the best tools to build future-proof solutions.
+                We thrive on solving complex technical challenges and pushing the boundaries of what&apos;s possible. From AI-driven analytics to real-time distributed systems, we leverage the best tools to build future-proof solutions.
               </p>
             </Card>
             <Card indexPrefix="SYS.02" className="flex flex-col">
               <h4 className="font-mono uppercase text-xl font-bold mb-4">Client-Centric</h4>
               <p className="font-[family-name:var(--font-inter)] text-muted leading-relaxed">
-                Your success is our success. We partner closely with our clients to deliver solutions that drive real business impact, adapting our process to integrate seamlessly with your team's workflow and objectives.
+                Your success is our success. We partner closely with our clients to deliver solutions that drive real business impact, adapting our process to integrate seamlessly with your team&apos;s workflow and objectives.
               </p>
             </Card>
           </div>
