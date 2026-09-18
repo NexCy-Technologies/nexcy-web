@@ -21,68 +21,19 @@ export function ThemeToggle() {
   return (
     <motion.button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="fixed bottom-6 right-6 z-40 group"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
+      className="fixed bottom-6 right-6 z-40 bg-card border border-border text-foreground w-12 h-12 flex items-center justify-center rounded-full shadow-lg active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      whileTap={{ scale: 0.9 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ type: 'spring', stiffness: 260, damping: 20 }}
       aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
-      <div className="relative w-14 h-14 rounded-full overflow-hidden shadow-lg shadow-primary/20 ring-1 ring-primary">
-        {/* Background gradient */}
-        <div className={`absolute inset-0 transition-all duration-500 ${
-          isDark 
-            ? 'bg-primary text-primary-foreground' 
-            : 'bg-primary text-primary-foreground'
-        }`} />
-
-        {/* Glow effect */}
-        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-          isDark
-            ? 'bg-primary text-primary-foreground blur-lg'
-            : 'bg-primary text-primary-foreground blur-lg'
-        }`} />
-
-        {/* Icon container */}
-        <div className="absolute inset-0 flex items-center justify-center bg-opacity-backdrop">
-          <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            exit={{ scale: 0, rotate: 180 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-            key={resolvedTheme}
-          >
-            {isDark ? (
-              <FaMoon className="w-6 h-6 text-white drop-shadow-lg" />
-            ) : (
-              <FaSun className="w-6 h-6 text-white drop-shadow-lg" />
-            )}
-          </motion.div>
-        </div>
-
-        {/* Shine effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
-          animate={{ x: ['100%', '-100%'] }}
-          transition={{ repeat: Infinity, duration: 3, ease: 'linear' }}
-          style={{ opacity: isDark ? 0.3 : 0.4 }}
-        />
-
-        {/* Shadow */}
-        <div className={`absolute -bottom-2 left-0 right-0 h-2 blur-lg opacity-50 ${
-          isDark ? 'bg-muted0' : 'bg-primary'
-        }`} />
-      </div>
-
-      {/* Tooltip */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        whileHover={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2 }}
-        className="absolute bottom-full right-0 mb-3 px-3 py-2 bg-gray-950 text-white text-xs font-semibold rounded-lg whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto border border-primary/20 shadow-xl shadow-black/30"
+        initial={false}
+        animate={{ rotate: isDark ? 0 : 180 }}
+        transition={{ duration: 0.3 }}
       >
-        {isDark ? 'Light Mode' : 'Dark Mode'}
+        {isDark ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5" />}
       </motion.div>
     </motion.button>
   )
