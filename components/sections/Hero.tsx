@@ -27,12 +27,12 @@ const GlassButton = ({
   ...props
 }: GlassButtonProps) => {
   const base =
-    "px-5 py-2.5 text-sm sm:text-base font-medium transition-all duration-300 border flex items-center gap-2 justify-center rounded-full";
+    "px-5 py-2.5 text-sm sm:text-base font-medium transition-all duration-300 border flex items-center gap-2 justify-center rounded-full active:scale-95";
   const variants = {
     primary:
-      "bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white border-transparent shadow-lg shadow-orange-400/30 hover:shadow-orange-500/40 hover:scale-105",
+      "bg-primary hover:bg-primary/90 text-primary-foreground border-transparent shadow-lg shadow-primary/20",
     outline:
-      "border-gray-200 text-gray-700 bg-white hover:bg-orange-50 hover:border-orange-300 hover:text-orange-600 hover:scale-105",
+      "border-border text-foreground bg-background hover:bg-muted hover:text-foreground",
   };
   return (
     <button className={`${base} ${variants[variant]} ${className}`} {...props}>
@@ -79,20 +79,20 @@ const ScrambleText = ({
 // ── Code lines shown in the editor card ──────────────────────────────────────
 
 const CODE_LINES = [
-  { tokens: [{ t: "const", c: "text-orange-400 font-semibold" }, { t: " project ", c: "text-gray-200" }, { t: "=", c: "text-orange-300" }, { t: " {", c: "text-gray-300" }] },
-  { tokens: [{ t: "  client:", c: "text-amber-300" }, { t: " 'Your Business',", c: "text-green-400" }] },
-  { tokens: [{ t: "  stack:", c: "text-amber-300" }, { t: " ['React', 'Node', 'AI'],", c: "text-green-400" }] },
-  { tokens: [{ t: "  delivery:", c: "text-amber-300" }, { t: " 'on-time',", c: "text-green-400" }] },
-  { tokens: [{ t: "  quality:", c: "text-amber-300" }, { t: " 'uncompromised',", c: "text-green-400" }] },
+  { tokens: [{ t: "const", c: "text-cyan-400 font-semibold" }, { t: " project ", c: "text-gray-200" }, { t: "=", c: "text-cyan-400" }, { t: " {", c: "text-gray-300" }] },
+  { tokens: [{ t: "  client:", c: "text-blue-400" }, { t: " 'Your Business',", c: "text-emerald-400" }] },
+  { tokens: [{ t: "  stack:", c: "text-blue-400" }, { t: " ['React', 'Node', 'AI'],", c: "text-emerald-400" }] },
+  { tokens: [{ t: "  delivery:", c: "text-blue-400" }, { t: " 'on-time',", c: "text-emerald-400" }] },
+  { tokens: [{ t: "  quality:", c: "text-blue-400" }, { t: " 'uncompromised',", c: "text-emerald-400" }] },
   { tokens: [{ t: "}", c: "text-gray-300" }] },
   { tokens: [] },
-  { tokens: [{ t: "async function", c: "text-orange-400 font-semibold" }, { t: " build", c: "text-blue-300" }, { t: "(project) {", c: "text-gray-300" }] },
-  { tokens: [{ t: "  const", c: "text-orange-400 font-semibold" }, { t: " result ", c: "text-gray-200" }, { t: "=", c: "text-orange-300" }, { t: " await", c: "text-purple-400" }] },
+  { tokens: [{ t: "async function", c: "text-cyan-400 font-semibold" }, { t: " build", c: "text-blue-300" }, { t: "(project) {", c: "text-gray-300" }] },
+  { tokens: [{ t: "  const", c: "text-cyan-400 font-semibold" }, { t: " result ", c: "text-gray-200" }, { t: "=", c: "text-cyan-400" }, { t: " await", c: "text-purple-400" }] },
   { tokens: [{ t: "    nexcy.ship(project);", c: "text-gray-300" }] },
-  { tokens: [{ t: "  return", c: "text-orange-400 font-semibold" }, { t: " result.success;", c: "text-gray-300" }] },
+  { tokens: [{ t: "  return", c: "text-cyan-400 font-semibold" }, { t: " result.success;", c: "text-gray-300" }] },
   { tokens: [{ t: "}", c: "text-gray-300" }] },
   { tokens: [] },
-  { tokens: [{ t: "// ✓ ", c: "text-gray-500" }, { t: "Built & deployed", c: "text-green-400" }] },
+  { tokens: [{ t: "// ✓ ", c: "text-gray-500" }, { t: "Built & deployed", c: "text-emerald-400" }] },
 ];
 
 // ── Live typing code editor ───────────────────────────────────────────────────
@@ -185,7 +185,7 @@ const CodeEditor = () => {
                 <motion.span
                   animate={{ opacity: [1, 0, 1] }}
                   transition={{ duration: 0.8, repeat: Infinity }}
-                  className="inline-block w-0.5 h-4 bg-orange-400 ml-0.5 align-middle"
+                  className="inline-block w-2 h-4 bg-cyan-400 ml-0.5 align-middle"
                 />
               )}
             </span>
@@ -195,7 +195,7 @@ const CodeEditor = () => {
 
       {/* Status bar */}
       <div className="bg-gray-800 px-4 py-1.5 flex items-center gap-4 text-[10px] font-mono text-gray-500">
-        <span className="text-orange-400">TypeScript</span>
+        <span className="text-blue-400">TypeScript</span>
         <span>·</span>
         <span>UTF-8</span>
         <span className="ml-auto text-green-400">● No errors</span>
@@ -210,15 +210,15 @@ const Background = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
     {/* Radial glow */}
     <div
-      className="absolute top-0 right-0 w-[600px] h-[600px] opacity-30"
+      className="absolute top-0 right-0 w-[600px] h-[600px] opacity-20 dark:opacity-30"
       style={{
-        background: "radial-gradient(circle at 70% 20%, #fb923c22 0%, transparent 65%)",
+        background: "radial-gradient(circle at 70% 20%, hsl(var(--primary) / 0.15) 0%, transparent 65%)",
       }}
     />
     <div
-      className="absolute bottom-0 left-0 w-[500px] h-[500px] opacity-20"
+      className="absolute bottom-0 left-0 w-[500px] h-[500px] opacity-10 dark:opacity-20"
       style={{
-        background: "radial-gradient(circle at 30% 80%, #f9731611 0%, transparent 65%)",
+        background: "radial-gradient(circle at 30% 80%, hsl(var(--primary) / 0.1) 0%, transparent 65%)",
       }}
     />
     {/* Dot grid */}
@@ -252,11 +252,11 @@ const FloatPill = ({
       opacity: { duration: 0.5, delay },
       y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay },
     }}
-    className={`absolute bg-white border border-gray-100 rounded-xl px-3.5 py-2.5 shadow-lg shadow-gray-100 flex items-center gap-2.5 ${className}`}
+    className={`absolute bg-card border border-border rounded-xl px-3.5 py-2.5 shadow-lg shadow-black/5 flex items-center gap-2.5 ${className}`}
   >
-    <div className="w-2 h-2 rounded-full bg-gradient-to-br from-orange-400 to-orange-500 flex-shrink-0" />
+    <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
     <div>
-      <p className="text-xs font-bold text-gray-900 leading-none mb-0.5">{value}</p>
+      <p className="text-xs font-bold text-card-foreground leading-none mb-0.5">{value}</p>
       <p className="text-[10px] text-gray-400 leading-none">{label}</p>
     </div>
   </motion.div>
@@ -279,7 +279,7 @@ export default function HeroSection() {
   const headline = "Your vision,\nOur mission.";
 
   return (
-    <section className="relative min-h-screen bg-[#fffaf5] overflow-hidden flex items-center">
+    <section className="relative min-h-screen bg-background overflow-hidden flex items-center">
       <Background />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center">
@@ -297,8 +297,8 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="flex items-center gap-2 justify-center lg:justify-start"
             >
-              <div className="h-px w-6 bg-orange-400" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-orange-500">
+              <div className="h-px w-6 bg-primary" />
+              <span className="text-xs font-semibold tracking-widest uppercase text-primary">
                 Nexcy Technologies
               </span>
             </motion.div>
@@ -308,7 +308,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-[clamp(2.2rem,6vw,4.5rem)] font-extrabold leading-[1.08] text-gray-900 tracking-tight"
+              className="text-[clamp(2.2rem,6vw,4.5rem)] font-heading font-bold leading-[1.08] text-foreground tracking-tight"
             >
               <ScrambleText
                 text="Your vision,"
@@ -320,7 +320,7 @@ export default function HeroSection() {
                 text="Our mission."
                 trigger={scramble}
                 speed={38}
-                className="block bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent"
+                className="block text-primary"
               />
             </motion.h1>
 
@@ -329,7 +329,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="text-gray-500 text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0"
+              className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0"
             >
               Empower your business with cutting-edge web, mobile, and AI
               solutions — built for scalability, performance, and real impact.
@@ -363,14 +363,14 @@ export default function HeroSection() {
               className="flex items-center gap-5 justify-center lg:justify-start pt-2"
             >
               {[
-                { v: "🇱🇰", l: "Sri Lanka" },
+                { v: "CMB", l: "Sri Lanka" },
                 { v: "100%", l: "Satisfaction" },
                 { v: "24/7", l: "Support" },
               ].map((s, i) => (
                 <React.Fragment key={s.l}>
-                  {i > 0 && <div className="w-px h-6 bg-gray-200" />}
+                  {i > 0 && <div className="w-px h-6 bg-border" />}
                   <div className="text-center lg:text-left">
-                    <p className="text-sm font-bold text-gray-900 leading-none mb-0.5">{s.v}</p>
+                    <p className="text-sm font-bold text-foreground leading-none mb-0.5">{s.v}</p>
                     <p className="text-[10px] text-gray-400 uppercase tracking-wide">{s.l}</p>
                   </div>
                 </React.Fragment>
