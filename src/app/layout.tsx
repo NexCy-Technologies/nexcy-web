@@ -30,20 +30,11 @@ export const metadata: Metadata = {
     title: "Nexcy Technologies",
     description: "Empower your business with cutting-edge web, mobile, and AI solutions.",
     siteName: "Nexcy Technologies",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Nexcy Technologies",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nexcy Technologies",
     description: "Empower your business with cutting-edge web, mobile, and AI solutions.",
-    images: ["/og-image.jpg"],
   },
 };
 
