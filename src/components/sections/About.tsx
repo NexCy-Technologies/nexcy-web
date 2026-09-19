@@ -1,5 +1,6 @@
 import { SectionLabel } from "@/components/ui/section-label";
-import { TerminalReveal } from "@/components/ui/terminal-reveal";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { BlurText } from "@/components/ui/blur-text";
 import { Card } from "@/components/ui/card";
 
 const manifestoItems = [
@@ -28,8 +29,8 @@ export function About() {
         {/* Header Section */}
         <div className="mb-16 md:mb-24">
           <SectionLabel>WHO WE ARE</SectionLabel>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mt-6 mb-8 max-w-4xl min-h-[1.5em] md:min-h-[1.2em]">
-            <TerminalReveal text="Building the digital future, one product at a time." />
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground mt-6 mb-8 max-w-4xl">
+            <BlurText text="Building the digital future, one product at a time." animateBy="words" delay={70} />
           </h2>
           <p className="text-lg md:text-xl text-muted max-w-2xl font-[family-name:var(--font-inter)] leading-relaxed">
             We are a collective of engineers, designers, and strategists dedicated to delivering exceptional digital experiences. By bridging the gap between cutting-edge technology and human-centric design, we build software that empowers businesses to thrive in a digital-first world.
@@ -62,14 +63,14 @@ export function About() {
         <div>
           <h3 className="font-mono text-sm uppercase tracking-widest text-muted mb-8">Core Pillars</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            <Card indexPrefix="SYS.01" className="flex flex-col">
-              <h4 className="font-mono uppercase text-xl font-bold mb-4">Innovation First</h4>
+            <Card className="flex flex-col">
+              <h4 className="text-xl font-bold mb-4 text-foreground">Innovation First</h4>
               <p className="font-[family-name:var(--font-inter)] text-muted leading-relaxed">
                 We thrive on solving complex technical challenges and pushing the boundaries of what&apos;s possible. From AI-driven analytics to real-time distributed systems, we leverage the best tools to build future-proof solutions.
               </p>
             </Card>
-            <Card indexPrefix="SYS.02" className="flex flex-col">
-              <h4 className="font-mono uppercase text-xl font-bold mb-4">Client-Centric</h4>
+            <Card className="flex flex-col">
+              <h4 className="text-xl font-bold mb-4 text-foreground">Client-Centric</h4>
               <p className="font-[family-name:var(--font-inter)] text-muted leading-relaxed">
                 Your success is our success. We partner closely with our clients to deliver solutions that drive real business impact, adapting our process to integrate seamlessly with your team&apos;s workflow and objectives.
               </p>
