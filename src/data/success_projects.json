@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "udawalawe-wild",
+    "title": "Udawalawe Wild",
+    "description": "Private, wildlife-first safaris with verified local partners, transparent pricing, and simple planning in Udawalawe National Park.",
+    "url": "https://www.udawalawe-wild.com",
+    "image": "/projects/udawalawe-wild.jpg",
+    "category": "Tourism & Travel",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Vite"
+    ],
+    "features": [
+      "Verified Local Partners",
+      "Private Jeeps",
+      "Transparent Pricing",
+      "Wildlife First"
+    ],
+    "display_order": 1,
+    "published": true
+  },
+  {
+    "slug": "udawalawa-safari",
+    "title": "Udawalawa Safari",
+    "description": "Private safari experience in Udawalawe National Park with expert guidance, comfortable 4x4 travel, and photography-focused wildlife tours",
+    "url": "https://www.udawalawasafari.lk",
+    "image": "/projects/udawalawa-safari.jpg",
+    "category": "Tourism & Travel",
+    "technologies": [
+      "Next.js",
+      "React",
+      "Tailwind CSS"
+    ],
+    "features": [
+      "Wildlife Expertise",
+      "Comfortable Vehicles",
+      "Photography Focus",
+      "Safety First"
+    ],
+    "display_order": 2,
+    "published": true
+  },
+  {
+    "slug": "golden-pearl-safari-villa",
+    "title": "Golden Pearl Safari Villa",
+    "description": "Peaceful safari villa in Udawalawe offering family and double rooms, on-site dining, garden spaces, and safari jeep service",
+    "url": "https://golden-pearl-safari-villa.web.app",
+    "image": "/projects/golden-pearl-safari-villa.jpg",
+    "category": "Hospitality",
+    "technologies": [
+      "React",
+      "Firebase",
+      "Tailwind CSS",
+      "PWA"
+    ],
+    "features": [
+      "Family Room",
+      "Double Room",
+      "On-Site Restaurant",
+      "Safari Jeep Service"
+    ],
+    "display_order": 3,
+    "published": true
+  },
+  {
+    "slug": "nexcysm",
+    "title": "NexCySM",
+    "description": "Powerful stock management system for inventory control, sales tracking, and real-time analytics",
+    "url": "https://nexcysm.nexcy.lk/",
+    "image": "/projects/nexcysm.jpg",
+    "category": "Business & Inventory",
+    "technologies": [
+      "React",
+      "Firebase",
+      "Tailwind CSS",
+      "PWA"
+    ],
+    "features": [
+      "Real-time Analytics",
+      "Easy Checkout",
+      "Inventory Control",
+      "Secure & Reliable"
+    ],
+    "display_order": 4,
+    "published": true
+  },
+  {
+    "slug": "wild-elephas-udawalawa",
+    "title": "Wild Elephas Udawalawa",
+    "description": "Nature-focused hospitality and safari experience in Udawalawe with rooms, activities, and guest services",
+    "url": "https://wild-elephas.web.app",
+    "image": "/projects/wild-elephas-udawalawa.jpg",
+    "category": "Hospitality",
+    "technologies": [
+      "React",
+      "Firebase",
+      "Tailwind CSS",
+      "PWA"
+    ],
+    "features": [
+      "Luxury Accommodations",
+      "Wildlife Activities",
+      "Food Menu",
+      "Gallery"
+    ],
+    "display_order": 5,
+    "published": true
+  },
+  {
+    "slug": "udawalawe-wild-blog",
+    "title": "Udawalawe Wild Blog",
+    "description": "The official blog for Udawalawe Wild, sharing wildlife insights, safari tips, and updates from Udawalawe National Park.",
+    "url": "https://www.udawalawe-wild.com/blog",
+    "image": "/projects/udawalawe-wild-blog.jpg",
+    "category": "Tourism & Travel",
+    "technologies": [
+      "Next.js",
+      "React",
+      "Tailwind CSS"
+    ],
+    "features": [
+      "Content Management",
+      "SEO Optimized",
+      "Responsive Design",
+      "Fast Loading"
+    ],
+    "display_order": 6,
+    "published": true
+  },
+  {
+    "slug": "udawalawa-safari-jeep",
+    "title": "Udawalawa Safari Jeep",
+    "description": "Premium safari jeep service in Udawalawe National Park offering guided wildlife tours and comfortable 4x4 vehicles.",
+    "url": "https://www.udawalawesafarijeep.lk",
+    "image": "/projects/udawalawa-safari-jeep.jpg",
+    "category": "Tourism & Travel",
+    "technologies": [
+      "React",
+      "Tailwind CSS",
+      "Next.js"
+    ],
+    "features": [
+      "Guided Tours",
+      "Comfortable 4x4 Jeeps",
+      "Wildlife Tracking",
+      "Easy Booking"
+    ],
+    "display_order": 7,
+    "published": true
+  }
+]
