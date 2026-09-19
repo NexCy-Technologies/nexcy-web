@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,7 @@ const navLinks = [
 
 export function Navigation() {
   const shouldReduceMotion = useReducedMotion();
+  const pathname = usePathname();
   const [isOpen, setIsOpen]       = useState(false);
   const [activeSection, setActive] = useState("");
   const [scrolled, setScrolled]   = useState(false);
@@ -27,11 +29,15 @@ export function Navigation() {
 
       const sectionIds = navLinks.map((l) => l.id);
       let current = "";
+      let maxTop = -Infinity;
       for (const id of sectionIds) {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 100) current = id;
+          if (rect.top <= 150 && rect.top > maxTop) {
+            maxTop = rect.top;
+            current = id;
+          }
         }
       }
       setActive(current);
@@ -49,11 +55,17 @@ export function Navigation() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
     setIsOpen(false);
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (pathname === "/") {
+      e.preventDefault();
+      const id = href.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState(null, "", href);
+      }
+    }
   };
 
   return (
@@ -116,10 +128,11 @@ export function Navigation() {
                         : { delay: 0.1 + i * 0.07, duration: 0.4 }
                     }
                   >
-                    <button
-                      onClick={() => handleNavClick(link.href)}
+                    <Link
+                      href={pathname === "/" ? link.href : `/${link.href}`}
+                      onClick={(e) => handleNavClick(e, link.href)}
                       className={cn(
-                        "relative px-4 py-2 font-mono text-sm tracking-widest uppercase transition-colors duration-200 rounded-sm",
+                        "relative px-4 py-2 font-mono text-sm tracking-widest uppercase transition-colors duration-200 rounded-sm block",
                         isActive
                           ? "text-[var(--accent)]"
                           : "text-[var(--muted)] hover:text-[var(--foreground)]"
@@ -134,28 +147,32 @@ export function Navigation() {
                         animate={{ opacity: isActive ? 1 : 0 }}
                         transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
                       />
-                    </button>
+                    </Link>
                   </motion.div>
                 );
               })}
 
               {/* CTA pill */}
-              <motion.a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-                initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : { delay: 0.45, duration: 0.4 }
-                }
-                whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-                className="ml-4 px-4 py-1.5 text-xs font-mono tracking-widest uppercase border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[#0A0A0A] transition-colors duration-200 rounded-sm"
+              <Link
+                href={pathname === "/" ? "#contact" : "/#contact"}
+                onClick={(e) => handleNavClick(e, "#contact")}
+                className="ml-4"
               >
-                Hire Us
-              </motion.a>
+                <motion.div
+                  initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { delay: 0.45, duration: 0.4 }
+                  }
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+                  className="px-4 py-1.5 text-xs font-mono tracking-widest uppercase border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[#0A0A0A] transition-colors duration-200 rounded-sm inline-block"
+                >
+                  Hire Us
+                </motion.div>
+              </Link>
             </div>
 
             {/* Mobile hamburger */}
@@ -205,7 +222,7 @@ export function Navigation() {
             className="fixed inset-0 top-16 z-40 bg-[var(--background)]/98 backdrop-blur-xl flex flex-col pt-8 px-6"
           >
             {navLinks.map((link, i) => (
-              <motion.button
+              <motion.div
                 key={link.id}
                 initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -214,29 +231,37 @@ export function Navigation() {
                     ? { duration: 0 }
                     : { delay: i * 0.07, duration: 0.3 }
                 }
-                onClick={() => handleNavClick(link.href)}
-                className={cn(
-                  "flex items-center justify-between border-b border-[var(--border)] py-5 font-mono text-xl tracking-wider uppercase text-left",
-                  activeSection === link.id ? "text-[var(--accent)]" : "text-foreground"
-                )}
               >
-                <span>{link.name}</span>
-                {activeSection === link.id && (
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
-                )}
-              </motion.button>
+                <Link
+                  href={pathname === "/" ? link.href : `/${link.href}`}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={cn(
+                    "flex items-center justify-between border-b border-[var(--border)] py-5 font-mono text-xl tracking-wider uppercase text-left w-full",
+                    activeSection === link.id ? "text-[var(--accent)]" : "text-foreground"
+                  )}
+                >
+                  <span>{link.name}</span>
+                  {activeSection === link.id && (
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
+                  )}
+                </Link>
+              </motion.div>
             ))}
 
-            <motion.a
-              href="#contact"
-              onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.35 }}
-              className="mt-8 self-start px-6 py-3 font-mono text-sm tracking-widest uppercase border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[#0A0A0A] transition-colors rounded-sm flex items-center gap-2"
+            <Link
+              href={pathname === "/" ? "#contact" : "/#contact"}
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="mt-8 self-start"
             >
-              Hire Us <ExternalLink size={14} />
-            </motion.a>
+              <motion.div
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.35 }}
+                className="px-6 py-3 font-mono text-sm tracking-widest uppercase border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-[#0A0A0A] transition-colors rounded-sm flex items-center gap-2"
+              >
+                Hire Us <ExternalLink size={14} />
+              </motion.div>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
