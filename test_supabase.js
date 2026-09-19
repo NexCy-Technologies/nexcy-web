@@ -22,7 +22,7 @@ async function testSupabase() {
       message: "This is a test message from automated test script.",
       source_page: "contact-test"
     }
-  ]).select();
+  ]);
 
   if (insertError) {
     console.error("Insert failed:", insertError);

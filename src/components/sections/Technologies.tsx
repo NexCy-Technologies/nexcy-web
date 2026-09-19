@@ -11,7 +11,6 @@ import {
   SiTypescript,
   SiPostgresql,
   SiSupabase,
-  SiFirebase,
   SiGraphql,
   SiDocker,
 } from "react-icons/si";
@@ -30,7 +29,6 @@ export function Technologies() {
     { icon: <SiTypescript size={32} />, name: "TypeScript" },
     { icon: <SiPostgresql size={32} />, name: "PostgreSQL" },
     { icon: <SiSupabase size={32} />, name: "Supabase" },
-    { icon: <SiFirebase size={32} />, name: "Firebase" },
     { icon: <SiGraphql size={32} />, name: "GraphQL" },
     { icon: <SiDocker size={32} />, name: "Docker" },
   ];
