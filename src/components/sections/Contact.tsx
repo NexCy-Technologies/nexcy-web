@@ -5,6 +5,7 @@ import { useState } from "react"
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { useToast } from "@/hooks/use-toast"
 import { SectionLabel } from "@/components/ui/section-label"
+import { Mail, Phone, Clock } from "lucide-react"
 
 const projectTypes = [
   "WEB DEVELOPMENT",
@@ -76,12 +77,14 @@ export function Contact() {
                 </h3>
                 <div className="space-y-4">
                   <div>
-                    <a href="mailto:contact@nexcy.lk" className="text-foreground hover:text-accent font-mono transition-colors">
+                    <a href="mailto:contact@nexcy.lk" className="text-foreground hover:text-accent font-mono transition-colors flex items-center gap-2">
+                      <Mail className="w-4 h-4 text-muted" />
                       contact@nexcy.lk
                     </a>
                   </div>
                   <div>
-                    <a href="https://wa.me/94769484049" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-accent font-mono transition-colors">
+                    <a href="https://wa.me/94769484049" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-accent font-mono transition-colors flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-muted" />
                       +94 76 948 4049
                     </a>
                   </div>
@@ -91,7 +94,7 @@ export function Contact() {
               <div>
                 <h3 className="text-xs font-mono text-muted uppercase tracking-widest mb-4 flex items-center gap-2">
                   <span className="w-2 h-2 bg-border rounded-sm inline-block"></span>
-                  Operating Hours
+                  Operating Hours <Clock className="w-4 h-4 ml-1 inline-block text-muted" />
                 </h3>
                 <div className="font-mono text-sm border border-border bg-surface p-4 rounded-sm">
                   <div className="flex justify-between py-2 border-b border-border/50">
