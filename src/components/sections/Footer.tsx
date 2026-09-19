@@ -1,6 +1,7 @@
 "use client"
 
-import { TerminalReveal } from "@/components/ui/terminal-reveal"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import Image from "next/image"
 
 const socialLinks = [
   { name: "LINKEDIN", href: "https://www.linkedin.com/company/nexcy-technologies" },
@@ -25,7 +26,7 @@ export function Footer() {
         <div className="flex flex-col lg:flex-row justify-between items-start gap-16 mb-24">
           <div className="max-w-xl">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-6">
-              <TerminalReveal text="Let's build something amazing together." />
+              <ScrollReveal text="Let's build something amazing together." />
             </h2>
             <p className="text-muted text-lg sm:text-xl font-sans max-w-md">
               Big ideas. Smart solutions. We turn your vision into reality — from the first line of code to launch day.
@@ -41,7 +42,7 @@ export function Footer() {
                   onClick={() => scrollTo(link.toLowerCase(), `/#${link.toLowerCase()}`)}
                   className="text-sm font-mono text-foreground hover:text-accent focus-visible:text-accent active:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background transition-colors text-left"
                 >
-                  [{link}]
+                  {link}
                 </button>
               ))}
             </div>
@@ -56,7 +57,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="text-sm font-mono text-foreground hover:text-accent focus-visible:text-accent active:text-accent transition-colors block border border-transparent hover:border-accent focus-visible:border-accent active:border-accent px-2 py-1 -ml-2 rounded-sm w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                 >
-                  [{s.name}]
+                  {s.name}
                 </a>
               ))}
             </div>
@@ -65,17 +66,10 @@ export function Footer() {
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-6 h-6 bg-foreground text-background flex items-center justify-center font-bold font-mono text-xs rounded-sm">
-              NX
-            </div>
-            <span className="font-mono text-xs text-muted">
-              © {new Date().getFullYear()} NEXCY_TECHNOLOGIES — ALL_SYSTEMS_OPERATIONAL
+            <Image src="/NexCy_Logo.png" alt="Nexcy Logo" width={24} height={24} className="w-6 h-6 object-contain" />
+            <span className="font-[family-name:var(--font-inter)] text-sm text-muted">
+              © {new Date().getFullYear()} Nexcy Technologies. All rights reserved.
             </span>
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-            <span className="font-mono text-xs text-accent">SERVER_STATUS: ONLINE</span>
           </div>
         </div>
       </div>
