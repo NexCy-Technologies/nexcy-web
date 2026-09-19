@@ -2,6 +2,7 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { BlurText } from "@/components/ui/blur-text";
 import { Card } from "@/components/ui/card";
+import { Zap, Users } from "lucide-react";
 
 const manifestoItems = [
   {
@@ -23,7 +24,7 @@ const manifestoItems = [
 
 export function About() {
   return (
-    <section className="py-24 md:py-32 relative border-t border-[var(--border)] bg-background">
+    <section id="about" className="py-24 md:py-32 relative border-t border-[var(--border)] bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
@@ -64,12 +65,14 @@ export function About() {
           <h3 className="font-mono text-sm uppercase tracking-widest text-muted mb-8">Core Pillars</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <Card className="flex flex-col">
+              <Zap className="w-8 h-8 text-[var(--accent)] mb-4" />
               <h4 className="text-xl font-bold mb-4 text-foreground">Innovation First</h4>
               <p className="font-[family-name:var(--font-inter)] text-muted leading-relaxed">
                 We thrive on solving complex technical challenges and pushing the boundaries of what&apos;s possible. From AI-driven analytics to real-time distributed systems, we leverage the best tools to build future-proof solutions.
               </p>
             </Card>
             <Card className="flex flex-col">
+              <Users className="w-8 h-8 text-[var(--accent)] mb-4" />
               <h4 className="text-xl font-bold mb-4 text-foreground">Client-Centric</h4>
               <p className="font-[family-name:var(--font-inter)] text-muted leading-relaxed">
                 Your success is our success. We partner closely with our clients to deliver solutions that drive real business impact, adapting our process to integrate seamlessly with your team&apos;s workflow and objectives.
