@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Image from 'next/image';
 
 export type LogoItem =
   | {
@@ -339,26 +340,25 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             {(item as any).node}
           </span>
         ) : (
-          <img
-            className={cx(
-              'h-[var(--logoloop-logoHeight)] w-auto block object-contain',
-              '[-webkit-user-drag:none] pointer-events-none',
-              '[image-rendering:-webkit-optimize-contrast]',
-              'motion-reduce:transition-none',
-              scaleOnHover &&
-                'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
-            )}
-            src={(item as any).src}
-            srcSet={(item as any).srcSet}
-            sizes={(item as any).sizes}
-            width={(item as any).width}
-            height={(item as any).height}
-            alt={(item as any).alt ?? ''}
-            title={(item as any).title}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-          />
+          <div className={cx(
+            'relative h-[var(--logoloop-logoHeight)] w-auto block',
+            scaleOnHover && 'overflow-visible group/item',
+            '[-webkit-user-drag:none] pointer-events-none motion-reduce:transition-none'
+          )}>
+            <Image
+              className={cx(
+                'object-contain',
+                '[image-rendering:-webkit-optimize-contrast]',
+                scaleOnHover && 'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120'
+              )}
+              src={(item as any).src}
+              sizes={(item as any).sizes || '100vw'}
+              width={(item as any).width || 200}
+              height={(item as any).height || 64}
+              alt={(item as any).alt ?? ''}
+              title={(item as any).title}
+            />
+          </div>
         );
 
         const itemAriaLabel = isNodeItem

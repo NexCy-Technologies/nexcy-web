@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { SectionLabel } from '@/components/ui/section-label';
 import projectsData from '@/data/success_projects.json';
@@ -79,8 +80,8 @@ export default async function WorkDetailPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24">
           <div className="lg:col-span-2">
             {project.image && (
-              <div className="mb-12 border border-border rounded-[2px] overflow-hidden bg-surface">
-                <img src={project.image} alt={project.title} className="w-full h-auto object-cover" />
+              <div className="mb-12 border border-border rounded-[2px] overflow-hidden bg-surface relative h-[300px] md:h-[500px]">
+                <Image src={project.image} alt={project.title} fill className="object-cover" />
               </div>
             )}
             <div className="prose prose-invert prose-p:font-sans prose-p:text-muted-foreground prose-p:text-lg prose-p:leading-relaxed max-w-none">

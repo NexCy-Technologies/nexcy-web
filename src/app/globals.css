@@ -38,6 +38,15 @@
   --text-9xl--letter-spacing: -0.02em;
 }
 
+@media (max-width: 768px) {
+  :root {
+    --text-6xl: 3rem;
+    --text-7xl: 3.5rem;
+    --text-8xl: 4rem;
+    --text-9xl: 5rem;
+  }
+}
+
 body {
   background-color: var(--background);
   color: var(--foreground);

@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { useToast } from "@/hooks/use-toast"
 import { SectionLabel } from "@/components/ui/section-label"
 import { Mail, Phone, Clock } from "lucide-react"
+import { supabase } from "@/lib/supabase"
 
 const projectTypes = [
   "WEB DEVELOPMENT",
@@ -34,16 +35,35 @@ export function Contact() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      toast({ title: "Invalid email", description: "Please enter a valid email address.", variant: "destructive" })
+      return
+    }
+
     setIsSubmitting(true)
     try {
-      await new Promise((r) => setTimeout(r, 1800))
+      const { error } = await supabase.from('inquiries').insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || null,
+          project_type: formData.project || null,
+          message: formData.message,
+          source_page: 'contact'
+        }
+      ])
+
+      if (error) throw error
+
       setIsSuccess(true)
       toast({ title: "Message sent!", description: "We'll get back to you within 24 hours." })
       setTimeout(() => {
         setIsSuccess(false)
         setFormData({ name: "", email: "", phone: "", project: "", message: "" })
       }, 4000)
-    } catch {
+    } catch (err: any) {
+      console.error("Supabase insert error:", err)
       toast({ title: "Something went wrong", description: "Please try again or reach us directly.", variant: "destructive" })
     } finally {
       setIsSubmitting(false)
@@ -52,7 +72,7 @@ export function Contact() {
 
   const canSubmit = formData.name && formData.email && formData.message && !isSubmitting
 
-  const inputClasses = "w-full bg-surface border border-border text-foreground px-4 py-3 text-sm focus:outline-none focus:border-accent rounded-sm transition-colors font-mono focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+  const inputClasses = "w-full bg-surface border border-border text-foreground px-4 py-4 text-base focus:outline-none focus:border-accent rounded-sm transition-colors font-mono focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
 
   return (
     <section id="contact" className="py-24 sm:py-32 relative z-10 border-t border-border">

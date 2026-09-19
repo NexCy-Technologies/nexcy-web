@@ -61,11 +61,19 @@ export function Hero() {
   const scrollToContact = () =>
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-16 overflow-hidden">
       <BlueprintGrid />
       
-      {!shouldReduceMotion && mounted && (
+      {!shouldReduceMotion && mounted && !isMobile && (
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Ferrofluid
             colors={["#00F3FF", "#0A0A0A", "#0ea5e9"]}

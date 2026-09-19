@@ -71,10 +71,11 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
                   {/* TOP: Image Section */}
                   <div className="relative h-48 md:h-56 shrink-0 border-b border-[var(--border)] overflow-hidden bg-[var(--surface)]">
                     {project.image && (
-                      <img 
+                      <Image 
                         src={project.image} 
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[30%] group-hover:grayscale-0"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 grayscale-[30%] group-hover:grayscale-0"
                       />
                     )}
                     
