@@ -9,9 +9,9 @@ import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
+  { name: "About",    href: "#about",    id: "about" },
   { name: "Services", href: "#services", id: "services" },
   { name: "Work",     href: "#work",     id: "work" },
-  { name: "About",    href: "#about",    id: "about" },
   { name: "Contact",  href: "#contact",  id: "contact" },
 ];
 
