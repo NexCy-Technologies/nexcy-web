@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import { useToast } from "@/hooks/use-toast"
 import { SectionLabel } from "@/components/ui/section-label"
 
@@ -16,6 +16,7 @@ const projectTypes = [
 ]
 
 export function Contact() {
+  const shouldReduceMotion = useReducedMotion()
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -116,9 +117,10 @@ export function Contact() {
               {isSuccess ? (
                 <motion.div
                   key="success"
-                  initial={{ opacity: 0 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : undefined}
                   className="flex flex-col items-center justify-center py-24 text-center h-full"
                 >
                   <div className="w-12 h-12 border border-accent bg-accent/10 text-accent flex items-center justify-center mb-6 font-mono text-xl rounded-sm">
@@ -131,9 +133,10 @@ export function Contact() {
                 <motion.form
                   key="form"
                   onSubmit={handleSubmit}
-                  initial={{ opacity: 0 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : undefined}
                   className="space-y-6"
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
