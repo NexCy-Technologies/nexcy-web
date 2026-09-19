@@ -13,9 +13,10 @@ import { Button } from "@/components/ui/button";
 import { CountUp } from "@/components/ui/count-up";
 import TextType from "@/components/ui/text-type";
 import ShinyText from "@/components/ui/shiny-text";
+import { StarBorder } from "@/components/ui/star-border";
 
-// Lazy-load PixelBlast as it uses three.js and is heavy.
-const PixelBlast = dynamic(() => import("@/components/ui/pixel-blast"), { ssr: false });
+// Lazy-load Ferrofluid as it uses WebGL and is heavy.
+const Ferrofluid = dynamic(() => import("@/components/ui/ferrofluid"), { ssr: false });
 
 /* ─── Typewriter Words ───────────────────────────────────────── */
 const ROTATING_WORDS = ["Web Apps", "Mobile Apps", "AI Solutions", "ERP Systems", "IoT Products"];
@@ -65,20 +66,27 @@ export function Hero() {
       <BlueprintGrid />
       
       {!shouldReduceMotion && mounted && (
-        <div className="absolute inset-0 z-0">
-          <PixelBlast
-            variant="square"
-            pixelSize={6}
-            color="#00F3FF"
-            patternDensity={0.5}
-            speed={0.25}
-            transparent={true}
-            edgeFade={0.3}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Ferrofluid
+            colors={["#00F3FF", "#0A0A0A", "#0ea5e9"]}
+            speed={0.3}
+            scale={2.5}
+            turbulence={0.25}
+            fluidity={0.15}
+            rimWidth={0.2}
+            sharpness={5.2}
+            shimmer={1.9}
+            glow={2}
+            flowDirection="down"
+            opacity={1}
+            mouseInteraction
+            mouseStrength={2.8}
+            mouseRadius={0.35}
           />
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* ── LEFT: Copy ── */}
@@ -130,18 +138,22 @@ export function Hero() {
 
             {/* CTA buttons */}
             <motion.div className="flex flex-wrap gap-4 mb-12" {...fadeUp(1, !!shouldReduceMotion)}>
-              <Button
+              <StarBorder
                 onClick={scrollToContact}
-                className="gap-2 group px-6 py-3 text-sm flex items-center"
+                color="#00F3FF"
+                speed="6s"
+                className="w-full sm:w-auto"
               >
-                {shouldReduceMotion ? (
-                  <span>Start</span>
-                ) : (
-                  <ShinyText text="Start" speed={3} className="text-[#0A0A0A]" shineColor="#00F3FF" />
-                )}{" "}
-                a Project
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+                <div className="flex items-center gap-2 px-6 py-3 text-sm font-medium">
+                  {shouldReduceMotion ? (
+                    <span>Start</span>
+                  ) : (
+                    <ShinyText text="Start" speed={3} className="text-[#0A0A0A]" shineColor="#00F3FF" />
+                  )}{" "}
+                  a Project
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </StarBorder>
               <Button
                 onClick={scrollToWork}
                 className="bg-transparent border border-[var(--border)] text-foreground hover:bg-[var(--surface)] hover:border-[var(--accent)] transition-colors px-6 py-3 text-sm gap-2"
