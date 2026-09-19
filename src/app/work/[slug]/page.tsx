@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
-import { TerminalReveal } from '@/components/ui/terminal-reveal';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { SectionLabel } from '@/components/ui/section-label';
+import projectsData from '@/data/success_projects.json';
 
 interface PageProps {
   params: Promise<{
@@ -12,11 +12,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const { data: project } = await supabase
-    .from('case_studies')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  const project = projectsData.find(p => p.slug === slug);
 
   if (!project) {
     return { title: 'Project Not Found' };
@@ -29,23 +25,14 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const { data: projects } = await supabase
-    .from('case_studies')
-    .select('slug')
-    .eq('published', true);
-
-  return projects?.map((project) => ({
+  return projectsData.filter(p => p.published).map((project) => ({
     slug: project.slug,
-  })) || [];
+  }));
 }
 
 export default async function WorkDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const { data: project } = await supabase
-    .from('case_studies')
-    .select('*')
-    .eq('slug', slug)
-    .single();
+  const project = projectsData.find(p => p.slug === slug);
 
   if (!project) {
     notFound();
@@ -64,17 +51,17 @@ export default async function WorkDetailPage({ params }: PageProps) {
         <header className="mb-16 md:mb-24">
           <SectionLabel>PROJECT</SectionLabel>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-mono font-bold uppercase tracking-tighter mb-8 max-w-4xl">
-            <TerminalReveal text={project.title} />
+            <ScrollReveal text={project.title} />
           </h1>
           
           <div className="flex flex-wrap gap-4 mt-8">
             {project.category && (
-              <div className="border border-border text-foreground px-4 py-1.5 font-mono text-sm uppercase bg-card/50">
-                TYPE: {project.category}
+              <div className="border border-border text-foreground px-3 py-1 font-[family-name:var(--font-inter)] text-sm bg-card/50 rounded-sm">
+                {project.category}
               </div>
             )}
-            <div className="border border-border text-foreground px-4 py-1.5 font-mono text-sm uppercase bg-card/50">
-              STATUS: {project.published ? 'LIVE' : 'ARCHIVED'}
+            <div className="border border-border text-foreground px-3 py-1 font-[family-name:var(--font-inter)] text-sm bg-card/50 rounded-sm">
+              {project.published ? 'Live' : 'Archived'}
             </div>
             {project.url && (
               <a 
@@ -91,6 +78,11 @@ export default async function WorkDetailPage({ params }: PageProps) {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-24">
           <div className="lg:col-span-2">
+            {project.image && (
+              <div className="mb-12 border border-border rounded-[2px] overflow-hidden bg-surface">
+                <img src={project.image} alt={project.title} className="w-full h-auto object-cover" />
+              </div>
+            )}
             <div className="prose prose-invert prose-p:font-sans prose-p:text-muted-foreground prose-p:text-lg prose-p:leading-relaxed max-w-none">
               <p>{project.description}</p>
             </div>
@@ -118,7 +110,7 @@ export default async function WorkDetailPage({ params }: PageProps) {
                   {project.technologies.map((tech: string, idx: number) => (
                     <span 
                       key={idx}
-                      className="border border-border/50 text-muted-foreground px-3 py-1 font-mono text-xs uppercase"
+                      className="border border-border text-muted-foreground px-3 py-1 font-[family-name:var(--font-inter)] text-xs rounded-sm"
                     >
                       {tech}
                     </span>
