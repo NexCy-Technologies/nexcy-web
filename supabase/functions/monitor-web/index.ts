@@ -184,7 +184,7 @@ Deno.serve(async (req) => {
             sessions: parseInt(row[2]?.value || '0', 10),
             avg_session_duration: parseFloat(row[3]?.value || '0'),
             bounce_rate: parseFloat(row[4]?.value || '0'),
-            top_pages
+            top_pages: topPages
           });
 
           if (error) throw error;
