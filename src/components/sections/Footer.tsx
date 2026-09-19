@@ -2,13 +2,14 @@
 
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import Image from "next/image"
+import { FaLinkedinIn, FaInstagram, FaFacebookF, FaXTwitter, FaWhatsapp } from "react-icons/fa6"
 
 const socialLinks = [
-  { name: "LINKEDIN", href: "https://www.linkedin.com/company/nexcy-technologies" },
-  { name: "INSTAGRAM", href: "https://www.instagram.com/nexcytechnologies" },
-  { name: "FACEBOOK", href: "https://www.facebook.com/nexcytechnologies" },
-  { name: "TWITTER", href: "https://twitter.com/nexcytechnologies" },
-  { name: "WHATSAPP", href: "https://wa.me/94769484049" },
+  { name: "LINKEDIN", href: "https://www.linkedin.com/company/nexcy-technologies", icon: FaLinkedinIn },
+  { name: "INSTAGRAM", href: "https://www.instagram.com/nexcytechnologies", icon: FaInstagram },
+  { name: "FACEBOOK", href: "https://www.facebook.com/nexcytechnologies", icon: FaFacebookF },
+  { name: "TWITTER", href: "https://twitter.com/nexcytechnologies", icon: FaXTwitter },
+  { name: "WHATSAPP", href: "https://wa.me/94769484049", icon: FaWhatsapp },
 ]
 
 export function Footer() {
@@ -49,17 +50,21 @@ export function Footer() {
 
             <div className="flex flex-col gap-4">
               <span className="text-xs font-mono text-muted uppercase tracking-widest mb-2">NETWORK_NODES</span>
-              {socialLinks.map((s) => (
-                <a
-                  key={s.name}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-mono text-foreground hover:text-accent focus-visible:text-accent active:text-accent transition-colors block border border-transparent hover:border-accent focus-visible:border-accent active:border-accent px-2 py-1 -ml-2 rounded-sm w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
-                >
-                  {s.name}
-                </a>
-              ))}
+              {socialLinks.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-mono text-foreground hover:text-[var(--accent)] focus-visible:text-[var(--accent)] active:text-[var(--accent)] transition-colors flex items-center gap-2 border border-transparent hover:border-[var(--accent)] focus-visible:border-[var(--accent)] active:border-[var(--accent)] px-2 py-1 -ml-2 rounded-sm w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+                  >
+                    <Icon className="w-4 h-4" />
+                    {s.name}
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
