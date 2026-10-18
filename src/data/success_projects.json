@@ -148,5 +148,26 @@
     ],
     "display_order": 7,
     "published": true
+  },
+  {
+    "slug": "udawalawesafaris",
+    "title": "Sanju Safari",
+    "description": "Private jeep safaris in Udawalawe National Park shaped by local knowledge, quiet roads, and a deep respect for wild places.",
+    "url": "https://udawalawesafaris.lk",
+    "image": "/projects/udawalawesafaris.jpg",
+    "category": "Tourism & Travel",
+    "technologies": [
+      "Next.js",
+      "React",
+      "Tailwind CSS"
+    ],
+    "features": [
+      "Private Jeeps",
+      "Local Expert Guides",
+      "Flexible Pickup",
+      "Ethical Wildlife Viewing"
+    ],
+    "display_order": 8,
+    "published": true
   }
 ]
